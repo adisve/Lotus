@@ -1,6 +1,6 @@
 # Backend for Lotus
 
-This is the backend for Lotus, a web application for managing your personal finances.
+This is the backend for Lotus, a web application for educating your employees.
 
 ## Setup
 

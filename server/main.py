@@ -17,12 +17,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.post("/user")
 async def upsert_user_(user: User) -> dict:
     result = await upsert_user(user)
     return {"message": f"Question upserted successfully", "result": f"{result}"}
 
+
 @app.get("/ping")
 async def ping() -> str:
     return "pong"
-

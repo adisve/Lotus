@@ -7,6 +7,7 @@ client = motor.motor_asyncio.AsyncIOMotorClient(config["MONGOURI"])
 db = client.lotus
 collection = db.user
 
+
 async def upsert_user(user: User) -> dict:
     raw_user = user.model_dump()
     result = await collection.find_one_and_update(

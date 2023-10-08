@@ -8,6 +8,8 @@ fastapi = "*"
 motor = "*"
 uvicorn = "*"
 python-dotenv = "*"
+setuptools = "*"
+server = {file = ".", editable = true}
 
 [dev-packages]
 

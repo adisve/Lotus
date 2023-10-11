@@ -1,4 +1,4 @@
-package android.app.lotus.viewmodel
+package android.app.lotus.view
 
 import android.app.lotus.R
 import android.app.lotus.ui.theme.LotusTheme

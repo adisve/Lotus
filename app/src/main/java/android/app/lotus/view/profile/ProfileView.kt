@@ -30,20 +30,6 @@ import androidx.navigation.NavHostController
 @Composable
 fun ProfileView(navController: NavHostController) {
     Column {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth() // box as wide as the screen
-                .background(Color(0xFFA2218C)) // or Light Gray 0xFFF6F6F6
-                .padding(15.dp)
-        ) {
-            Text(
-                text = "Profile",
-                fontSize = 20.sp,
-                color = Color.White,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
-         // ProfileDescriptionComponent(user)
         SettingsMenuComponent()
     }
 }
@@ -104,7 +90,7 @@ fun SettingsMenuComponent() {
     SettingsItem("Edit Profile", onClick = { /*TO DO*/ })
     SettingsItem("Advice & Support", onClick = { /*TO DO*/ })
     SettingsItem("Log Out", onClick = { /*TO DO*/ })
-    SettingsItem("Darkmode", onClick = { /*TO DO*/ })
+    SettingsItem("Theme", onClick = { /*TO DO*/ })
 }
 
 

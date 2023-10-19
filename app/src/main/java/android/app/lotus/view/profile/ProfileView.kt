@@ -28,7 +28,7 @@ import androidx.navigation.NavHostController
 
 
 @Composable
-fun ProfileView(navController: NavHostController) {
+fun Profile(navController: NavHostController) {
     Column {
         SettingsMenuComponent()
     }

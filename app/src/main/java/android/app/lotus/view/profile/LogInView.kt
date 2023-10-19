@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LogInView(modifier: Modifier = Modifier) {
+fun LogIn(modifier: Modifier = Modifier) {
     Column(modifier = Modifier.padding(40.dp)) {
         Image(
             painter = painterResource(id = R.drawable.lotusmodellen_logo), contentDescription = "Lotus Logo",
@@ -99,8 +99,8 @@ fun InputField(placeholder: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun LogInViewPreview() {
+fun LogInPreview() {
     LotusTheme {
-        LogInView()
+        LogIn()
     }
 }

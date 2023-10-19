@@ -3,11 +3,12 @@ package android.app.lotus.view.navgraph
 import Home
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.view.home.articles.ArticleListScreen
-import android.app.lotus.view.home.articles.ArticleView
-import android.app.lotus.view.home.videos.VideoView
+import android.app.lotus.view.home.articles.Article
+import android.app.lotus.view.home.videos.Video
 import android.app.lotus.view.home.videos.VideosScreen
-import android.app.lotus.view.profile.ProfileView
-import android.app.lotus.view.statistics.StatisticsView
+import android.app.lotus.view.profile.Profile
+import android.app.lotus.view.statistics.Statistics
+import android.app.lotus.view.statistics.evaluation.Evaluation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -22,6 +23,7 @@ fun SetupNavGraph(navController: NavHostController) {
         profile(navController)
         articles(navController)
         videos(navController)
+        evaluation(navController)
         articleDetail()
         videoDetail()
     }
@@ -35,13 +37,13 @@ private fun NavGraphBuilder.home(navController: NavHostController) {
 
 private fun NavGraphBuilder.stats(navController: NavHostController) {
     composable(Routes.stats) {
-        StatisticsView(navController)
+        Statistics(navController)
     }
 }
 
 private fun NavGraphBuilder.profile(navController: NavHostController) {
     composable(Routes.profile) {
-        ProfileView(navController)
+        Profile(navController)
     }
 }
 
@@ -54,7 +56,7 @@ private fun NavGraphBuilder.articles(navController: NavHostController) {
 private fun NavGraphBuilder.articleDetail() {
     composable(Routes.articleDetail) { backStackEntry ->
         val articleId = backStackEntry.arguments?.getString("articleId")
-        ArticleView(articleId ?: "")
+        Article(articleId ?: "")
     }
 }
 
@@ -67,8 +69,12 @@ private fun NavGraphBuilder.videos(navController: NavHostController) {
 private fun NavGraphBuilder.videoDetail() {
     composable(Routes.videoDetail) { backStackEntry ->
         val videoId = backStackEntry.arguments?.getString("videoId")
-        VideoView(videoId = videoId ?: "")
+        Video(videoId = videoId ?: "")
     }
 }
 
-
+private fun NavGraphBuilder.evaluation(navController: NavHostController) {
+    composable(Routes.managerEvaluation) {
+        Evaluation(navController)
+    }
+}

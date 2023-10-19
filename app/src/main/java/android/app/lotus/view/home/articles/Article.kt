@@ -31,7 +31,7 @@ import com.halilibo.richtext.ui.RichText
 
 
 @Composable
-fun ArticleView(articleId: String) {
+fun Article(articleId: String) {
     val article = exampleArticle
     Column {
         Image(
@@ -96,8 +96,8 @@ fun ArticleComponent(article: Article) {
 
 @Preview(showBackground = true)
 @Composable
-fun ArticleViewPreview() {
+fun ArticlePreview() {
     LotusTheme {
-        ArticleView("1")
+        Article("1")
     }
 }

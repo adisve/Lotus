@@ -1,8 +1,11 @@
 package android.app.lotus
 
 import android.app.lotus.types.exampleArticle
+import android.app.lotus.types.exampleUser
 import android.app.lotus.ui.theme.LotusTheme
 import android.app.lotus.view.ArticleView
+import android.app.lotus.view.LogInView
+import android.app.lotus.view.ProfileView
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,15 +22,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LotusTheme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     //Greeting("Android")
                     //LogInView()
-//                    ProfileView()
-                    ArticleView(exampleArticle)
+                    ProfileView(exampleUser)
+                    //ArticleView(exampleArticle)
                 }
             }
         }

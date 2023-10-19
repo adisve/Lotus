@@ -1,4 +1,4 @@
-package android.app.lotus.view
+package android.app.lotus.view.home.articles
 
 import android.app.lotus.R
 import android.app.lotus.ui.theme.LotusTheme

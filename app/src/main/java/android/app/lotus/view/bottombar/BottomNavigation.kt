@@ -20,7 +20,7 @@ fun BottomNavigation(navController: NavController, modifier: Modifier = Modifier
         BottomNavItem.Profile
     )
 
-    NavigationBar(modifier = modifier) { 
+    NavigationBar(modifier = modifier) {
         items.forEach { item ->
             AddItem(
                 screen = item,

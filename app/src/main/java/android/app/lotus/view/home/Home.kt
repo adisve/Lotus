@@ -1,3 +1,4 @@
+import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.view.home.articles.ArticleListScreen
 import android.app.lotus.view.home.articles.ArticleView
 import android.app.lotus.view.home.videos.VideoView
@@ -24,11 +25,11 @@ fun Home(navController: NavHostController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { navController.navigate("articles") }) {
+        Button(onClick = { navController.navigate(Routes.articles) }) {
             Text(text = "Articles", fontSize = 22.sp, modifier = Modifier.padding(5.dp))
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = { navController.navigate("videos") }) {
+        Button(onClick = { navController.navigate(Routes.videos) }) {
             Text(text = "Videos", fontSize = 22.sp, modifier = Modifier.padding(5.dp))
         }
     }

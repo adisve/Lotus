@@ -1,4 +1,4 @@
-package android.app.lotus.view
+package android.app.lotus.view.home.articles
 
 import android.app.lotus.R
 import android.app.lotus.types.Article
@@ -31,7 +31,8 @@ import com.halilibo.richtext.ui.RichText
 
 
 @Composable
-fun ArticleView(article: Article) {
+fun ArticleView(articleId: String) {
+    val article = exampleArticle
     Column {
         Image(
             painter = painterResource(R.drawable.lotusmodellen_logo), contentDescription = null,
@@ -47,8 +48,6 @@ fun ArticleView(article: Article) {
 fun ArticleComponent(article: Article) {
     val scrollState = rememberScrollState()
 
-
-    // Header section for article title
     Column(
         modifier = Modifier.verticalScroll(enabled = true, state = scrollState)
     ) {
@@ -99,6 +98,6 @@ fun ArticleComponent(article: Article) {
 @Composable
 fun ArticleViewPreview() {
     LotusTheme {
-        ArticleView(exampleArticle)
+        ArticleView("1")
     }
 }

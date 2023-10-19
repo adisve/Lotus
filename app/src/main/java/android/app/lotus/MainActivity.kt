@@ -1,11 +1,8 @@
 package android.app.lotus
 
-import android.app.lotus.types.exampleArticle
-import android.app.lotus.types.exampleUser
+import android.annotation.SuppressLint
 import android.app.lotus.ui.theme.LotusTheme
-import android.app.lotus.view.ArticleView
-import android.app.lotus.view.LogInView
-import android.app.lotus.view.ProfileView
+import android.app.lotus.view.Lotus
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,9 +25,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
+                    Lotus()
                     //Greeting("Android")
                     //LogInView()
-                    ProfileView(exampleUser)
+                    // ProfileView(exampleUser)
                     //ArticleView(exampleArticle)
                 }
             }

@@ -1,4 +1,4 @@
-package android.app.lotus.view
+package android.app.lotus.view.statistics
 
 import android.app.lotus.R
 import android.app.lotus.ui.theme.LotusTheme
@@ -25,15 +25,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun StatisticsView() {
+fun StatisticsView(navController: NavHostController) {
 
     Column(
         modifier = Modifier
             .fillMaxSize(),
-
-
         ) {
         Image(
             painter = painterResource(R.drawable.lotusmodellen_logo), contentDescription = null,
@@ -129,6 +128,6 @@ fun StatisticsView() {
     @Composable
     fun StatisticsPreview() {
         LotusTheme {
-            StatisticsView()
+            // StatisticsView(navController)
         }
     }

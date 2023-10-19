@@ -1,69 +1,68 @@
 package android.app.lotus.view
 
+import android.app.lotus.types.User
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun ProfileView() {
-    Column(modifier = Modifier
-        .padding(top = 15.dp)) {
-        Text("Profile", textAlign = TextAlign.Center)
-        ProfileDescription("Hanna Brown", "hanna.br@gmail.com", "+4689785962")
-        SettingsMenu()
+fun ProfileView(user: User) {
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth() // box as wide as the screen
+                .background(Color(0xFFA2218C)) // or Light Gray 0xFFF6F6F6
+                .padding(15.dp)
+        ) {
+            Text(
+                text = "Profile",
+                fontSize = 20.sp,
+                color = Color.White,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
+        ProfileDescriptionComponent(user)
+        SettingsMenuComponent()
     }
-
 }
 
-
 @Composable
-fun ProfileDescription(fullName: String, email: String, phone: String) {
-    Column {
+fun ProfileDescriptionComponent(user: User) {
+    Column (modifier = Modifier.padding(20.dp)) {
         Text(
-            fullName,
+            user.fullName,
             fontSize = 40.sp,
             fontWeight = FontWeight.Normal,
             color = Color.Black,
             textAlign = TextAlign.Start,
             lineHeight = 40.sp,
-            modifier = Modifier.padding(start = 20.dp)
+            modifier = Modifier.padding(bottom = 20.dp)
         )
-        Column(modifier = Modifier
-            .padding(top = 15.dp, bottom = 15.dp)) {
-            ProfileDetailItem("Email",  email)
-            ProfileDetailItem("Phone", phone)
+        Column {
+            ProfileDetailItem("Email", user.email)
+            ProfileDetailItem("Phone", user.phone)
         }
-
     }
 }
 
@@ -76,74 +75,81 @@ fun ProfileDetailItem(title: String, content: String) {
             fontWeight = FontWeight.Normal,
             color = Color.Black,
             textAlign = TextAlign.Start,
-            modifier = Modifier.padding(start = 20.dp, top = 4.dp, bottom = 4.dp)
+            //modifier = Modifier.padding(start = 20.dp, top = 4.dp, bottom = 4.dp)
         )
     }
 }
 
-
 @Composable
-fun SettingsMenu() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth() // Make the box as wide as the screen
-            .background(Color.LightGray) // Set the background color of the box
-            .padding(15.dp)
-    ) {
-        Text(
-            text = "Settings",
-            fontSize = 20.sp,
-            color = Color.Black
-        )
-    }
-
-    SettingsItem("Edit Profile")
-    SettingsItem("Advice & Support")
-    SettingsItem("Log Out")
-    SettingsItem("Darkmode")
-
-}
-
-
-@Composable
-fun SettingsItem(title: String) {
-    // Icon
-    // Text
-    // Errow
-    Button(
-        onClick = {
-            // TO DO
-        },
+fun SettingsMenuComponent() {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
-        colors = ButtonDefaults.textButtonColors(contentColor = Color.Yellow)
+            .padding(10.dp)
     ) {
-
-        Icon(
-            imageVector = Icons.Default.Edit,
-            contentDescription = "Edit Icon",
+        Box(
             modifier = Modifier
-                .size(24.dp),
-            tint = Color.Black,
-        )
-
-        Text(
-            text = title,
-            fontSize = 18.sp,
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-        )
-
-        Icon(
-            imageVector = Icons.Default.ArrowForward,
-            contentDescription = "Arrow Icon",
-            modifier = Modifier.size(24.dp),
-            tint = Color.Black
-        )
-
-
+                .fillMaxWidth()
+                .background(Color(0xFFF6F6F6))
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Settings",
+                fontSize = 20.sp,
+                color = Color.Black
+            )
+        }
     }
 
+    SettingsItem("Edit Profile", onClick = { /*TO DO*/ })
+    SettingsItem("Advice & Support", onClick = { /*TO DO*/ })
+    SettingsItem("Log Out", onClick = { /*TO DO*/ })
+    SettingsItem("Darkmode", onClick = { /*TO DO*/ })
 }
+
+
+@Composable
+fun SettingsItem(title: String, onClick: () -> Unit) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+            .clickable { onClick() }
+            .then(Modifier.shadow(4.dp)),
+        color = Color.White, // Set the background color to white
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Default.Edit,
+                contentDescription = "Edit Icon",
+                modifier = Modifier
+                    .size(24.dp)
+                    .padding(end = 16.dp),
+                tint = Color.Gray
+            )
+
+            Text(
+                text = title,
+                fontSize = 18.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.weight(1f)
+            )
+
+            Icon(
+                imageVector = Icons.Default.ArrowForward,
+                contentDescription = "Arrow Icon",
+                modifier = Modifier.size(24.dp),
+                tint = Color.Gray
+            )
+        }
+    }
+}
+
+
 

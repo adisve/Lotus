@@ -1,9 +1,9 @@
+import domain.articles as articles
+from docs.employee import articles_
+from domain.users import User, upsert_user
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from domain.users import upsert_user, User
 from models.article import Article
-from docs.employee import articles_
-import domain.articles as articles
 
 app = FastAPI()
 

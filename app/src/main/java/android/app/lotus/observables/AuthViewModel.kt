@@ -1,13 +1,18 @@
 package android.app.lotus.observables
 
+import android.app.lotus.app
 import android.app.lotus.data.AuthService
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.realm.kotlin.mongodb.User
+import io.realm.kotlin.mongodb.ext.call
+import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
+import io.realm.kotlin.mongodb.ext.profileAsBsonDocument
 import kotlinx.coroutines.launch
+import org.mongodb.kbson.BsonDocument
 import javax.inject.Inject
 
 enum class AuthStatus {
@@ -52,6 +57,9 @@ class AuthViewModel @Inject constructor(
                 result.isSuccess -> {
                     val newUser: User = result.getOrThrow()
                     user.value = newUser
+                    // Gives info like role, email, etc. that is inserted with custom function
+                    // in Atlas that runs each time a new user is created
+                    // val customData = newUser.customDataAsBsonDocument()
                     status.value = AuthStatus.Success
                 }
                 result.isFailure -> status.value = AuthStatus.Unauthorized
@@ -60,7 +68,7 @@ class AuthViewModel @Inject constructor(
     }
 
     private fun autoLogin(email: String, password: String) {
-
+        // TODO: Implement
     }
 
     fun updateEmail(newUsername: String) {

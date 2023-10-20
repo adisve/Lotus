@@ -1,6 +1,5 @@
 package android.app.lotus.view.auth
 
-import android.app.lotus.domain.models.User
 import android.app.lotus.observables.AuthViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Edit
+import io.realm.kotlin.mongodb.User
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,11 +26,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 
 
 @Composable
 fun Profile(authViewModel: AuthViewModel, navController: NavHostController) {
+    
+    val user: User = authViewModel.user.value!!
+    
     Column {
+        ProfileDescriptionComponent(user = user)
         SettingsMenuComponent()
     }
 }
@@ -39,7 +44,7 @@ fun Profile(authViewModel: AuthViewModel, navController: NavHostController) {
 fun ProfileDescriptionComponent(user: User) {
     Column (modifier = Modifier.padding(20.dp)) {
         Text(
-            user.fullName,
+            "",
             fontSize = 40.sp,
             fontWeight = FontWeight.Normal,
             color = Color.Black,
@@ -48,8 +53,8 @@ fun ProfileDescriptionComponent(user: User) {
             modifier = Modifier.padding(bottom = 20.dp)
         )
         Column {
-            ProfileDetailItem("Email", user.email)
-            ProfileDetailItem("Phone", user.phone)
+            ProfileDetailItem("Email", "user.email")
+            ProfileDetailItem("Phone", "user.phone")
         }
     }
 }

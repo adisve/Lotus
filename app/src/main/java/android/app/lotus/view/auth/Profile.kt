@@ -1,5 +1,6 @@
 package android.app.lotus.view.auth
 
+import android.app.lotus.app
 import android.app.lotus.observables.AuthViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,12 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
+import org.mongodb.kbson.BsonString
 
 
 @Composable
 fun Profile(authViewModel: AuthViewModel, navController: NavHostController) {
     
-    val user: User = authViewModel.user.value!!
+    val user: User = app.currentUser!!
     
     Column {
         ProfileDescriptionComponent(user = user)
@@ -44,7 +46,7 @@ fun Profile(authViewModel: AuthViewModel, navController: NavHostController) {
 fun ProfileDescriptionComponent(user: User) {
     Column (modifier = Modifier.padding(20.dp)) {
         Text(
-            "",
+            "Account",
             fontSize = 40.sp,
             fontWeight = FontWeight.Normal,
             color = Color.Black,
@@ -53,8 +55,7 @@ fun ProfileDescriptionComponent(user: User) {
             modifier = Modifier.padding(bottom = 20.dp)
         )
         Column {
-            ProfileDetailItem("Email", "user.email")
-            ProfileDetailItem("Phone", "user.phone")
+            ProfileDetailItem("Email", (user.customDataAsBsonDocument()?.get("email") as BsonString).value)
         }
     }
 }

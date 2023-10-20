@@ -29,13 +29,9 @@ class AuthViewModel @Inject constructor(
     val status = MutableLiveData(AuthStatus.Unauthorized)
     val email = MutableLiveData("")
     val password = MutableLiveData("")
-    var user = MutableLiveData<User>(null)
 
     init {
-        /*
-        * TODO: Store credentials and load, then attempt auto login
-        * login()
-        * */
+        checkLoginStatus()
     }
 
     fun createAccount() {
@@ -49,26 +45,38 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    private fun checkLoginStatus() {
+        viewModelScope.launch {
+            val result = authService.checkLoginStatus()
+            status.value = when {
+                result.isSuccess -> AuthStatus.Success
+                result.isFailure -> AuthStatus.Unauthorized
+                else -> AuthStatus.Unauthorized
+            }
+        }
+    }
+
+    fun logOut() {
+        viewModelScope.launch {
+            authService.logOut()
+        }
+    }
+
     fun login() {
         status.value = AuthStatus.Loading
         viewModelScope.launch {
             val result = authService.login(email.value ?: "", password.value ?: "")
             when {
                 result.isSuccess -> {
-                    val newUser: User = result.getOrThrow()
-                    user.value = newUser
                     // Gives info like role, email, etc. that is inserted with custom function
                     // in Atlas that runs each time a new user is created
-                    // val customData = newUser.customDataAsBsonDocument()
+                    val customData = app.currentUser!!.customDataAsBsonDocument()
+                    Log.d("AuthViewModel", customData.toString())
                     status.value = AuthStatus.Success
                 }
                 result.isFailure -> status.value = AuthStatus.Unauthorized
             }
         }
-    }
-
-    private fun autoLogin(email: String, password: String) {
-        // TODO: Implement
     }
 
     fun updateEmail(newUsername: String) {

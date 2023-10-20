@@ -24,5 +24,19 @@ class AuthService @Inject constructor() {
         }
     }
 
+    fun checkLoginStatus(): Result<User> {
+        val currentUser = app.currentUser
+        return if (currentUser != null) {
+            Result.success(currentUser)
+        } else {
+            Result.failure(Exception("No user logged in"))
+        }
+    }
+
+    suspend fun logOut() {
+        app.currentUser?.logOut()
+    }
+
+
 }
 

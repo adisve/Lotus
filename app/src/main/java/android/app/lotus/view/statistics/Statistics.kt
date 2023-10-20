@@ -32,12 +32,6 @@ fun Statistics(navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize(),
         ) {
-        Image(
-            painter = painterResource(R.drawable.lotusmodellen_logo), contentDescription = null,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .size(150.dp)
-        )
         Text(
             text = "Welcome HR!",
             fontSize = 19.sp,

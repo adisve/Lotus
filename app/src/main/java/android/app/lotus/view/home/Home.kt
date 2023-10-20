@@ -21,15 +21,34 @@ fun Home(navController: NavHostController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { navController.navigate(Routes.articles) }) {
-            Text(text = "Articles", fontSize = 22.sp, modifier = Modifier.padding(5.dp))
-            Icon(imageVector = Icons.Rounded.ArrowRight, contentDescription = "right pointing arrow")
-        }
+        NavButton(
+            text = "Articles",
+            modifier = Modifier.width(175.dp),
+            navController = navController,
+            route = Routes.articles
+        )
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = { navController.navigate(Routes.videos) }) {
-            Text(text = "Videos", fontSize = 22.sp, modifier = Modifier.padding(5.dp))
-            Icon(imageVector = Icons.Rounded.ArrowRight, contentDescription = "right pointing arrow")
-        }
+        NavButton(
+            text = "Videos",
+            modifier = Modifier.width(175.dp),
+            navController = navController,
+            route = Routes.videos
+        )
     }
 }
 
+
+@Composable
+fun NavButton(
+    text: String,
+    modifier: Modifier,
+    navController: NavHostController,
+    route: String) {
+    Button(
+        modifier = modifier,
+        onClick = { navController.navigate(route) }
+    ) {
+        Text(text = text, fontSize = 22.sp, modifier = Modifier.padding(5.dp))
+        Icon(imageVector = Icons.Rounded.ArrowRight, contentDescription = "right pointing arrow")
+    }
+}

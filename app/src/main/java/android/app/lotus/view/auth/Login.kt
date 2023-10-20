@@ -1,7 +1,7 @@
-package android.app.lotus.view
+package android.app.lotus.view.auth
 
 import android.app.lotus.R
-import android.app.lotus.ui.theme.LotusTheme
+import android.app.lotus.observables.AuthViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,21 +15,19 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun LogInView(modifier: Modifier = Modifier) {
+fun Login(authViewModel: AuthViewModel, navController: NavHostController) {
     Column(modifier = Modifier.padding(40.dp)) {
         Image(
             painter = painterResource(id = R.drawable.lotusmodellen_logo), contentDescription = "Lotus Logo",
@@ -48,25 +46,28 @@ fun LogInView(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(45.dp))
 
-        LogInForm()
+        LogInForm(authViewModel)
     }
 }
 
 @Composable
-fun LogInForm() {
+fun LogInForm(authViewModel: AuthViewModel) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally, // Center horizontally,
-        verticalArrangement = Arrangement.Center, // Center vertically
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
 
-        InputField("Username")
-        InputField("Password")
+        val username by authViewModel.email.observeAsState("")
+        val password by authViewModel.password.observeAsState("")
+
+        InputField(username, { newText -> authViewModel.updateEmail(newText) }, "Email")
+        InputField(password, { newText -> authViewModel.updatePassword(newText) }, "Password")
 
         Text("Forgot Password?", textAlign = TextAlign.Start, modifier = Modifier.padding(20.dp))
 
         Button(
             onClick = {
-                /*TODO*/
+                authViewModel.login()
             },
             modifier = Modifier
                 .padding(20.dp)
@@ -86,21 +87,15 @@ fun LogInForm() {
 
 
 @Composable
-fun InputField(placeholder: String) {
-    var text by remember { mutableStateOf("") }
-
+fun InputField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    placeholder: String
+) {
     OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
+        value = value,
+        onValueChange = onValueChange,
         placeholder = { Text(placeholder) },
         modifier = Modifier.padding(12.dp)
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LogInViewPreview() {
-    LotusTheme {
-        LogInView()
-    }
 }

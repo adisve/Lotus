@@ -1,6 +1,7 @@
-package android.app.lotus.view
+package android.app.lotus.view.auth
 
-import android.app.lotus.types.User
+import android.app.lotus.domain.models.User
+import android.app.lotus.observables.AuthViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,25 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 
 @Composable
-fun ProfileView(user: User) {
+fun Profile(authViewModel: AuthViewModel, navController: NavHostController) {
     Column {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth() // box as wide as the screen
-                .background(Color(0xFFA2218C)) // or Light Gray 0xFFF6F6F6
-                .padding(15.dp)
-        ) {
-            Text(
-                text = "Profile",
-                fontSize = 20.sp,
-                color = Color.White,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
-        ProfileDescriptionComponent(user)
         SettingsMenuComponent()
     }
 }
@@ -75,7 +63,6 @@ fun ProfileDetailItem(title: String, content: String) {
             fontWeight = FontWeight.Normal,
             color = Color.Black,
             textAlign = TextAlign.Start,
-            //modifier = Modifier.padding(start = 20.dp, top = 4.dp, bottom = 4.dp)
         )
     }
 }
@@ -104,7 +91,7 @@ fun SettingsMenuComponent() {
     SettingsItem("Edit Profile", onClick = { /*TO DO*/ })
     SettingsItem("Advice & Support", onClick = { /*TO DO*/ })
     SettingsItem("Log Out", onClick = { /*TO DO*/ })
-    SettingsItem("Darkmode", onClick = { /*TO DO*/ })
+    SettingsItem("Theme", onClick = { /*TO DO*/ })
 }
 
 

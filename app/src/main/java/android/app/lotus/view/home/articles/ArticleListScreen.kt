@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 
 @Composable
-fun ArticleListScreen(navController: NavHostController) {
+fun Articles(navController: NavHostController) {
     Column {
         Text(text = "Here!!!")
     }

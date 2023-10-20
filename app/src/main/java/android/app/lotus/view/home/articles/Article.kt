@@ -1,8 +1,7 @@
 package android.app.lotus.view.home.articles
 
 import android.app.lotus.R
-import android.app.lotus.types.Article
-import android.app.lotus.types.exampleArticle
+import android.app.lotus.domain.models.Article
 import android.app.lotus.ui.theme.LotusTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -31,8 +30,7 @@ import com.halilibo.richtext.ui.RichText
 
 
 @Composable
-fun Article(articleId: String) {
-    val article = exampleArticle
+fun ArticleDetail(articleId: String) {
     Column {
         Image(
             painter = painterResource(R.drawable.lotusmodellen_logo), contentDescription = null,
@@ -40,7 +38,7 @@ fun Article(articleId: String) {
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 20.dp, bottom = 20.dp)
         )
-        ArticleComponent(article)
+        // ArticleComponent(article)
     }
 }
 
@@ -98,6 +96,6 @@ fun ArticleComponent(article: Article) {
 @Composable
 fun ArticlePreview() {
     LotusTheme {
-        Article("1")
+        ArticleDetail("1")
     }
 }

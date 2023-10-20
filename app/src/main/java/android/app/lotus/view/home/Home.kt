@@ -1,6 +1,9 @@
 import android.app.lotus.domain.navigation.Routes
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowRight
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,10 +23,12 @@ fun Home(navController: NavHostController) {
     ) {
         Button(onClick = { navController.navigate(Routes.articles) }) {
             Text(text = "Articles", fontSize = 22.sp, modifier = Modifier.padding(5.dp))
+            Icon(imageVector = Icons.Rounded.ArrowRight, contentDescription = "right pointing arrow")
         }
         Spacer(modifier = Modifier.height(20.dp))
         Button(onClick = { navController.navigate(Routes.videos) }) {
             Text(text = "Videos", fontSize = 22.sp, modifier = Modifier.padding(5.dp))
+            Icon(imageVector = Icons.Rounded.ArrowRight, contentDescription = "right pointing arrow")
         }
     }
 }

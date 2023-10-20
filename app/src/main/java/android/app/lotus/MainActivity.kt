@@ -1,8 +1,6 @@
 package android.app.lotus
-
 import android.annotation.SuppressLint
 import android.app.lotus.ui.theme.LotusTheme
-
 import android.app.lotus.view.Lotus
 import android.os.Bundle
 import androidx.activity.ComponentActivity

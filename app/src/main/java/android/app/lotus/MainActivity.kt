@@ -5,6 +5,8 @@ import android.app.lotus.types.exampleUser
 import android.app.lotus.ui.theme.LotusTheme
 import android.app.lotus.view.ArticleView
 import android.app.lotus.view.LogInView
+import android.app.lotus.view.ArticleSelect
+import android.app.lotus.view.HRSelectView
 import android.app.lotus.view.ProfileView
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -29,8 +31,10 @@ class MainActivity : ComponentActivity() {
                 ) {
                     //Greeting("Android")
                     //LogInView()
-                    ProfileView(exampleUser)
+                    //ProfileView(exampleUser)
                     //ArticleView(exampleArticle)
+                    //ArticleSelect("IS_MANAGER")
+                    //HRSelectView(article = "Bakgrund")
                 }
             }
         }
@@ -45,10 +49,16 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     LotusTheme {
-        Greeting("Android")
+        //Greeting("Android")
+        //LogInView()
+        //ProfileView(exampleUser)
+        //ArticleView(exampleArticle)
+        //ArticleSelect("IS_MANAGER")
+        HRSelectView(article = "Bakgrund")
     }
 }

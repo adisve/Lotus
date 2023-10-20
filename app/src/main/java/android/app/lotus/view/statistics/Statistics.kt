@@ -1,7 +1,6 @@
 package android.app.lotus.view.statistics
 
 import android.app.lotus.R
-import android.app.lotus.ui.theme.LotusTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -22,13 +21,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-fun StatisticsView(navController: NavHostController) {
+fun Statistics(navController: NavHostController) {
 
     Column(
         modifier = Modifier
@@ -89,13 +87,10 @@ fun StatisticsView(navController: NavHostController) {
                     .weight(1f)
             )
 
-
             Image(
                 painter = painterResource(id = R.drawable.chevron_right),
                 contentDescription = null,
                 Modifier.size(25.dp)
-
-
             )
         }
 
@@ -119,15 +114,6 @@ fun StatisticsView(navController: NavHostController) {
 
 
             )
-
-
         }
     }
 }
-    @Preview(showBackground = true)
-    @Composable
-    fun StatisticsPreview() {
-        LotusTheme {
-            // StatisticsView(navController)
-        }
-    }

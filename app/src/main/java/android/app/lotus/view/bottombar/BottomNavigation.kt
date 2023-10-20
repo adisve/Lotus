@@ -52,8 +52,8 @@ fun RowScope.AddItem(
 
 fun navigateToScreen(navController: NavController, screen: BottomNavItem) {
     when(screen) {
-        BottomNavItem.Home -> navController.navigate(Routes.home)
-        BottomNavItem.Statistics -> navController.navigate(Routes.stats)
-        BottomNavItem.Profile -> navController.navigate(Routes.profile)
+        BottomNavItem.Home -> navController.navigate(screen.route)
+        BottomNavItem.Statistics -> navController.navigate(screen.route)
+        BottomNavItem.Profile -> navController.navigate(screen.route)
     }
 }

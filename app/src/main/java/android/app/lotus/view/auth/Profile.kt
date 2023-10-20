@@ -1,6 +1,7 @@
-package android.app.lotus.view.profile
+package android.app.lotus.view.auth
 
-import android.app.lotus.types.User
+import android.app.lotus.domain.models.User
+import android.app.lotus.observables.AuthViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,7 +29,7 @@ import androidx.navigation.NavHostController
 
 
 @Composable
-fun ProfileView(navController: NavHostController) {
+fun Profile(authViewModel: AuthViewModel, navController: NavHostController) {
     Column {
         SettingsMenuComponent()
     }

@@ -4,6 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 
 @Composable
-fun VideosScreen(navController: NavHostController) {
-
+fun Videos(navController: NavHostController) {
+    // TODO: Implement list of videos
 }

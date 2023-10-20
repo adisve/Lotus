@@ -1,7 +1,6 @@
 package android.app.lotus.view.home.articles
 
 import android.app.lotus.R
-import android.app.lotus.view.ScrollableList
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-fun Articles(navController: NavHostController) {
+fun Articles(navController: NavHostController, accountType: String) {
     val articleCategories = listOf(
         "Bakgrund",
         "Förebygg och skapa policy",

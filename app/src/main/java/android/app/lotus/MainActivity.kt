@@ -1,11 +1,8 @@
 package android.app.lotus
 
-import android.app.lotus.types.exampleArticle
-import android.app.lotus.types.exampleUser
+import android.annotation.SuppressLint
 import android.app.lotus.ui.theme.LotusTheme
-import android.app.lotus.view.ArticleView
-import android.app.lotus.view.LogInView
-import android.app.lotus.view.ProfileView
+import android.app.lotus.view.Lotus
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,39 +13,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             LotusTheme {
-
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //Greeting("Android")
-                    //LogInView()
-                    ProfileView(exampleUser)
-                    //ArticleView(exampleArticle)
+                    Lotus()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    LotusTheme {
-        Greeting("Android")
     }
 }

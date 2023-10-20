@@ -12,6 +12,3 @@ setuptools = "*"
 server = {file = ".", editable = true}
 
 [dev-packages]
-
-[requires]
-python_version = "3.12"

@@ -10,20 +10,7 @@ Versioning is done through asdf. This is a version manager that allows you to in
 
 For virtual environments we use pipenv. This is a virtual environments manager that allows you to create a virtual environments for your project. This is useful for when you are working on multiple projects that require different versions of python packages.
 
-### NOTE: For windows users, just make sure you have the python version specified in the `.tool-versions` file installed, and skip the first three steps
-
-- Install [asdf](https://asdf-vm.com/#/core-manage-asdf-vm)
-- Install the python plugin for asdf:
-
-    ```zsh
-    asdf plugin add python
-    ```
-
-- Install the python version specified in the `.tool-versions` file:
-
-    ```zsh
-    asdf install
-    ```
+## Required Python Version: 3.11>
 
 - Install [pipenv](https://pipenv.pypa.io/en/latest/install/#installing-pipenv)
 - Activate the virtual environments:

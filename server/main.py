@@ -1,6 +1,9 @@
+import domain.articles as articles
+from docs.employee import articles_
+from domain.users import User, upsert_user
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from domain.users import upsert_user, User
+from models.article import Article
 
 app = FastAPI()
 
@@ -22,6 +25,19 @@ app.add_middleware(
 async def upsert_user_(user: User) -> dict:
     result = await upsert_user(user)
     return {"message": f"Question upserted successfully", "result": f"{result}"}
+
+
+@app.post("/article")
+async def upsert_article(article: Article):
+    result = await articles.upsert(article)
+    return {"message": f"Article upserted successfully", "result": f"{result}"}
+
+
+@app.get("/populate-articles")
+async def populate_articles() -> str:
+    for article in articles_:
+        await articles.upsert(article)
+    return "Articles populated"
 
 
 @app.get("/ping")

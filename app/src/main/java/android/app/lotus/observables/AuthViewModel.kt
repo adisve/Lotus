@@ -6,13 +6,14 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.realm.kotlin.mongodb.User
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 enum class AuthStatus {
     Loading,
     Success,
-    Failure
+    Unauthorized
 }
 
 @HiltViewModel
@@ -20,20 +21,50 @@ class AuthViewModel @Inject constructor(
     private val authService: AuthService,
 ) : ViewModel() {
 
-    val status = MutableLiveData(AuthStatus.Loading)
-    val username = MutableLiveData("")
+    val status = MutableLiveData(AuthStatus.Unauthorized)
+    val email = MutableLiveData("")
     val password = MutableLiveData("")
+    var user = MutableLiveData<User>(null)
 
     init {
-        // TODO: Attempt login with securely stored username and password from preferences
+        /*
+        * TODO: Store credentials and load, then attempt auto login
+        * login()
+        * */
+    }
+
+    fun createAccount() {
+        status.value = AuthStatus.Loading
         viewModelScope.launch {
-            val loginSuccess = authService.attemptLogin("username", "password")
-            status.value = if (loginSuccess) AuthStatus.Success else AuthStatus.Failure
+            val registrationResult = authService.createAccount(email.value ?: "", password.value ?: "")
+            when {
+                registrationResult.isSuccess -> login() // Use these new credentials to just sign in
+                registrationResult.isFailure -> status.value = AuthStatus.Unauthorized
+            }
         }
     }
 
-    fun updateUsername(newUsername: String) {
-        username.value = newUsername
+    fun login() {
+        status.value = AuthStatus.Loading
+        viewModelScope.launch {
+            val result = authService.login(email.value ?: "", password.value ?: "")
+            when {
+                result.isSuccess -> {
+                    val newUser: User = result.getOrThrow()
+                    user.value = newUser
+                    status.value = AuthStatus.Success
+                }
+                result.isFailure -> status.value = AuthStatus.Unauthorized
+            }
+        }
+    }
+
+    private fun autoLogin(email: String, password: String) {
+
+    }
+
+    fun updateEmail(newUsername: String) {
+        email.value = newUsername
     }
 
     fun updatePassword(newPassword: String) {

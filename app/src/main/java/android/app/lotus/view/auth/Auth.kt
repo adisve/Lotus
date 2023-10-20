@@ -32,7 +32,7 @@ fun Auth(navController: NavHostController) {
         AuthStatus.Success -> {
             Profile(authViewModel, navController)
         }
-        AuthStatus.Failure -> {
+        AuthStatus.Unauthorized -> {
             Login(authViewModel, navController)
         }
     }

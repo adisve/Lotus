@@ -57,17 +57,17 @@ fun LogInForm(authViewModel: AuthViewModel) {
         verticalArrangement = Arrangement.Center,
     ) {
 
-        val username by authViewModel.username.observeAsState("")
+        val username by authViewModel.email.observeAsState("")
         val password by authViewModel.password.observeAsState("")
 
-        InputField(username, { newText -> authViewModel.updateUsername(newText) }, "Username")
+        InputField(username, { newText -> authViewModel.updateEmail(newText) }, "Email")
         InputField(password, { newText -> authViewModel.updatePassword(newText) }, "Password")
 
         Text("Forgot Password?", textAlign = TextAlign.Start, modifier = Modifier.padding(20.dp))
 
         Button(
             onClick = {
-                /*TODO*/
+                authViewModel.login()
             },
             modifier = Modifier
                 .padding(20.dp)

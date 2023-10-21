@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-fun Articles(navController: NavHostController, accountType: String) {
+fun Articles(navController: NavHostController) {
     val articleCategories = listOf(
         "Bakgrund",
         "Förebygg och skapa policy",
@@ -35,10 +35,11 @@ fun Articles(navController: NavHostController, accountType: String) {
 
 
     )
+    var accountType = "bakgrund"
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.Yellow)
+            .background(color = Color.White)
 
     ) {
         Head()
@@ -88,10 +89,10 @@ fun ScrollableList(articleCategories: List<String>, accountType: String){
                             //ERROR
                         }
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = buttonColors
+                    modifier = Modifier.fillMaxWidth()
+                    //colors = buttonColors
                 ){
-                    Text(text = category, fontSize = 16.sp, color = Color.Blue)
+                    Text(text = category, fontSize = 16.sp, color = Color.White)
                 }
             }
 

@@ -59,6 +59,7 @@ class AuthViewModel @Inject constructor(
     fun logOut() {
         viewModelScope.launch {
             authService.logOut()
+            status.value = AuthStatus.Unauthorized
         }
     }
 

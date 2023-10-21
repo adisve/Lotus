@@ -1,9 +1,8 @@
+package android.app.lotus.view.home
+
 import android.app.lotus.domain.navigation.Routes
+import android.app.lotus.view.buttons.NavButton
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowRight
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,22 +13,43 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun Home(navController: NavHostController) {
-
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { navController.navigate(Routes.articles) }) {
-            Text(text = "Articles", fontSize = 22.sp, modifier = Modifier.padding(5.dp))
-            Icon(imageVector = Icons.Rounded.ArrowRight, contentDescription = "right pointing arrow")
+        Column(
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier.fillMaxWidth().padding(top = 100.dp).padding(horizontal = 25.dp)
+        ) {
+            Text(
+                fontSize = 23.sp,
+                text = "Welcome!"
+            )
+            Text(
+                modifier = Modifier.padding(vertical = 25.dp),
+                fontSize = 23.sp,
+                text = "Below you will find links to articles and videos that act as educational resources for employees."
+            )
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = { navController.navigate(Routes.videos) }) {
-            Text(text = "Videos", fontSize = 22.sp, modifier = Modifier.padding(5.dp))
-            Icon(imageVector = Icons.Rounded.ArrowRight, contentDescription = "right pointing arrow")
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth().padding(bottom = 150.dp)
+        ) {
+            NavButton(
+                text = "Articles",
+                navController = navController,
+                route = Routes.articles
+            )
+            NavButton(
+                text = "Videos",
+                navController = navController,
+                route = Routes.videos
+            )
         }
     }
 }
+
+
+
 

@@ -35,5 +35,6 @@ fun Auth(navController: NavHostController) {
         AuthStatus.Unauthorized -> {
             Login(authViewModel, navController)
         }
+        else -> Login(authViewModel, navController)
     }
 }

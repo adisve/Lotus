@@ -14,7 +14,7 @@ sealed class BottomNavItem(
 ) {
     object Home :
         BottomNavItem(
-            "Home",
+            "android.app.lotus.view.home.Home",
             Icons.Rounded.House,
             Routes.home
         )

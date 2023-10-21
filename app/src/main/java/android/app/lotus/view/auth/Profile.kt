@@ -2,147 +2,88 @@ package android.app.lotus.view.auth
 
 import android.app.lotus.app
 import android.app.lotus.observables.AuthViewModel
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Edit
 import io.realm.kotlin.mongodb.User
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 import org.mongodb.kbson.BsonString
-
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.rounded.*
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 
 @Composable
 fun Profile(authViewModel: AuthViewModel, navController: NavHostController) {
-    
     val user: User = app.currentUser!!
-    
-    Column {
-        ProfileDescriptionComponent(user = user)
-        SettingsMenuComponent()
-    }
-}
-
-@Composable
-fun ProfileDescriptionComponent(user: User) {
-    Column (modifier = Modifier.padding(20.dp)) {
-        Text(
-            "Account",
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Normal,
-            color = Color.Black,
-            textAlign = TextAlign.Start,
-            lineHeight = 40.sp,
-            modifier = Modifier.padding(bottom = 20.dp)
-        )
-        Column {
-            ProfileDetailItem("Email", (user.customDataAsBsonDocument()?.get("email") as BsonString).value)
-        }
-    }
-}
-
-@Composable
-fun ProfileDetailItem(title: String, content: String) {
-    Column {
-        Text(
-            "$title: $content",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Normal,
-            color = Color.Black,
-            textAlign = TextAlign.Start,
-        )
-    }
-}
-
-@Composable
-fun SettingsMenuComponent() {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFF6F6F6))
-                .padding(16.dp)
-        ) {
-            Text(
-                text = "Settings",
-                fontSize = 20.sp,
-                color = Color.Black
-            )
-        }
+        SettingsMenuComponent(authViewModel)
+        ProfileDescriptionComponent(user)
     }
-
-    SettingsItem("Edit Profile", onClick = { /*TO DO*/ })
-    SettingsItem("Advice & Support", onClick = { /*TO DO*/ })
-    SettingsItem("Log Out", onClick = { /*TO DO*/ })
-    SettingsItem("Theme", onClick = { /*TO DO*/ })
 }
 
+@Composable
+private fun ProfileDescriptionComponent(user: User) {
+    val email = (user.customDataAsBsonDocument()?.get("email") as? BsonString)?.value ?: "Unknown"
+    Text(
+        text = "Email: $email",
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Normal,
+        color = MaterialTheme.colorScheme.onBackground,
+        modifier = Modifier.padding(8.dp)
+    )
+}
 
 @Composable
-fun SettingsItem(title: String, onClick: () -> Unit) {
+private fun SettingsMenuComponent(authViewModel: AuthViewModel) {
+    Column(
+        modifier = Modifier.padding(top = 75.dp)
+    ) {
+        SettingsItem("Edit Profile", Icons.Rounded.Edit) { /*TO DO*/ }
+        SettingsItem("Advice & Support", Icons.Rounded.Support) { /*TO DO*/ }
+        SettingsItem("Log Out", Icons.Rounded.ExitToApp) { authViewModel.logOut() }
+        SettingsItem("Theme", Icons.Rounded.Brush) { /*TO DO*/ }
+    }
+}
+
+@Composable
+private fun SettingsItem(title: String, icon: ImageVector, onClick: () -> Unit) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
             .clickable { onClick() }
-            .then(Modifier.shadow(4.dp)),
-        color = Color.White, // Set the background color to white
+            .padding(10.dp)
+            .shadow(4.dp),
+        color = MaterialTheme.colorScheme.surface
     ) {
         Row(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = "Edit Icon",
-                modifier = Modifier
-                    .size(24.dp)
-                    .padding(end = 16.dp),
-                tint = Color.Gray
-            )
-
+            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(8.dp))
             Text(
                 text = title,
-                fontSize = 18.sp,
-                color = Color.Black,
-                textAlign = TextAlign.Start,
-                modifier = Modifier.weight(1f)
+                fontSize = 20.sp,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.weight(1f).padding(start = 15.dp)
             )
-
-            Icon(
-                imageVector = Icons.Default.ArrowForward,
-                contentDescription = "Arrow Icon",
-                modifier = Modifier.size(24.dp),
-                tint = Color.Gray
-            )
+            Icon(Icons.Default.ArrowForward, contentDescription = "Arrow Icon", modifier = Modifier.size(24.dp),
+                tint = MaterialTheme.colorScheme.onSurface)
         }
     }
 }
-
-
-

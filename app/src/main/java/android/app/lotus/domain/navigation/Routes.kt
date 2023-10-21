@@ -1,6 +1,12 @@
 package android.app.lotus.domain.navigation
 
 object Routes {
+
+    // Auth
+    const val login = "login"
+    const val register = "register"
+
+    // Main
     const val home = "home"
     const val profile = "profile"
     const val stats = "stats"

@@ -1,7 +1,5 @@
-package android.app.lotus.view.auth
+package android.app.lotus.view.account
 
-import android.app.lotus.app
-import android.app.lotus.observables.AuthViewModel
 import android.app.lotus.observables.ProfileViewModel
 import androidx.compose.foundation.clickable
 import io.realm.kotlin.mongodb.User

@@ -7,6 +7,7 @@ import android.app.lotus.view.home.articles.ArticleDetail
 import android.app.lotus.view.home.videos.Video
 import android.app.lotus.view.home.videos.Videos
 import android.app.lotus.view.account.Profile
+import android.app.lotus.view.account.SupportView
 import android.app.lotus.view.statistics.Statistics
 import android.app.lotus.view.statistics.evaluation.Evaluation
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ fun SetupMainNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Routes.home) {
         home(navController)
         profile(navController)
+        support(navController)
         stats(navController)
         articles(navController)
         videos(navController)
@@ -44,6 +46,12 @@ private fun NavGraphBuilder.stats(navController: NavHostController) {
 private fun NavGraphBuilder.profile(navController: NavHostController) {
     composable(Routes.profile) {
         Profile(navController = navController)
+    }
+}
+
+private fun NavGraphBuilder.support(navController: NavHostController){
+    composable(Routes.support){
+        SupportView(navController = navController)
     }
 }
 

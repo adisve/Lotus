@@ -61,15 +61,7 @@ fun ScrollableList(articleCategories: List<String>, accountType: String){
 
                 Button(
                     onClick = {
-                        if(accountType == "hr"){
-                            //Go to manager version of the article with a button that can change if it is manager or Employee version
-                        }else if(accountType == "manager"){
-                            //Go to manager version of the article
-                        }else if(accountType == "employee"){
-                            //Got to employee version of the article
-                        }else{
-                            //error
-                        }
+                        //Code
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = buttonColors

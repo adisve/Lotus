@@ -57,38 +57,22 @@ fun ScrollableList(articleCategories: List<String>, accountType: String){
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                val buttonColors = ButtonDefaults.buttonColors(Color.Green)
-               /* THIS IS FOR THE NAVIGATION LATER
-                if(accountType == "hr"){
-                    NavButton(
-                        text = category,
-                        navController = navController,
-                        route = Routes.
-                    )
-                }else if(accountType == "manager"){
-                    NavButton(
-                        text = category,
-                        navController = navController,
-                        route = Routes.
-                    )
-                }else if(accountType == "employee"){
-                    NavButton(
-                        text = category,
-                        navController = navController,
-                        route = Routes.
-                    )
-                }else{
-                    //ERROR
-                }
-
-                */
+                val buttonColors = ButtonDefaults.buttonColors(Color.Blue)
 
                 Button(
                     onClick = {
-                        //Just for visualy seeing. This is to be deleted later
+                        if(accountType == "hr"){
+                            //Go to manager version of the article with a button that can change if it is manager or Employee version
+                        }else if(accountType == "manager"){
+                            //Go to manager version of the article
+                        }else if(accountType == "employee"){
+                            //Got to employee version of the article
+                        }else{
+                            //error
+                        }
                     },
-                    modifier = Modifier.fillMaxWidth()
-                    //colors = buttonColors
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = buttonColors
                 ){
                     Text(text = category, fontSize = 16.sp, color = Color.White)
                 }

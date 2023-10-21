@@ -29,6 +29,6 @@ object PreferencesModule {
     @Provides
     @Singleton
     fun provideSharedPreferences(@ApplicationContext appContext: Context): SharedPreferences {
-        return appContext.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return appContext.getSharedPreferences("lotus_app_preferences", Context.MODE_PRIVATE)
     }
 }

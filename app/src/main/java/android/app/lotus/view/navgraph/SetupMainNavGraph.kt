@@ -6,7 +6,7 @@ import android.app.lotus.view.home.articles.Articles
 import android.app.lotus.view.home.articles.ArticleDetail
 import android.app.lotus.view.home.videos.Video
 import android.app.lotus.view.home.videos.Videos
-import android.app.lotus.view.auth.Profile
+import android.app.lotus.view.account.Profile
 import android.app.lotus.view.statistics.Statistics
 import android.app.lotus.view.statistics.evaluation.Evaluation
 import androidx.compose.runtime.Composable
@@ -16,7 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun SetupMainNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Routes.home) {
         home(navController)
         profile(navController)

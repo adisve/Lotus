@@ -7,7 +7,8 @@ import android.app.lotus.view.auth.Login
 import android.app.lotus.view.bottombar.BottomNavigation
 import android.app.lotus.view.general.DotsPulsing
 import android.app.lotus.view.general.TopBar
-import android.app.lotus.view.navgraph.SetupNavGraph
+import android.app.lotus.view.navgraph.SetupAuthNavGraph
+import android.app.lotus.view.navgraph.SetupMainNavGraph
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,11 +32,12 @@ fun Lotus() {
                 )
                 }
             ) {
-                SetupNavGraph(navController)
+                SetupMainNavGraph(navController)
             }
         }
         AuthStatus.Unauthorized -> {
-            Login(authViewModel = authViewModel)
+            val navController = rememberNavController()
+            SetupAuthNavGraph(navController, authViewModel)
         }
         AuthStatus.Loading -> { DotsPulsing() }
     }

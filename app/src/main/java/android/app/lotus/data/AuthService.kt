@@ -4,7 +4,9 @@ import android.app.lotus.app
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class AuthService @Inject constructor() {
     suspend fun createAccount(email: String, password: String): Result<Unit> {
         return try {

@@ -1,7 +1,7 @@
 package android.app.lotus.view.home.articles
 
 import android.app.lotus.R
-import android.app.lotus.domain.models.Article
+import android.app.lotus.domain.models.article
 import android.app.lotus.ui.theme.LotusTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -30,7 +30,7 @@ import com.halilibo.richtext.ui.RichText
 
 
 @Composable
-fun ArticleDetail(articleId: String) {
+fun ArticleDetail(articleTitle: String) {
     Column {
         Image(
             painter = painterResource(R.drawable.lotusmodellen_logo), contentDescription = null,
@@ -43,7 +43,7 @@ fun ArticleDetail(articleId: String) {
 }
 
 @Composable
-fun ArticleComponent(article: Article) {
+fun ArticleComponent(article: article) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -64,7 +64,7 @@ fun ArticleComponent(article: Article) {
                     .padding(30.dp)
             ) {
                 Markdown(
-                    article.markdownContent.trimIndent()
+                    article.content.trimIndent()
                 )
             }
         }
@@ -95,7 +95,9 @@ fun ArticleComponent(article: Article) {
 @Preview(showBackground = true)
 @Composable
 fun ArticlePreview() {
+
+
     LotusTheme {
-        ArticleDetail("1")
+        ArticleDetail("test")
     }
 }

@@ -22,10 +22,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 
+class SupportViewModel : ViewModel(){
+    var message: String by mutableStateOf("")
+}
 @Composable
-fun SupportView(){
-    var message by remember { mutableStateOf("") }
+fun SupportView(viewModel: SupportViewModel){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,14 +44,14 @@ fun SupportView(){
                 .padding(4.dp)
         ) {
             BasicTextField(
-                value = message,
+                value = viewModel.message,
                 onValueChange = {newMessage ->
-                    message = newMessage
+                    viewModel.message = newMessage
                 },
                 textStyle = TextStyle.Default.copy(fontSize = 18.sp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "$message")
+                Text(text = "${viewModel.message}")
             }
         }
         Box(
@@ -58,7 +61,7 @@ fun SupportView(){
         )
         Button(onClick = {
             //Code to send message to client
-            message = ""
+            viewModel.message = ""
         },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

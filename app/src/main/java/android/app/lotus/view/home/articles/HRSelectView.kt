@@ -23,9 +23,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun HRSelectView(article: String){
+fun HRSelectView(navController: NavHostController){
+    var article = "bakgrund"
     val buttonNameList = listOf(
         "Manager",
         "Employee"
@@ -39,8 +41,6 @@ fun HRSelectView(article: String){
         //Spacer(modifier = Modifier.weight(1f))
         Head()
         HRSelectButton(buttonNameList = buttonNameList, article)
-        Spacer(modifier = Modifier.weight(1f))
-        dummySpace()
     }
 
 }

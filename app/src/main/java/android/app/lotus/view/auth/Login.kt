@@ -1,23 +1,29 @@
 package android.app.lotus.view.auth
 
 import android.app.lotus.observables.AuthViewModel
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -28,7 +34,7 @@ import androidx.navigation.NavHostController
 fun Login(authViewModel: AuthViewModel, navController: NavHostController) {
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column (
@@ -38,24 +44,9 @@ fun Login(authViewModel: AuthViewModel, navController: NavHostController) {
                 .padding(top = 100.dp)
                 .padding(horizontal = 25.dp)
         ) {
-            Text(
-                "Welcome to\nLotus Modellen",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color.Black,
-                textAlign = TextAlign.Start,
-                lineHeight = 40.sp,
-                modifier = Modifier.padding(start = 20.dp)
-            )
-        }
-        Column (
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 150.dp)
-        ) {
             LogInForm(authViewModel)
         }
+
     }
 }
 
@@ -110,9 +101,18 @@ fun InputField(
     placeholder: String
 ) {
     OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        placeholder = { Text(placeholder) },
-        modifier = Modifier.padding(12.dp)
+        value = value, onValueChange = onValueChange,
+        label = {
+            Text(text = placeholder, color = MaterialTheme.colorScheme.primary)
+        },
+        shape = RoundedCornerShape(25.dp),
+
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+            .padding(top = 10.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = MaterialTheme.colorScheme.primary,
+        )
     )
 }

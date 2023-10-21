@@ -1,6 +1,6 @@
 package android.app.lotus.di
 
-import android.app.lotus.data.AuthService
+import android.app.lotus.data.UserService
 import android.content.Context
 import android.content.SharedPreferences
 import dagger.Module
@@ -12,12 +12,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AuthServiceModule {
+object UserServiceModule {
 
     @Provides
     @Singleton
-    fun provideAuthService(): AuthService {
-        return AuthService()
+    fun provideUserService(): UserService {
+        return UserService()
     }
 }
 

@@ -7,7 +7,7 @@ import io.realm.kotlin.mongodb.AppConfiguration
 
 lateinit var app: App
 
-inline fun <reified T> T.TAG(): String = T::class.java.simpleName
+inline fun <reified T> T.tag(): String = T::class.java.simpleName
 
 @HiltAndroidApp
 class LotusApp: Application() {
@@ -18,6 +18,6 @@ class LotusApp: Application() {
                 .baseUrl(getString(R.string.realm_base_url))
                 .build()
         )
-        Log.v(TAG(), "Initialized the App configuration for: ${app.configuration.appId}")
+        Log.v(tag(), "Initialized the App configuration for: ${app.configuration.appId}")
     }
 }

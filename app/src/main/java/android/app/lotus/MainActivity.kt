@@ -27,16 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-                    Scaffold (
-                        topBar = { TopBar() },
-                        bottomBar = { BottomNavigation(
-                            navController = navController
-                        )
-                    }
-                    ) {
-                        SetupNavGraph(navController)
-                    }
+                    Lotus()
                 }
             }
         }

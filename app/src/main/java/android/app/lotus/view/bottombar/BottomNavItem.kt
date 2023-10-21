@@ -28,8 +28,8 @@ sealed class BottomNavItem(
 
     object Profile :
         BottomNavItem(
-            "Account",
+            "Profile",
             Icons.Rounded.Person,
-            Routes.auth
+            Routes.profile
         )
 }

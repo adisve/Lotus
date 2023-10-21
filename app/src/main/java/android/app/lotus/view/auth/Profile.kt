@@ -2,6 +2,7 @@ package android.app.lotus.view.auth
 
 import android.app.lotus.app
 import android.app.lotus.observables.AuthViewModel
+import android.app.lotus.observables.ProfileViewModel
 import androidx.compose.foundation.clickable
 import io.realm.kotlin.mongodb.User
 import androidx.compose.runtime.Composable
@@ -17,20 +18,25 @@ import org.mongodb.kbson.BsonString
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.rounded.*
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun Profile(authViewModel: AuthViewModel, navController: NavHostController) {
-    val user: User = app.currentUser!!
+fun Profile(navController: NavHostController) {
+    val profileViewModel: ProfileViewModel = hiltViewModel()
+    val user by profileViewModel.user.collectAsState()
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SettingsMenuComponent(authViewModel)
-        ProfileDescriptionComponent(user)
+        SettingsMenuComponent(profileViewModel)
+        ProfileDescriptionComponent(user!!)
     }
 }
 
@@ -47,13 +53,13 @@ private fun ProfileDescriptionComponent(user: User) {
 }
 
 @Composable
-private fun SettingsMenuComponent(authViewModel: AuthViewModel) {
+private fun SettingsMenuComponent(profileViewModel: ProfileViewModel) {
     Column(
         modifier = Modifier.padding(top = 75.dp)
     ) {
         SettingsItem("Edit Profile", Icons.Rounded.Edit) { /*TO DO*/ }
         SettingsItem("Advice & Support", Icons.Rounded.Support) { /*TO DO*/ }
-        SettingsItem("Log Out", Icons.Rounded.ExitToApp) { authViewModel.logOut() }
+        SettingsItem("Log Out", Icons.Rounded.ExitToApp) { profileViewModel.logOut() }
         SettingsItem("Theme", Icons.Rounded.Brush) { /*TO DO*/ }
     }
 }
@@ -80,7 +86,9 @@ private fun SettingsItem(title: String, icon: ImageVector, onClick: () -> Unit) 
                 text = title,
                 fontSize = 20.sp,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.weight(1f).padding(start = 15.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 15.dp)
             )
             Icon(Icons.Default.ArrowForward, contentDescription = "Arrow Icon", modifier = Modifier.size(24.dp),
                 tint = MaterialTheme.colorScheme.onSurface)

@@ -52,12 +52,16 @@ class ArticleViewModel @Inject constructor(
         when (event) {
             is InitialResults -> {
                 updateInitialState(event.list)
-                _status.value = if (event.list.isEmpty()) ArticleListStatus.Loading else ArticleListStatus.Populated
+                _status.value =
+                    if (event.list.isEmpty()) ArticleListStatus.Loading else ArticleListStatus.Populated
             }
+
             is UpdatedResults -> {
                 updateChangedState(event)
-                _status.value = if (_articleList.isEmpty()) ArticleListStatus.Empty else ArticleListStatus.Populated
+                _status.value =
+                    if (_articleList.isEmpty()) ArticleListStatus.Empty else ArticleListStatus.Populated
             }
+
             else -> {
                 _status.value = ArticleListStatus.Loading
             }

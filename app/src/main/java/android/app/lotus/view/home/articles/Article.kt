@@ -1,54 +1,68 @@
 package android.app.lotus.view.home.articles
 
-import android.app.lotus.R
 import android.app.lotus.domain.models.article
-import android.app.lotus.ui.theme.LotusTheme
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
+import android.app.lotus.domain.navigation.Routes
+import android.app.lotus.observables.ArticleListStatus
+import android.app.lotus.observables.ArticleViewModel
+import android.app.lotus.view.buttons.NavButton
+import android.app.lotus.view.general.DotsPulsing
+import android.app.lotus.view.theme.fonts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
+import com.halilibo.richtext.ui.RichTextThemeIntegration
 
 
 @Composable
-fun ArticleDetail(articleTitle: String) {
-    Column {
-        Image(
-            painter = painterResource(R.drawable.lotusmodellen_logo), contentDescription = null,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 20.dp, bottom = 20.dp)
-        )
+fun ArticleDetail(navController: NavHostController, articleTitle: String) {
+    val articleViewModel: ArticleViewModel = hiltViewModel()
+    val status = articleViewModel.status.observeAsState(initial = ArticleListStatus.Loading)
+
+
+    when (status.value) {
+        ArticleListStatus.Loading -> {
+            DotsPulsing()
+        }
+
+        ArticleListStatus.Empty -> {
+            Text("Empty")
+        }
+
+        ArticleListStatus.Populated -> {
+            val article = articleViewModel.articleList.find { it.title == articleTitle }
+            if (article != null) {
+                ArticleComponent(navController, article)
+            }
+        }
     }
 }
 
 @Composable
-fun ArticleComponent(article: article) {
+fun ArticleComponent(navController: NavHostController, article: article) {
     val scrollState = rememberScrollState()
 
     Column(
         modifier = Modifier.verticalScroll(enabled = true, state = scrollState)
     ) {
+        Spacer(modifier = Modifier.height(60.dp))
         Row {
             Text(
                 text = article.title.uppercase(),
@@ -57,13 +71,19 @@ fun ArticleComponent(article: article) {
             )
         }
         Row {
-            RichText(
-                modifier = Modifier
-                    .padding(30.dp)
+
+            RichTextThemeIntegration(
+                textStyle = provideTextStyle(),
+                contentColor = provideContentColor(),
             ) {
-                Markdown(
-                    article.content.trimIndent()
-                )
+                RichText(
+                    modifier = Modifier
+                        .padding(30.dp)
+                ) {
+                    Markdown(
+                        article.content.trimIndent()
+                    )
+                }
             }
         }
         Row(
@@ -71,31 +91,24 @@ fun ArticleComponent(article: article) {
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 20.dp)
         ) {
-            // Circular button for submitting article with checkmark icon inside
-            Button(
-                onClick = { },
-                shape = RoundedCornerShape(25.dp),
-                colors = ButtonDefaults.buttonColors(Color(148, 0, 124)),
-                modifier = Modifier
-                    .height(65.dp)
-                    .width(180.dp)
-            ) {
-                Text(
-                    text = "Finish",
-                    fontSize = 20.sp
-                )
-            }
+            NavButton(text = "Finish", navController = navController, route = Routes.articles)
 
         }
+        Spacer(modifier = Modifier.height(60.dp))
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ArticlePreview() {
+fun provideTextStyle(): @Composable () -> TextStyle {
+    return {
+        TextStyle(
+            fontFamily = fonts,
+            fontSize = 20.sp,
+        )
+    }
+}
 
-
-    LotusTheme {
-        ArticleDetail("test")
+fun provideContentColor(): @Composable () -> Color {
+    return {
+        MaterialTheme.colorScheme.onSurface
     }
 }

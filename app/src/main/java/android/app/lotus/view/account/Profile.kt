@@ -1,5 +1,6 @@
 package android.app.lotus.view.account
 
+import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.view.buttons.NavButton
 import androidx.compose.runtime.Composable
@@ -38,7 +39,7 @@ private fun SettingsMenuComponent(navController: NavHostController, profileViewM
         modifier = Modifier.padding(bottom = 100.dp)
     ) {
         NavButton("Edit Profile", suffixIcon = Icons.Rounded.Edit, navController = navController, route = "")
-        NavButton("Support", suffixIcon = Icons.Rounded.Support, navController = navController, route = "")
+        NavButton("Support", suffixIcon = Icons.Rounded.Support, navController = navController, route = Routes.support)
 
         LogOutButton {
             profileViewModel.logOut()

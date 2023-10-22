@@ -1,13 +1,13 @@
 package android.app.lotus.view.navgraph
 
-import android.app.lotus.view.home.Home
 import android.app.lotus.domain.navigation.Routes
-import android.app.lotus.view.home.articles.Articles
-import android.app.lotus.view.home.articles.ArticleDetail
-import android.app.lotus.view.home.videos.Video
-import android.app.lotus.view.home.videos.Videos
 import android.app.lotus.view.account.Profile
 import android.app.lotus.view.account.Support
+import android.app.lotus.view.home.Home
+import android.app.lotus.view.home.articles.ArticleDetail
+import android.app.lotus.view.home.articles.Articles
+import android.app.lotus.view.home.videos.Video
+import android.app.lotus.view.home.videos.Videos
 import android.app.lotus.view.statistics.Statistics
 import android.app.lotus.view.statistics.evaluation.Evaluation
 import androidx.compose.runtime.Composable
@@ -26,7 +26,7 @@ fun SetupMainNavGraph(navController: NavHostController) {
         articles(navController)
         videos(navController)
         evaluation(navController)
-        articleDetail()
+        articleDetail(navController)
         videoDetail()
     }
 }
@@ -49,8 +49,8 @@ private fun NavGraphBuilder.profile(navController: NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.support(navController: NavHostController){
-    composable(Routes.support){
+private fun NavGraphBuilder.support(navController: NavHostController) {
+    composable(Routes.support) {
         Support(navController = navController)
     }
 }
@@ -61,10 +61,10 @@ private fun NavGraphBuilder.articles(navController: NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.articleDetail() {
+private fun NavGraphBuilder.articleDetail(navController: NavHostController) {
     composable(Routes.articleDetail) { backStackEntry ->
-        val articleId = backStackEntry.arguments?.getString("articleId")
-        ArticleDetail(articleId ?: "")
+        val articleName = backStackEntry.arguments?.getString("articleName")
+        ArticleDetail(navController, articleName ?: "")
     }
 }
 

@@ -1,9 +1,9 @@
 package android.app.lotus.view.home.articles
 
+import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ArticleListStatus
 import android.app.lotus.observables.ArticleViewModel
 import android.app.lotus.view.general.DotsPulsing
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,25 +31,29 @@ fun Articles(navController: NavHostController) {
     val articleCategories = articleViewModel.articleCategories.observeAsState(initial = emptyList())
     val status = articleViewModel.status.observeAsState(initial = ArticleListStatus.Loading)
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 70.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        when (status.value) {
-            ArticleListStatus.Loading -> { DotsPulsing() }
-            ArticleListStatus.Empty -> { Text("Empty") }
-            ArticleListStatus.Populated -> { ScrollableList(articleCategories = articleCategories.value) }
+
+    when (status.value) {
+        ArticleListStatus.Loading -> {
+            DotsPulsing()
+        }
+
+        ArticleListStatus.Empty -> {
+            Text("Empty")
+        }
+
+        ArticleListStatus.Populated -> {
+            ScrollableList(navController, articleCategories = articleCategories.value)
         }
     }
+
 }
 
 @Composable
-fun ScrollableList(articleCategories: List<String>) {
+fun ScrollableList(navController: NavHostController, articleCategories: List<String>) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         items(articleCategories) { category ->
             Column(
@@ -63,7 +66,9 @@ fun ScrollableList(articleCategories: List<String>) {
 
                 Button(
                     onClick = {
-                        //Code
+                        navController.navigate(
+                            Routes.articleDetail.replace("{articleName}", category)
+                        )
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = buttonColors

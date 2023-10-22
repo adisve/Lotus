@@ -11,7 +11,7 @@ object Routes {
     const val profile = "profile"
     const val stats = "stats"
     const val articles = "articles"
-    const val articleDetail = "articleDetail/{articleId}"
+    const val articleDetail = "articleDetail/{articleName}"
     const val videos = "videos"
     const val videoDetail = "videoDetail/{videoId}"
     const val evaluation = "evaluation"

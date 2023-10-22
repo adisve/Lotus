@@ -34,7 +34,7 @@ När det gäller att få bort ett missbruksproblem på jobbet är det viktigt at
         title="FÖREBYGG OCH SKAPA POLICY",
         role=RoleEnum.EMPLOYEE,
         content="""
-        ## Det är arbetsgivarens ansvar att förebygga
+## Det är arbetsgivarens ansvar att förebygga
 
 Arbetsgivaren ansvarar för att arbetsplatsen har en alkohol- och drogpolicy, och en handlingsplan för frågorna. Lagstiftningen har stor betydelse när det gäller att skapa goda arbetsmiljöer. Arbetsmiljölagen och Lagen om anställningsskydd ger bra grund. Det är alltså arbetsgivaren som har huvudansvaret för att motverka drogmissbruk på arbetsplatsen. Det finns goda skäl för det; utöver ansvaret för arbetsmiljöfrågorna medför missbruket stora kostnader för arbetsgivaren och resulterar i medarbetare som vantrivs och mår dåligt.
 
@@ -53,7 +53,7 @@ Policyn kan betraktas som en beredskapsplan och måste vara kopplad till en hand
         title="UTBILDNING",
         role=RoleEnum.EMPLOYEE,
         content="""
-        ## Därför behövs kunskap
+## Därför behövs kunskap
 
 Utbildning är ett av de viktigaste instrumenten för att hålla policyn vid liv. Den ska vara riktad till all personal, skapa en medvetenhet och tydliggöra vad arbetsplatsen har för krav och mål med den antagna policyn.
 
@@ -132,7 +132,7 @@ För arbetsgivaren ska målsättningen vara att ingripa så tidigt som möjligt 
 * Sjukfrånvaro, särskilt korttidsfrånvaro vid löning och vid helger.
 * Begäran om enstaka semesterdagar, eller annan ledighet, med kort varsel.
 
-**Och dessutom …
+**Och dessutom …**
 
 * Nekar till att ha druckit eller bagatelliserar sitt drickande.  
 
@@ -153,7 +153,7 @@ Signalerna och problemen som missbruk av narkotika/läkemedel medför är i mån
         title="INGRIPANDET",
         role=RoleEnum.EMPLOYEE,
         content="""
-        ## Hur och när ska det ske?
+## Hur och när ska det ske?
 
 När användningen av alkohol eller droger börjar försämra en anställds arbetsfunktion ska du ingripa. Det är viktigt att konfrontationen baseras på konkreta saker som försämrad och/eller oacceptabel arbetsprestation och/eller uppförande. Själva nyckeln till en lyckad konfrontation är att hålla sig till fakta – sådant som påverkar själva arbetsprestationen. Det kan vara svårt, men är helt nödvändigt, att lämna känslomässiga argument utanför.
 
@@ -264,7 +264,7 @@ Målet med samtalet är att få den anställde att förstå och erkänna problem
         title="TILLFRISKNANDET",
         role=RoleEnum.EMPLOYEE,
         content="""
-    ## Tillbaka till jobbet
+## Tillbaka till jobbet
 
 Tillfrisknandet från alkohol- och drogberoende är en lång process. Många års missbruk har lett till onormala fysiska, psykiska, känslomässiga och själsliga tillstånd, som till slut upplevs som normala för den beroende. Det destruktiva beteendet har etablerats som vanor och vi vet alla hur svårt det är att förändra ingrodda vanemönster.
 
@@ -291,7 +291,7 @@ Försök att börja med att sätta dig in i den anställdes situation. Han/hon h
         title="TILL SIST",
         role=RoleEnum.EMPLOYEE,
         content="""
-    Tack för att du valt att genomföra vår interaktiva och förebyggande utbildning om drog- och alkoholberoende på arbetsplatsen!
+Tack för att du valt att genomföra vår interaktiva och förebyggande utbildning om drog- och alkoholberoende på arbetsplatsen!
 
 Vi finns här för dig och dina kollegor
 
@@ -329,7 +329,7 @@ När det gäller att få bort ett missbruksproblem på jobbet är det viktigt at
         title="FÖREBYGG OCH SKAPA POLICY",
         role=RoleEnum.MANAGER,
         content="""
-        ## Det är arbetsgivarens ansvar att förebygga
+## Det är arbetsgivarens ansvar att förebygga
 
 Arbetsgivaren ansvarar för att arbetsplatsen har en alkohol- och drogpolicy, och en handlingsplan för frågorna. Lagstiftningen har stor betydelse när det gäller att skapa goda arbetsmiljöer. Arbetsmiljölagen och Lagen om anställningsskydd ger bra grund. Det är alltså arbetsgivaren som har huvudansvaret för att motverka drogmissbruk på arbetsplatsen. Det finns goda skäl för det; utöver ansvaret för arbetsmiljöfrågorna medför missbruket stora kostnader för arbetsgivaren och resulterar i medarbetare som vantrivs och mår dåligt.
 
@@ -348,7 +348,7 @@ Policyn kan betraktas som en beredskapsplan och måste vara kopplad till en hand
         title="UTBILDNING",
         role=RoleEnum.MANAGER,
         content="""
-        ## Därför behövs kunskap
+## Därför behövs kunskap
 
 Utbildning är ett av de viktigaste instrumenten för att hålla policyn vid liv. Den ska vara riktad till all personal, skapa en medvetenhet och tydliggöra vad arbetsplatsen har för krav och mål med den antagna policyn.
 
@@ -427,7 +427,7 @@ För arbetsgivaren ska målsättningen vara att ingripa så tidigt som möjligt 
 * Sjukfrånvaro, särskilt korttidsfrånvaro vid löning och vid helger.
 * Begäran om enstaka semesterdagar, eller annan ledighet, med kort varsel.
 
-**Och dessutom …
+**Och dessutom …**
 
 * Nekar till att ha druckit eller bagatelliserar sitt drickande.  
 
@@ -448,7 +448,7 @@ Signalerna och problemen som missbruk av narkotika/läkemedel medför är i mån
         title="INGRIPANDET",
         role=RoleEnum.MANAGER,
         content="""
-        ## Hur och när ska det ske?
+## Hur och när ska det ske?
 
 När användningen av alkohol eller droger börjar försämra en anställds arbetsfunktion ska du ingripa. Det är viktigt att konfrontationen baseras på konkreta saker som försämrad och/eller oacceptabel arbetsprestation och/eller uppförande. Själva nyckeln till en lyckad konfrontation är att hålla sig till fakta – sådant som påverkar själva arbetsprestationen. Det kan vara svårt, men är helt nödvändigt, att lämna känslomässiga argument utanför.
 
@@ -559,7 +559,7 @@ Målet med samtalet är att få den anställde att förstå och erkänna problem
         title="TILLFRISKNANDET",
         role=RoleEnum.MANAGER,
         content="""
-    ## Tillbaka till jobbet
+## Tillbaka till jobbet
 
 Tillfrisknandet från alkohol- och drogberoende är en lång process. Många års missbruk har lett till onormala fysiska, psykiska, känslomässiga och själsliga tillstånd, som till slut upplevs som normala för den beroende. Det destruktiva beteendet har etablerats som vanor och vi vet alla hur svårt det är att förändra ingrodda vanemönster.
 
@@ -586,7 +586,7 @@ Försök att börja med att sätta dig in i den anställdes situation. Han/hon h
         title="TILL SIST",
         role=RoleEnum.MANAGER,
         content="""
-    Tack för att du valt att genomföra vår interaktiva och förebyggande utbildning om drog- och alkoholberoende på arbetsplatsen!
+Tack för att du valt att genomföra vår interaktiva och förebyggande utbildning om drog- och alkoholberoende på arbetsplatsen!
 
 Vi finns här för dig och dina kollegor
 

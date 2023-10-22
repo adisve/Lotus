@@ -4,6 +4,7 @@ import android.app.lotus.R
 import android.app.lotus.domain.models.article
 import android.app.lotus.ui.theme.LotusTheme
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height

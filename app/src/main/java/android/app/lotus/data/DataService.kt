@@ -8,6 +8,7 @@ import io.realm.kotlin.ext.query
 import io.realm.kotlin.internal.platform.runBlocking
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.SyncException
+import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.mongodb.sync.SyncSession
 import io.realm.kotlin.mongodb.syncSession
@@ -28,7 +29,12 @@ class DataService @Inject constructor(
         get() = app.currentUser!!
 
     init {
+        initializeRealm()
+    }
+
+    private fun initializeRealm() {
         runBlocking {
+            Log.i("DataService" , "Current user: ${currentUser.customDataAsBsonDocument()}")
             config = SyncConfiguration.Builder(currentUser, setOf(article::class))
                 .initialSubscriptions { realm ->
                     add(

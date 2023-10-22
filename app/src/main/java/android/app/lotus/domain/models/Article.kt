@@ -4,9 +4,11 @@ import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 
-class Article() : RealmObject {
+
+class article : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
+    var content: String = ""
+    var role: String? = null
     var title: String = ""
-    var markdownContent = ""
 }

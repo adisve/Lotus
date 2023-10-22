@@ -5,7 +5,7 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.BsonObjectId
 import org.mongodb.kbson.ObjectId
 
-class User() : RealmObject {
+class user : RealmObject {
     @PrimaryKey
     var _id: ObjectId = BsonObjectId()
     var email: String = ""

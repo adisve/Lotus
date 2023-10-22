@@ -6,6 +6,8 @@ import android.util.Log
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.internal.platform.runBlocking
+import io.realm.kotlin.mongodb.App
+import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.SyncException
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
@@ -28,8 +30,10 @@ class DataService @Inject constructor(
         get() = app.currentUser!!
 
     init {
+        val app = App.create("lotus-bsqvw")
         runBlocking {
-            config = SyncConfiguration.Builder(currentUser, setOf(article::class))
+            val user = app.login(Credentials.anonymous())
+            config = SyncConfiguration.Builder(user, setOf(article::class))
                 .initialSubscriptions { realm ->
                     add(
                         realm.query<article>(),

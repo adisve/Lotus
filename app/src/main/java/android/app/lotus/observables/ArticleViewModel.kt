@@ -30,7 +30,7 @@ class ArticleViewModel @Inject constructor(
                             articleListState.addAll(event.list)
                             Log.i(
                                 "ArticleViewModel",
-                                "InitialResults: ${articleListState.toList().first().content}"
+                                "InitialResults: ${articleListState.toList()}"
                             )
                         }
 
@@ -53,7 +53,7 @@ class ArticleViewModel @Inject constructor(
                             }
                             Log.i(
                                 "ArticleViewModel",
-                                "InitialResults: ${articleListState.toList()}"
+                                "UpdatedResult: ${articleListState.toList()}"
                             )
                         }
 

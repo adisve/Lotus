@@ -4,6 +4,7 @@ import android.app.lotus.domain.models.article
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ArticleListStatus
 import android.app.lotus.observables.ArticleViewModel
+import android.app.lotus.view.buttons.NavButton
 import android.app.lotus.view.general.DotsPulsing
 import android.app.lotus.view.theme.fonts
 import androidx.compose.foundation.layout.Column
@@ -11,12 +12,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -94,22 +91,8 @@ fun ArticleComponent(navController: NavHostController, article: article) {
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 20.dp)
         ) {
-            // Circular button for submitting article with checkmark icon inside
-            Button(
-                onClick = {
-                    navController.navigate(Routes.articles)
-                },
-                shape = RoundedCornerShape(25.dp),
-                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
-                modifier = Modifier
-                    .height(65.dp)
-                    .width(180.dp)
-            ) {
-                Text(
-                    text = "Finish",
-                    fontSize = 20.sp
-                )
-            }
+            NavButton(text = "Finish", navController = navController, route = Routes.articles)
+
         }
         Spacer(modifier = Modifier.height(60.dp))
     }

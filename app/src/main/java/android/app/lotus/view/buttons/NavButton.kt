@@ -19,7 +19,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun NavButton(
     text: String,
-    suffixIcon: ImageVector = Icons.Rounded.ArrowForward,
+    suffixIcon: ImageVector? = Icons.Rounded.ArrowForward,
     navController: NavHostController,
     route: String
 ) {
@@ -36,10 +36,12 @@ fun NavButton(
                 text = text,
                 style = MaterialTheme.typography.bodyMedium,
             )
-            Icon(
-                imageVector = suffixIcon,
-                contentDescription = "right pointing arrow"
-            )
+            if (suffixIcon != null) {
+                Icon(
+                    imageVector = suffixIcon,
+                    contentDescription = "right pointing arrow"
+                )
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package android.app.lotus.view.bottombar
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
@@ -18,7 +19,10 @@ val items = listOf(
 @Composable
 fun BottomNavigation(navController: NavController) {
     val (currentScreen, setCurrentScreen) = remember { mutableStateOf<BottomNavItem>(BottomNavItem.Home) }
-    NavigationBar() {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.background,
+        contentColor = MaterialTheme.colorScheme.primary
+    ) {
         items.forEach { item ->
             AddItem(
                 screen = item,

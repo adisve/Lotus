@@ -9,7 +9,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import dagger.hilt.android.AndroidEntryPoint
 import android.annotation.SuppressLint
+import android.app.lotus.data.AuthStatus
+import android.app.lotus.observables.MainViewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -18,12 +24,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            LotusTheme {
+            val mainViewModel: MainViewModel = hiltViewModel()
+            val isDarkTheme by mainViewModel.isDarkTheme.observeAsState(initial = false)
+            LotusTheme (
+                darkTheme = isDarkTheme
+            ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Lotus()
+                    Lotus(mainViewModel, isDarkTheme)
                 }
             }
         }

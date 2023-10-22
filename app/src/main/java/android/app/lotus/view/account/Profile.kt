@@ -1,27 +1,18 @@
 package android.app.lotus.view.account
 
-import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ProfileViewModel
-import androidx.compose.foundation.clickable
-import io.realm.kotlin.mongodb.User
+import android.app.lotus.view.buttons.NavButton
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
-import org.mongodb.kbson.BsonString
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
@@ -34,63 +25,48 @@ fun Profile(navController: NavHostController) {
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SettingsMenuComponent(navController, profileViewModel)
-        ProfileDescriptionComponent(user!!)
-    }
-}
+        Column {
 
-@Composable
-private fun ProfileDescriptionComponent(user: User) {
-    val email = (user.customDataAsBsonDocument()?.get("email") as? BsonString)?.value ?: "Unknown"
-    Text(
-        text = "Email: $email",
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Normal,
-        color = MaterialTheme.colorScheme.onBackground,
-        modifier = Modifier.padding(8.dp)
-    )
+        }
+        SettingsMenuComponent(navController, profileViewModel)
+    }
 }
 
 @Composable
 private fun SettingsMenuComponent(navController: NavHostController, profileViewModel: ProfileViewModel) {
     Column(
-        modifier = Modifier.padding(top = 75.dp)
+        modifier = Modifier.padding(bottom = 100.dp)
     ) {
-        SettingsItem("Edit Profile", Icons.Rounded.Edit) { /*TO DO*/ }
-        SettingsItem("Advice & Support", Icons.Rounded.Support) { navController.navigate(Routes.support) }
-        SettingsItem("Log Out", Icons.Rounded.ExitToApp) { profileViewModel.logOut() }
-        SettingsItem("Theme", Icons.Rounded.Brush) { /*TO DO*/ }
+        NavButton("Edit Profile", suffixIcon = Icons.Rounded.Edit, navController = navController, route = "")
+        NavButton("Support", suffixIcon = Icons.Rounded.Support, navController = navController, route = "")
+
+        LogOutButton {
+            profileViewModel.logOut()
+        }
     }
 }
 
 @Composable
-private fun SettingsItem(title: String, icon: ImageVector, onClick: () -> Unit) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(10.dp)
-            .shadow(4.dp),
-        color = MaterialTheme.colorScheme.surface
+private fun LogOutButton(logOut: () -> Unit) {
+    Button(
+        modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
+        onClick = logOut
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+        Row (
+            modifier = Modifier.padding((7.5).dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(8.dp))
             Text(
-                text = title,
-                fontSize = 20.sp,
-                color = MaterialTheme.colorScheme.onSurface,
+                text = "Log Out",
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 15.dp)
             )
-            Icon(Icons.Default.ArrowForward, contentDescription = "Arrow Icon", modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.onSurface)
+            Icon(
+                imageVector = Icons.Rounded.ExitToApp,
+                contentDescription = null
+            )
         }
     }
 }

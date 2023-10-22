@@ -39,7 +39,6 @@ fun ArticleDetail(articleTitle: String) {
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 20.dp, bottom = 20.dp)
         )
-        // ArticleComponent(article)
     }
 }
 
@@ -54,9 +53,7 @@ fun ArticleComponent(article: article) {
             Text(
                 text = article.title.uppercase(),
                 modifier = Modifier.padding(30.dp, bottom = 0.dp, top = 0.dp),
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
-
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
         Row {

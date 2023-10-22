@@ -1,5 +1,6 @@
 package android.app.lotus.view.account
 
+import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ProfileViewModel
 import androidx.compose.foundation.clickable
 import io.realm.kotlin.mongodb.User
@@ -33,7 +34,7 @@ fun Profile(navController: NavHostController) {
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SettingsMenuComponent(profileViewModel)
+        SettingsMenuComponent(navController, profileViewModel)
         ProfileDescriptionComponent(user!!)
     }
 }
@@ -51,12 +52,12 @@ private fun ProfileDescriptionComponent(user: User) {
 }
 
 @Composable
-private fun SettingsMenuComponent(profileViewModel: ProfileViewModel) {
+private fun SettingsMenuComponent(navController: NavHostController, profileViewModel: ProfileViewModel) {
     Column(
         modifier = Modifier.padding(top = 75.dp)
     ) {
         SettingsItem("Edit Profile", Icons.Rounded.Edit) { /*TO DO*/ }
-        SettingsItem("Advice & Support", Icons.Rounded.Support) { /*TO DO*/ }
+        SettingsItem("Advice & Support", Icons.Rounded.Support) { navController.navigate(Routes.support) }
         SettingsItem("Log Out", Icons.Rounded.ExitToApp) { profileViewModel.logOut() }
         SettingsItem("Theme", Icons.Rounded.Brush) { /*TO DO*/ }
     }

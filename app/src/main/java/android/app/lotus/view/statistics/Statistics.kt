@@ -42,16 +42,16 @@ fun Statistics(navController: NavHostController) {
         }
 
         Column (
-            modifier = Modifier.padding(bottom = 150.dp),
+            modifier = Modifier.padding(bottom = 100.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             NavButton(
-                text = "Manager evaluation form",
+                text = "Manager evaluation",
                 navController = navController,
                 route = Routes.evaluation
             )
             NavButton(
-                text = "Employee evaluation form",
+                text = "Employee evaluation",
                 navController = navController,
                 route = Routes.evaluation
             )

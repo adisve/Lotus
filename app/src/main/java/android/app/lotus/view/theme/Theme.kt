@@ -1,6 +1,12 @@
 package android.app.lotus.ui.theme
 
 import android.app.Activity
+import android.app.lotus.view.theme.BackgroundDark
+import android.app.lotus.view.theme.BackgroundLight
+import android.app.lotus.view.theme.OnPrimary
+import android.app.lotus.view.theme.Primary
+import android.app.lotus.view.theme.Surface
+import android.app.lotus.view.theme.Typography
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -16,32 +22,23 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Primary,
+    onPrimary = OnPrimary,
+    background = BackgroundDark,
+    surface = Surface,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Primary,
+    onPrimary = OnPrimary,
+    background = BackgroundLight,
+    surface = Surface
 )
 
 @Composable
 fun LotusTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

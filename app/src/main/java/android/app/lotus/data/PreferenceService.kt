@@ -4,6 +4,10 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
 
+object PrefKey {
+    const val isDarkTheme = "isDarkTheme"
+}
+
 @Singleton
 class PreferenceService @Inject constructor(private val sharedPreferences: SharedPreferences) {
 

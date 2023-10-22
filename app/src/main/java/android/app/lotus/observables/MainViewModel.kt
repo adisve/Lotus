@@ -2,26 +2,35 @@ package android.app.lotus.observables
 
 import android.app.lotus.app
 import android.app.lotus.data.AuthStatus
+import android.app.lotus.data.PrefKey
+import android.app.lotus.data.PreferenceService
 import android.app.lotus.data.UserService
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
-    private val userService: UserService,
+class MainViewModel @Inject constructor(
+    private val preferenceService: PreferenceService,
+    private val userService: UserService
 ) : ViewModel() {
 
     val authStatus: StateFlow<AuthStatus> = userService.authStatus
+    private val _isDarkTheme = MutableLiveData<Boolean>()
+    val isDarkTheme: LiveData<Boolean> get() = _isDarkTheme
     val email = MutableLiveData("")
     val password = MutableLiveData("")
+
+    init {
+        _isDarkTheme.value = preferenceService.getPreference(PrefKey.isDarkTheme, false)
+    }
 
     fun createAccount() {
         viewModelScope.launch {
@@ -50,6 +59,11 @@ class AuthViewModel @Inject constructor(
 
     fun updatePassword(newPassword: String) {
         password.value = newPassword
+    }
+
+    fun updateTheme(isDarkTheme: Boolean) {
+        _isDarkTheme.value = isDarkTheme
+        preferenceService.setPreference(PrefKey.isDarkTheme, isDarkTheme)
     }
 }
 

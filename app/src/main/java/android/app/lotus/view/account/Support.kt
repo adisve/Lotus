@@ -24,7 +24,7 @@ import androidx.navigation.NavHostController
 
 
 @Composable
-fun SupportView(navController: NavHostController){
+fun Support(navController: NavHostController){
     val viewModel: SupportViewModel = hiltViewModel()
     Column(
         modifier = Modifier
@@ -32,7 +32,7 @@ fun SupportView(navController: NavHostController){
             .padding(horizontal = 16.dp)
             .padding(vertical = 70.dp),
     ){
-        Text("MESSAGE:", modifier = Modifier.padding(bottom = 16.dp))
+        Text("Message:", modifier = Modifier.padding(bottom = 16.dp))
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -48,7 +48,7 @@ fun SupportView(navController: NavHostController){
                 textStyle = TextStyle.Default.copy(fontSize = 18.sp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "${viewModel.message}")
+                Text(text = viewModel.message)
             }
         }
         Box(

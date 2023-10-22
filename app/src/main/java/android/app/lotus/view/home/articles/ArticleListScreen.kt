@@ -35,7 +35,6 @@ fun Articles(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
             .padding(top = 70.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center

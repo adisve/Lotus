@@ -100,7 +100,7 @@ fun ArticleComponent(navController: NavHostController, article: article) {
                     navController.navigate(Routes.articles)
                 },
                 shape = RoundedCornerShape(25.dp),
-                colors = ButtonDefaults.buttonColors(Color(148, 0, 124)),
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
                 modifier = Modifier
                     .height(65.dp)
                     .width(180.dp)

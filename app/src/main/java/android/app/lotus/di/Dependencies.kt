@@ -1,8 +1,10 @@
 package android.app.lotus.di
 
+import android.app.lotus.data.DataService
 import android.app.lotus.data.UserService
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +20,20 @@ object UserServiceModule {
     @Singleton
     fun provideUserService(): UserService {
         return UserService()
+    }
+}
+
+@InstallIn(SingletonComponent::class)
+@Module
+object DataServiceModule {
+
+    @Provides
+    @Singleton
+    fun provideDataService(): DataService {
+        return DataService { _, _ ->
+            // Sync errors come from a background thread so route the Toast through the UI thread
+            Log.e("Sync error", "Error")
+        }
     }
 }
 

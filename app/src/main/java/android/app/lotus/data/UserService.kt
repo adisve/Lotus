@@ -29,7 +29,7 @@ class UserService @Inject constructor() {
                 val newUser = fetchUser()
                 updateCurrentUser(newUser)
                 _authStatus.value = if (newUser != null) AuthStatus.Success else AuthStatus.Unauthorized
-                delay(2000) // To allow loading animation to be seen
+                delay(5000)
             }
         }
     }

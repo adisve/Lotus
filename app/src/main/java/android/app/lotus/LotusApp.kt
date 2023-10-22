@@ -1,4 +1,5 @@
 package android.app.lotus
+
 import android.app.Application
 import android.util.Log
 import dagger.hilt.android.HiltAndroidApp
@@ -10,8 +11,9 @@ lateinit var app: App
 inline fun <reified T> T.tag(): String = T::class.java.simpleName
 
 @HiltAndroidApp
-class LotusApp: Application() {
+class LotusApp : Application() {
     override fun onCreate() {
+        
         super.onCreate()
         app = App.create(
             AppConfiguration.Builder(getString(R.string.realm_app_id))

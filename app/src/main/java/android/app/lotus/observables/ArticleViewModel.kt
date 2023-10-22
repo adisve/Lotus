@@ -62,4 +62,8 @@ class ArticleViewModel @Inject constructor(
                 }
         }
     }
+
+    fun getArticleCategories(): List<String> {
+        return articleListState.map { it.title }.distinct()
+    }
 }

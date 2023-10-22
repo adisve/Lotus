@@ -1,8 +1,7 @@
 package android.app.lotus.di
 
-import android.app.lotus.data.UserService
-import android.app.lotus.data.AuthService
 import android.app.lotus.data.DataService
+import android.app.lotus.data.UserService
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log

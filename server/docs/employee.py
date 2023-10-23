@@ -7,23 +7,23 @@ articles_ = [
         title="BAKGRUND",
         role=RoleEnum.EMPLOYEE,
         content="""
-## Alkohol och narkotika finns på arbetet
+## **Alkohol och narkotika finns på arbetet**
 
 Det finns beräkningar som säger att 10–15 procent av männen och 3–5 procent av kvinnorna på en arbetsplats missbrukar alkohol, narkotika eller läkemedel i någon form. Det är viktigt att inte blunda för alkohol- och drogrelaterade problem på våra arbetsplatser. Utbildning och verksamhetsstruktur är grunden för ett effektivt handlingsprogram mot beroendeframkallande preparat, som alkohol, narkotika och tabletter.
 
 Mönstren liknar varandra i de flesta typer av beroende men eftersom alkohol, i motsats till narkotika, är lagligt och lättillgängligt är problem med alkohol mer utbrett. Därför fördjupar vi oss mer i alkoholrelaterade exempel i denna utbildning.
 
-## Vem drabbas?
+## **Vem drabbas?**
 
 När det gäller alkohol är gränserna mellan att dricka normalt och att falla igenom små. Det kan handla om oförsiktighet, okunskap, vana eller tradition. Om semester, stress, ångest, levnadskris, umgängesvanor eller representation. De flesta människor klarar att dricka alkohol utan att få problem och utan att hälsan på sikt påverkas negativt i nämnvärd grad. Andra hamnar på en konsumtionsnivå som kan betraktas som riskabel eller rentav som ett missbruk.
 
 Det är inte bara uttalade "missbrukare" som skadas av alkohol. De flesta som drabbas av alkoholrelaterade sjukdomar anses vara skötsamma och i de flesta fall har de jobb.
 
-## Stora kostnader för samhället och företagen
+## **Stora kostnader för samhället och företagen**
 
 Totalt kostar alkoholmissbrukets följder det svenska samhället omkring 150 miljarder varje år. Missbruket leder till minskad effektivitet, ökad frånvaro och psykisk och fysisk ohälsa bland alla anställda. Beräkningar visar att missbruket kostar företagen minst 2,5 procent av lönesumman. Det betyder att en organisation med 500 anställda har en kostnad för missbruk på cirka 4 miljoner kronor per år. Det handlar bland annat om kostnader för vikarier, övertids- eller mertidsersättning för övriga anställda och rehabiliteringskostnader.
 
-## Samarbete och respekt
+## **Samarbete och respekt**
 
 Arbetsgivarens och arbetskamraternas attityd är viktig för att komma tillrätta med eventuella missbruksproblem. Det bör klart framgå i organisationens handlingsprogram att arbetsplatsen ska vara alkohol- och drogfri. Handlingsprogrammet ska arbetas fram gemensamt, av arbetsgivare och fack och diskuteras på möten med alla anställda, så att frågorna växer in i organisationen. Annars bryr sig ingen om dem.
 
@@ -34,7 +34,7 @@ När det gäller att få bort ett missbruksproblem på jobbet är det viktigt at
         title="FÖREBYGG OCH SKAPA POLICY",
         role=RoleEnum.EMPLOYEE,
         content="""
-        ## Det är arbetsgivarens ansvar att förebygga
+## **Det är arbetsgivarens ansvar att förebygga**
 
 Arbetsgivaren ansvarar för att arbetsplatsen har en alkohol- och drogpolicy, och en handlingsplan för frågorna. Lagstiftningen har stor betydelse när det gäller att skapa goda arbetsmiljöer. Arbetsmiljölagen och Lagen om anställningsskydd ger bra grund. Det är alltså arbetsgivaren som har huvudansvaret för att motverka drogmissbruk på arbetsplatsen. Det finns goda skäl för det; utöver ansvaret för arbetsmiljöfrågorna medför missbruket stora kostnader för arbetsgivaren och resulterar i medarbetare som vantrivs och mår dåligt.
 
@@ -42,7 +42,7 @@ Missbruksfrågor på jobbet är en del av den psykosociala arbetsmiljön och omf
 
 Lagtexten säger också att arbetsgivaren ska "klargöra vilka interna regler och rutiner som gäller om arbetstagare uppträder påverkad av alkohol eller andra berusningsmedel i arbetet” och att den anställde har rätt att veta vad som gäller och vad som sker om han eller hon är drogpåverkad på jobbet.
 
-## En policy förebygger problem
+## **En policy förebygger problem**
 
 Förr eller senare leder missbruk till problem, såväl sociala som personliga och medicinska. En anställd som missbrukar är en säkerhetsrisk för sina arbetskamrater, för kunder/klienter och inte minst för sig själv. Vad kan du som chef göra åt problemet? Vill du arbeta förebyggande bör du först se till att skapa en drogpolicy för arbetsplatsen/verksamheten. Den ska vara tydlig, väl förankrad och innehålla organisationens gemensamma förhållningssätt till droger i samband med arbete.
 
@@ -53,7 +53,7 @@ Policyn kan betraktas som en beredskapsplan och måste vara kopplad till en hand
         title="UTBILDNING",
         role=RoleEnum.EMPLOYEE,
         content="""
-        ## Därför behövs kunskap
+## **Därför behövs kunskap**
 
 Utbildning är ett av de viktigaste instrumenten för att hålla policyn vid liv. Den ska vara riktad till all personal, skapa en medvetenhet och tydliggöra vad arbetsplatsen har för krav och mål med den antagna policyn.
 
@@ -63,7 +63,7 @@ Brist på kunskap och tydliga riktlinjer innebär att en chef eller arbetsledare
 
 Som chef kan du alltid erbjuda ditt stöd, visa att du bryr dig. Förklara att du har uppmärksammat problemet, lyssna och ställ krav på förändring. Vissa människor vill inte ha hjälp, de vill klara sig själva. Andra skulle gärna vilja ha hjälp, men vågar inte ta emot eller be om den.
 
-## Vad ger utbildningen och vad händer sedan?
+## **Vad ger utbildningen och vad händer sedan?**
 
 När du som chef fått en utbildning som hjälper dig att hantera missbruksproblemen, klarar du all slags konflikthantering efteråt. Missbruk är bara en av många orsaker till problem på en arbetsplats. Om situationen inte fungerar behövs förändring.
 
@@ -74,7 +74,7 @@ Arbetsgivaren kan hota med uppsägning. Missbrukaren behöver förstå att han e
         title="FAKTA OM SJUKDOMEN ALKOHOLISM",
         role=RoleEnum.EMPLOYEE,
         content="""
-## Vad är det?
+## **Vad är det?**
 
 En alkoholist är en person som upprepade gånger hamnar i plågsamma livssituationer genom sitt drickande och ändå fortsätter att dricka alkohol.
 
@@ -94,7 +94,7 @@ Sjukdomen alkoholism är ett kroniskt beroendetillstånd, som kan drabba vem som
 
 **Behandlingsbar** - Under förutsättning att den alkoholberoende får hjälp med att ta avstånd och skiljas från alkoholen.
 
-## Hur känner man igen problemen?
+## **Hur känner man igen problemen?**
 
 En alkoholberoende person ser inte ut på något särskilt sätt, men beter sig annorlunda. Personen hamnar gång på gång i plågsamma livssituationer på grund av sitt drickande men fortsätter ändå att dricka alkohol. Alkoholen är det viktigaste!
 
@@ -102,7 +102,7 @@ Alkoholism utvecklas under lång tid. Familjen brukar upptäcka problemen efter 
 
 För arbetsgivaren ska målsättningen vara att ingripa så tidigt som möjligt i beroendeutvecklingen. Har du en misstanke? Leta efter beteendemönster som tyder på begynnande alkoholism.
 
-## Var uppmärksam på
+## **Var uppmärksam på**
 
 **Yttre och fysiska signaler/tecken**
 
@@ -132,13 +132,13 @@ För arbetsgivaren ska målsättningen vara att ingripa så tidigt som möjligt 
 * Sjukfrånvaro, särskilt korttidsfrånvaro vid löning och vid helger.
 * Begäran om enstaka semesterdagar, eller annan ledighet, med kort varsel.
 
-**Och dessutom …
+**Och dessutom …**
 
 * Nekar till att ha druckit eller bagatelliserar sitt drickande.  
 
 * Gömmer flaskor på olika ställen för att alltid ha tillgång till alkohol.
 
-## Tillägg, missbruk av narkotika och läkemedel
+## **Tillägg, missbruk av narkotika och läkemedel**
 
 Signalerna och problemen som missbruk av narkotika/läkemedel medför är i mångt och mycket desamma som vid alkohol. En avgörande skillnad är signalen lukt – alkohol luktar och blir på så sätt ett tecken som utsöndras genom porerna.
 
@@ -153,7 +153,7 @@ Signalerna och problemen som missbruk av narkotika/läkemedel medför är i mån
         title="INGRIPANDET",
         role=RoleEnum.EMPLOYEE,
         content="""
-        ## Hur och när ska det ske?
+## **Hur och när ska det ske?**
 
 När användningen av alkohol eller droger börjar försämra en anställds arbetsfunktion ska du ingripa. Det är viktigt att konfrontationen baseras på konkreta saker som försämrad och/eller oacceptabel arbetsprestation och/eller uppförande. Själva nyckeln till en lyckad konfrontation är att hålla sig till fakta – sådant som påverkar själva arbetsprestationen. Det kan vara svårt, men är helt nödvändigt, att lämna känslomässiga argument utanför.
 
@@ -173,7 +173,7 @@ Vid misstanke om påverkan av droger där man har skäl att tro att det inte rö
 
 Vid olycksfall/tillbud med fordon ska du alltid se till att provtagning utförs, om inte orsaken är uppenbar. Provtagningen ska utföras så snart som möjligt efter händelsen. Företagshälsovården ger dig och den berörde medarbetaren besked om resultatet.
 
-## Med chefsrollen kommer ansvar
+## **Med chefsrollen kommer ansvar**
 
 **Vad du än gör – agera!**
 
@@ -181,7 +181,7 @@ Oavsett om din insats uppskattas just då, kan du rädda den anställdes arbete,
 
 Gör löpande observationer av förändringar i arbets- och beteendemönster. Det är viktigt att dokumentera oacceptabelt beteende, ökad frånvaro och försämrad arbetsprestation. Använd dokumentationen som grund för ditt samtal med den anställde.
 
-## Så lägger du upp samtalet – steg för steg
+## **Så lägger du upp samtalet – steg för steg**
 
 **Förberedelser**
 
@@ -231,7 +231,7 @@ Bestäm tid för ett nytt samtal, helst inom en månad.
 
 Dokumentera samtalet utifrån de anteckningar som gjorts, och låt den anställde läsa och godkänna dessa.
 
-## Fler råd och rekommendationer
+## **Fler råd och rekommendationer**
 
 Vid sådana här samtal är det är sällsynt att en anställd med missbruksproblem erkänner att alkohol eller andra droger är inblandade. Om det inte finns starka bevis för att alkohol/droger är inblandade, får du inte förbise möjligheten att det kan finnas andra orsaker till den försämrade arbetsprestationen.
 
@@ -264,7 +264,7 @@ Målet med samtalet är att få den anställde att förstå och erkänna problem
         title="TILLFRISKNANDET",
         role=RoleEnum.EMPLOYEE,
         content="""
-    ## Tillbaka till jobbet
+## **Tillbaka till jobbet**
 
 Tillfrisknandet från alkohol- och drogberoende är en lång process. Många års missbruk har lett till onormala fysiska, psykiska, känslomässiga och själsliga tillstånd, som till slut upplevs som normala för den beroende. Det destruktiva beteendet har etablerats som vanor och vi vet alla hur svårt det är att förändra ingrodda vanemönster.
 
@@ -291,7 +291,7 @@ Försök att börja med att sätta dig in i den anställdes situation. Han/hon h
         title="TILL SIST",
         role=RoleEnum.EMPLOYEE,
         content="""
-    Tack för att du valt att genomföra vår interaktiva och förebyggande utbildning om drog- och alkoholberoende på arbetsplatsen!
+Tack för att du valt att genomföra vår interaktiva och förebyggande utbildning om drog- och alkoholberoende på arbetsplatsen!
 
 Vi finns här för dig och dina kollegor
 
@@ -302,23 +302,23 @@ I avtalet mellan Lotusmodellen och ert företag ingår att vi efter genomförd u
         title="BAKGRUND",
         role=RoleEnum.MANAGER,
         content="""
-## Alkohol och narkotika finns på arbetet
+## **Alkohol och narkotika finns på arbetet**
 
 Det finns beräkningar som säger att 10–15 procent av männen och 3–5 procent av kvinnorna på en arbetsplats missbrukar alkohol, narkotika eller läkemedel i någon form. Det är viktigt att inte blunda för alkohol- och drogrelaterade problem på våra arbetsplatser. Utbildning och verksamhetsstruktur är grunden för ett effektivt handlingsprogram mot beroendeframkallande preparat, som alkohol, narkotika och tabletter.
 
 Mönstren liknar varandra i de flesta typer av beroende men eftersom alkohol, i motsats till narkotika, är lagligt och lättillgängligt är problem med alkohol mer utbrett. Därför fördjupar vi oss mer i alkoholrelaterade exempel i denna utbildning.
 
-## Vem drabbas?
+## **Vem drabbas?**
 
 När det gäller alkohol är gränserna mellan att dricka normalt och att falla igenom små. Det kan handla om oförsiktighet, okunskap, vana eller tradition. Om semester, stress, ångest, levnadskris, umgängesvanor eller representation. De flesta människor klarar att dricka alkohol utan att få problem och utan att hälsan på sikt påverkas negativt i nämnvärd grad. Andra hamnar på en konsumtionsnivå som kan betraktas som riskabel eller rentav som ett missbruk.
 
 Det är inte bara uttalade "missbrukare" som skadas av alkohol. De flesta som drabbas av alkoholrelaterade sjukdomar anses vara skötsamma och i de flesta fall har de jobb.
 
-## Stora kostnader för samhället och företagen
+## **Stora kostnader för samhället och företagen**
 
 Totalt kostar alkoholmissbrukets följder det svenska samhället omkring 150 miljarder varje år. Missbruket leder till minskad effektivitet, ökad frånvaro och psykisk och fysisk ohälsa bland alla anställda. Beräkningar visar att missbruket kostar företagen minst 2,5 procent av lönesumman. Det betyder att en organisation med 500 anställda har en kostnad för missbruk på cirka 4 miljoner kronor per år. Det handlar bland annat om kostnader för vikarier, övertids- eller mertidsersättning för övriga anställda och rehabiliteringskostnader.
 
-## Samarbete och respekt
+## **Samarbete och respekt**
 
 Arbetsgivarens och arbetskamraternas attityd är viktig för att komma tillrätta med eventuella missbruksproblem. Det bör klart framgå i organisationens handlingsprogram att arbetsplatsen ska vara alkohol- och drogfri. Handlingsprogrammet ska arbetas fram gemensamt, av arbetsgivare och fack och diskuteras på möten med alla anställda, så att frågorna växer in i organisationen. Annars bryr sig ingen om dem.
 
@@ -329,7 +329,7 @@ När det gäller att få bort ett missbruksproblem på jobbet är det viktigt at
         title="FÖREBYGG OCH SKAPA POLICY",
         role=RoleEnum.MANAGER,
         content="""
-        ## Det är arbetsgivarens ansvar att förebygga
+## **Det är arbetsgivarens ansvar att förebygga**
 
 Arbetsgivaren ansvarar för att arbetsplatsen har en alkohol- och drogpolicy, och en handlingsplan för frågorna. Lagstiftningen har stor betydelse när det gäller att skapa goda arbetsmiljöer. Arbetsmiljölagen och Lagen om anställningsskydd ger bra grund. Det är alltså arbetsgivaren som har huvudansvaret för att motverka drogmissbruk på arbetsplatsen. Det finns goda skäl för det; utöver ansvaret för arbetsmiljöfrågorna medför missbruket stora kostnader för arbetsgivaren och resulterar i medarbetare som vantrivs och mår dåligt.
 
@@ -337,7 +337,7 @@ Missbruksfrågor på jobbet är en del av den psykosociala arbetsmiljön och omf
 
 Lagtexten säger också att arbetsgivaren ska "klargöra vilka interna regler och rutiner som gäller om arbetstagare uppträder påverkad av alkohol eller andra berusningsmedel i arbetet” och att den anställde har rätt att veta vad som gäller och vad som sker om han eller hon är drogpåverkad på jobbet.
 
-## En policy förebygger problem
+## **En policy förebygger problem**
 
 Förr eller senare leder missbruk till problem, såväl sociala som personliga och medicinska. En anställd som missbrukar är en säkerhetsrisk för sina arbetskamrater, för kunder/klienter och inte minst för sig själv. Vad kan du som chef göra åt problemet? Vill du arbeta förebyggande bör du först se till att skapa en drogpolicy för arbetsplatsen/verksamheten. Den ska vara tydlig, väl förankrad och innehålla organisationens gemensamma förhållningssätt till droger i samband med arbete.
 
@@ -348,7 +348,7 @@ Policyn kan betraktas som en beredskapsplan och måste vara kopplad till en hand
         title="UTBILDNING",
         role=RoleEnum.MANAGER,
         content="""
-        ## Därför behövs kunskap
+## **Därför behövs kunskap**
 
 Utbildning är ett av de viktigaste instrumenten för att hålla policyn vid liv. Den ska vara riktad till all personal, skapa en medvetenhet och tydliggöra vad arbetsplatsen har för krav och mål med den antagna policyn.
 
@@ -358,7 +358,7 @@ Brist på kunskap och tydliga riktlinjer innebär att en chef eller arbetsledare
 
 Som chef kan du alltid erbjuda ditt stöd, visa att du bryr dig. Förklara att du har uppmärksammat problemet, lyssna och ställ krav på förändring. Vissa människor vill inte ha hjälp, de vill klara sig själva. Andra skulle gärna vilja ha hjälp, men vågar inte ta emot eller be om den.
 
-## Vad ger utbildningen och vad händer sedan?
+## **Vad ger utbildningen och vad händer sedan?**
 
 När du som chef fått en utbildning som hjälper dig att hantera missbruksproblemen, klarar du all slags konflikthantering efteråt. Missbruk är bara en av många orsaker till problem på en arbetsplats. Om situationen inte fungerar behövs förändring.
 
@@ -369,7 +369,7 @@ Arbetsgivaren kan hota med uppsägning. Missbrukaren behöver förstå att han e
         title="FAKTA OM SJUKDOMEN ALKOHOLISM",
         role=RoleEnum.MANAGER,
         content="""
-## Vad är det?
+## **Vad är det?**
 
 En alkoholist är en person som upprepade gånger hamnar i plågsamma livssituationer genom sitt drickande och ändå fortsätter att dricka alkohol.
 
@@ -389,7 +389,7 @@ Sjukdomen alkoholism är ett kroniskt beroendetillstånd, som kan drabba vem som
 
 **Behandlingsbar** - Under förutsättning att den alkoholberoende får hjälp med att ta avstånd och skiljas från alkoholen.
 
-## Hur känner man igen problemen?
+## **Hur känner man igen problemen?**
 
 En alkoholberoende person ser inte ut på något särskilt sätt, men beter sig annorlunda. Personen hamnar gång på gång i plågsamma livssituationer på grund av sitt drickande men fortsätter ändå att dricka alkohol. Alkoholen är det viktigaste!
 
@@ -397,7 +397,7 @@ Alkoholism utvecklas under lång tid. Familjen brukar upptäcka problemen efter 
 
 För arbetsgivaren ska målsättningen vara att ingripa så tidigt som möjligt i beroendeutvecklingen. Har du en misstanke? Leta efter beteendemönster som tyder på begynnande alkoholism.
 
-## Var uppmärksam på
+## **Var uppmärksam på**
 
 **Yttre och fysiska signaler/tecken**
 
@@ -427,13 +427,13 @@ För arbetsgivaren ska målsättningen vara att ingripa så tidigt som möjligt 
 * Sjukfrånvaro, särskilt korttidsfrånvaro vid löning och vid helger.
 * Begäran om enstaka semesterdagar, eller annan ledighet, med kort varsel.
 
-**Och dessutom …
+**Och dessutom …**
 
 * Nekar till att ha druckit eller bagatelliserar sitt drickande.  
 
 * Gömmer flaskor på olika ställen för att alltid ha tillgång till alkohol.
 
-## Tillägg, missbruk av narkotika och läkemedel
+## **Tillägg, missbruk av narkotika och läkemedel**
 
 Signalerna och problemen som missbruk av narkotika/läkemedel medför är i mångt och mycket desamma som vid alkohol. En avgörande skillnad är signalen lukt – alkohol luktar och blir på så sätt ett tecken som utsöndras genom porerna.
 
@@ -448,7 +448,7 @@ Signalerna och problemen som missbruk av narkotika/läkemedel medför är i mån
         title="INGRIPANDET",
         role=RoleEnum.MANAGER,
         content="""
-        ## Hur och när ska det ske?
+## **Hur och när ska det ske?**
 
 När användningen av alkohol eller droger börjar försämra en anställds arbetsfunktion ska du ingripa. Det är viktigt att konfrontationen baseras på konkreta saker som försämrad och/eller oacceptabel arbetsprestation och/eller uppförande. Själva nyckeln till en lyckad konfrontation är att hålla sig till fakta – sådant som påverkar själva arbetsprestationen. Det kan vara svårt, men är helt nödvändigt, att lämna känslomässiga argument utanför.
 
@@ -468,7 +468,7 @@ Vid misstanke om påverkan av droger där man har skäl att tro att det inte rö
 
 Vid olycksfall/tillbud med fordon ska du alltid se till att provtagning utförs, om inte orsaken är uppenbar. Provtagningen ska utföras så snart som möjligt efter händelsen. Företagshälsovården ger dig och den berörde medarbetaren besked om resultatet.
 
-## Med chefsrollen kommer ansvar
+## **Med chefsrollen kommer ansvar**
 
 **Vad du än gör – agera!**
 
@@ -476,7 +476,7 @@ Oavsett om din insats uppskattas just då, kan du rädda den anställdes arbete,
 
 Gör löpande observationer av förändringar i arbets- och beteendemönster. Det är viktigt att dokumentera oacceptabelt beteende, ökad frånvaro och försämrad arbetsprestation. Använd dokumentationen som grund för ditt samtal med den anställde.
 
-## Så lägger du upp samtalet – steg för steg
+## **Så lägger du upp samtalet – steg för steg**
 
 **Förberedelser**
 
@@ -526,7 +526,7 @@ Bestäm tid för ett nytt samtal, helst inom en månad.
 
 Dokumentera samtalet utifrån de anteckningar som gjorts, och låt den anställde läsa och godkänna dessa.
 
-## Fler råd och rekommendationer
+## **Fler råd och rekommendationer**
 
 Vid sådana här samtal är det är sällsynt att en anställd med missbruksproblem erkänner att alkohol eller andra droger är inblandade. Om det inte finns starka bevis för att alkohol/droger är inblandade, får du inte förbise möjligheten att det kan finnas andra orsaker till den försämrade arbetsprestationen.
 
@@ -559,7 +559,7 @@ Målet med samtalet är att få den anställde att förstå och erkänna problem
         title="TILLFRISKNANDET",
         role=RoleEnum.MANAGER,
         content="""
-    ## Tillbaka till jobbet
+## **Tillbaka till jobbet**
 
 Tillfrisknandet från alkohol- och drogberoende är en lång process. Många års missbruk har lett till onormala fysiska, psykiska, känslomässiga och själsliga tillstånd, som till slut upplevs som normala för den beroende. Det destruktiva beteendet har etablerats som vanor och vi vet alla hur svårt det är att förändra ingrodda vanemönster.
 
@@ -586,7 +586,7 @@ Försök att börja med att sätta dig in i den anställdes situation. Han/hon h
         title="TILL SIST",
         role=RoleEnum.MANAGER,
         content="""
-    Tack för att du valt att genomföra vår interaktiva och förebyggande utbildning om drog- och alkoholberoende på arbetsplatsen!
+Tack för att du valt att genomföra vår interaktiva och förebyggande utbildning om drog- och alkoholberoende på arbetsplatsen!
 
 Vi finns här för dig och dina kollegor
 

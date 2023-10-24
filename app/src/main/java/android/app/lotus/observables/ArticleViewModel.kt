@@ -1,7 +1,7 @@
 package android.app.lotus.observables
 
-import android.app.lotus.data.DataService
-import android.app.lotus.domain.models.article
+import android.app.lotus.data.services.DataService
+import android.app.lotus.domain.models.realm.article
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

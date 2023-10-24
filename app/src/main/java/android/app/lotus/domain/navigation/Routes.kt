@@ -16,4 +16,5 @@ object Routes {
     const val videoDetail = "videoDetail/{videoId}"
     const val evaluation = "evaluation"
     const val support = "support"
+    const val createUserAccount = "createUserAccount"
 }

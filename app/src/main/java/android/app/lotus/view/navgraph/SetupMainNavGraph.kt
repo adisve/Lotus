@@ -1,6 +1,9 @@
 package android.app.lotus.view.navgraph
 
+import android.app.lotus.view.account.hr.CreateAccount
 import android.app.lotus.domain.navigation.Routes
+import android.app.lotus.observables.HomeViewModel
+import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.view.account.Profile
 import android.app.lotus.view.account.Support
 import android.app.lotus.view.home.Home
@@ -17,10 +20,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 @Composable
-fun SetupMainNavGraph(navController: NavHostController) {
+fun SetupMainNavGraph(
+    navController: NavHostController,
+    profileViewModel: ProfileViewModel,
+    homeViewModel: HomeViewModel,
+    ) {
     NavHost(navController = navController, startDestination = Routes.home) {
-        home(navController)
-        profile(navController)
+        home(navController, homeViewModel)
+        profile(navController, profileViewModel)
+        createUserAccount(profileViewModel)
         support(navController)
         stats(navController)
         articles(navController)
@@ -31,9 +39,15 @@ fun SetupMainNavGraph(navController: NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.home(navController: NavHostController) {
+private fun NavGraphBuilder.createUserAccount(profileViewModel: ProfileViewModel) {
+    composable(Routes.createUserAccount) {
+        CreateAccount(profileViewModel = profileViewModel)
+    }
+}
+
+private fun NavGraphBuilder.home(navController: NavHostController, homeViewModel: HomeViewModel) {
     composable(Routes.home) {
-        Home(navController)
+        Home(navController, homeViewModel)
     }
 }
 
@@ -43,15 +57,15 @@ private fun NavGraphBuilder.stats(navController: NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.profile(navController: NavHostController) {
+private fun NavGraphBuilder.profile(navController: NavHostController, profileViewModel: ProfileViewModel) {
     composable(Routes.profile) {
-        Profile(navController = navController)
+        Profile(navController, profileViewModel)
     }
 }
 
 private fun NavGraphBuilder.support(navController: NavHostController) {
     composable(Routes.support) {
-        Support(navController = navController)
+        Support(navController)
     }
 }
 

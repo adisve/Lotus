@@ -1,4 +1,4 @@
-package android.app.lotus.data
+package android.app.lotus.data.services
 
 import android.content.SharedPreferences
 import javax.inject.Inject

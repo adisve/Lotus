@@ -1,0 +1,154 @@
+package android.app.lotus.view.account.hr
+
+import android.app.lotus.data.statemodels.toMap
+import android.app.lotus.observables.ProfileViewModel
+import android.app.lotus.observables.UserRole
+import android.app.lotus.view.buttons.ActionButton
+import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
+@Composable
+fun CreateAccount(profileViewModel: ProfileViewModel) {
+
+    val userInputState by profileViewModel.userInputState.collectAsState()
+
+    val selectedRole = userInputState.selectedRole
+    val username = userInputState.username
+    val email = userInputState.email
+    val password = userInputState.password
+    val phoneNumber = userInputState.phoneNumber
+    val company = userInputState.company
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+    var expanded by remember { mutableStateOf(false) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .padding(top = 150.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = { expanded = !expanded }
+            ) {
+                TextField(
+                    value = "Role: ${selectedRole.displayName}",
+                    onValueChange = {},
+                    readOnly = true,
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                    modifier = Modifier.menuAnchor()
+                )
+
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.background(MaterialTheme.colorScheme.primary)
+                ) {
+                    UserRole.values().forEach { role ->
+                        DropdownMenuItem(
+                            text = { Text(text = role.displayName, color = MaterialTheme.colorScheme.onPrimary) },
+                            onClick = {
+                                profileViewModel.updateRole(role)
+                                expanded = false
+                            }
+                        )
+                    }
+                }
+            }
+
+            CustomOutlinedTextField(
+                value = username,
+                onValueChange = { profileViewModel.updateUsername(it) },
+                label = "Username"
+            )
+
+            CustomOutlinedTextField(
+                value = email,
+                onValueChange = { profileViewModel.updateEmail(it) },
+                label = "Email"
+            )
+
+            CustomOutlinedTextField(
+                value = password,
+                onValueChange = { profileViewModel.updatePassword(it) },
+                label = "Password",
+                isPassword = true,
+                onDoneAction = { keyboardController?.hide() }
+            )
+
+            CustomOutlinedTextField(
+                value = company,
+                onValueChange = { profileViewModel.updatePhone(it) },
+                label = "Company"
+            )
+
+            CustomOutlinedTextField(
+                value = phoneNumber,
+                onValueChange = { profileViewModel.updatePhone(it) },
+                label = "Phone Number (Optional)"
+            )
+
+            Spacer(modifier = Modifier.padding(top = 25.dp))
+
+            Box(modifier = Modifier.padding(horizontal = 25.dp)) {
+                ActionButton(text = "Create account", onClick = {
+                    val userFieldsMap = userInputState.toMap()
+                    profileViewModel.registerNewUser(userFieldsMap)
+                })
+            }
+        }
+    }
+}
+
+@Composable
+private fun CustomOutlinedTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    isPassword: Boolean = false,
+    onDoneAction: (() -> Unit)? = null
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(label, fontSize = 18.sp) },
+        singleLine = true,
+        visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+        keyboardOptions = if (isPassword) KeyboardOptions.Default.copy(imeAction = ImeAction.Done) else KeyboardOptions.Default,
+        keyboardActions = if (isPassword) KeyboardActions(
+            onDone = { onDoneAction?.invoke() }
+        ) else KeyboardActions.Default
+    )
+}

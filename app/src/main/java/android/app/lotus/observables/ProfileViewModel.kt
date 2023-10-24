@@ -1,30 +1,45 @@
 package android.app.lotus.observables
 
-import android.app.lotus.data.PrefKey
-import android.app.lotus.data.PreferenceService
-import android.app.lotus.data.UserService
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.app.lotus.app
+import android.app.lotus.data.services.DataService
+import android.app.lotus.data.services.UserService
+import android.app.lotus.data.statemodels.UserInputState
+import android.app.lotus.domain.models.constants.UserFields
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.realm.kotlin.mongodb.User
+import io.realm.kotlin.mongodb.ext.call
+import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.mongodb.kbson.BsonDocument
+import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
+
+enum class UserRole(val displayName: String) {
+    EMPLOYEE("Employee"),
+    MANAGER("Manager"),
+    HR("HR")
+}
+
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val userService: UserService,
+    private val dataService: DataService
 ) : ViewModel() {
 
-
+    private val _userInputState = MutableStateFlow(UserInputState())
+    val userInputState: StateFlow<UserInputState> get() = _userInputState
     private val _user = MutableStateFlow<User?>(null)
-    val user: StateFlow<User?> get() = _user
+    private val user: StateFlow<User?> get() = _user
 
     init {
         initializeUserListener()
+        Log.d("ProfileViewModel", "User custom data is = ${app.currentUser?.customDataAsBsonDocument()}")
     }
 
     private fun initializeUserListener() {
@@ -39,6 +54,58 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             userService.logOut()
         }
+    }
+
+    fun registerNewUser(userFields: Map<String, Any>) {
+        val userFieldsWithId = userFields + mapOf(UserFields.id to ObjectId().toHexString())
+        viewModelScope.launch {
+            Log.d("ProfileViewModel", "$userFieldsWithId")
+            val email = userFieldsWithId["email"] as String
+            val password = userFieldsWithId["password"] as String
+            userService.createAccount(email, password)
+            dataService.upsertUser(email, userFieldsWithId)
+        }
+    }
+
+    private fun initUser(fieldsToUpdate: Map<String, Any>) {
+        viewModelScope.launch {
+            user.value?.let { currentUser ->
+                val allowedFields = setOf(UserFields.role, UserFields.username, UserFields.phone, UserFields.company, UserFields.email)
+                val filteredFields = fieldsToUpdate.filterKeys { it in allowedFields }
+                Log.d("ProfileViewModel", "$filteredFields")
+                currentUser.functions
+                    .call<BsonDocument>(
+                        "writeCustomUserData",
+                        filteredFields
+                    )
+                user.value?.refreshCustomData()
+                Log.d("ProfileViewModel", "${user.value?.customDataAsBsonDocument()}")
+            }
+        }
+    }
+
+    fun updateRole(newRole: UserRole) {
+        _userInputState.value = _userInputState.value.copy(selectedRole = newRole)
+    }
+
+    fun updateUsername(newUsername: String) {
+        _userInputState.value = _userInputState.value.copy(username = newUsername)
+    }
+
+    fun updatePassword(newPassword: String) {
+        _userInputState.value = _userInputState.value.copy(password = newPassword)
+    }
+
+    fun updatePhone(newPhone: String) {
+        _userInputState.value = _userInputState.value.copy(phoneNumber = newPhone)
+    }
+
+    fun updateEmail(newEmail: String) {
+        _userInputState.value = _userInputState.value.copy(email = newEmail)
+    }
+
+    fun updateCompany(newCompany: String) {
+        _userInputState.value = _userInputState.value.copy(company = newCompany)
     }
 
 }

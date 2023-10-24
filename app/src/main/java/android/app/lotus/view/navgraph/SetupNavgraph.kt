@@ -13,6 +13,7 @@ import android.app.lotus.view.home.videos.Video
 import android.app.lotus.view.home.videos.Videos
 import android.app.lotus.view.statistics.Statistics
 import android.app.lotus.view.statistics.evaluation.Evaluation
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -20,7 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 @Composable
-fun SetupMainNavGraph(
+fun SetupNavgraph(
     navController: NavHostController,
     profileViewModel: ProfileViewModel,
     homeViewModel: HomeViewModel,
@@ -57,7 +58,10 @@ private fun NavGraphBuilder.stats(navController: NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.profile(navController: NavHostController, profileViewModel: ProfileViewModel) {
+private fun NavGraphBuilder.profile(
+    navController: NavHostController,
+    profileViewModel: ProfileViewModel,
+) {
     composable(Routes.profile) {
         Profile(navController, profileViewModel)
     }

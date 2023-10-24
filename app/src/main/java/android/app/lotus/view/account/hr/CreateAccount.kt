@@ -1,41 +1,52 @@
 package android.app.lotus.view.account.hr
 
+import android.app.lotus.data.statemodels.isValid
 import android.app.lotus.data.statemodels.toMap
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.observables.UserRole
 import android.app.lotus.view.buttons.ActionButton
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Keyboard
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarData
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun CreateAccount(profileViewModel: ProfileViewModel) {
 
     val userInputState by profileViewModel.userInputState.collectAsState()
-
     val selectedRole = userInputState.selectedRole
     val username = userInputState.username
     val email = userInputState.email
@@ -43,6 +54,8 @@ fun CreateAccount(profileViewModel: ProfileViewModel) {
     val phoneNumber = userInputState.phoneNumber
     val company = userInputState.company
 
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
     val keyboardController = LocalSoftwareKeyboardController.current
     var expanded by remember { mutableStateOf(false) }
 
@@ -50,12 +63,11 @@ fun CreateAccount(profileViewModel: ProfileViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .padding(top = 150.dp)
+            .padding(top = 75.dp)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState()),
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -68,7 +80,8 @@ fun CreateAccount(profileViewModel: ProfileViewModel) {
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                    modifier = Modifier.menuAnchor()
+                    modifier = Modifier.menuAnchor(),
+                    textStyle = MaterialTheme.typography.bodySmall
                 )
 
                 ExposedDropdownMenu(
@@ -125,9 +138,36 @@ fun CreateAccount(profileViewModel: ProfileViewModel) {
             Box(modifier = Modifier.padding(horizontal = 25.dp)) {
                 ActionButton(text = "Create account", onClick = {
                     val userFieldsMap = userInputState.toMap()
-                    profileViewModel.registerNewUser(userFieldsMap)
+                    if (userInputState.isValid()) {
+                        profileViewModel.registerNewUser(userFieldsMap)
+                    } else {
+                        scope.launch {
+                            snackbarHostState.showSnackbar("All fields must be filled")
+                        }
+                    }
                 })
             }
+        }
+        SnackbarHost(
+            modifier = Modifier.align(Alignment.BottomStart).padding(bottom = 75.dp),
+            hostState = snackbarHostState
+        ) { snackbarData: SnackbarData ->
+            CustomSnackBar(
+                Icons.Rounded.Keyboard,
+                snackbarData.visuals.message,
+            )
+        }
+    }
+}
+
+@Composable
+fun CustomSnackBar(
+    icon: ImageVector,
+    message: String
+) {
+    Snackbar(containerColor = MaterialTheme.colorScheme.background) {
+        Row {
+            Text(message, color = MaterialTheme.colorScheme.onBackground)
         }
     }
 }
@@ -141,9 +181,16 @@ private fun CustomOutlinedTextField(
     onDoneAction: (() -> Unit)? = null
 ) {
     OutlinedTextField(
+        shape = RoundedCornerShape(15.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = MaterialTheme.colorScheme.primary,
+        ),
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label, fontSize = 18.sp) },
+        label = { Text(
+            label,
+            style = MaterialTheme.typography.bodySmall,
+        ) },
         singleLine = true,
         visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = if (isPassword) KeyboardOptions.Default.copy(imeAction = ImeAction.Done) else KeyboardOptions.Default,

@@ -23,3 +23,11 @@ fun UserInputState.toMap(): Map<String, Any> {
         UserFields.company to company
     )
 }
+
+fun UserInputState.isValid(): Boolean {
+    return this.username.isNotEmpty() &&
+            this.password.isNotEmpty() &&
+            this.phoneNumber.isNotEmpty() &&
+            this.email.isNotEmpty() &&
+            this.company.isNotEmpty()
+}

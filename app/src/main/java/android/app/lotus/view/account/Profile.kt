@@ -14,11 +14,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
-import androidx.hilt.navigation.compose.hiltViewModel
 import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 
 @Composable
-fun Profile(navController: NavHostController, profileViewModel: ProfileViewModel) {
+fun Profile(
+    navController: NavHostController,
+    profileViewModel: ProfileViewModel,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,

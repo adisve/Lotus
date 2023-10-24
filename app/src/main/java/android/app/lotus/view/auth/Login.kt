@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 @Composable
-fun Login(navController: NavHostController, mainViewModel: MainViewModel) {
+fun Login(mainViewModel: MainViewModel) {
     Box (
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
@@ -66,7 +66,7 @@ fun Login(navController: NavHostController, mainViewModel: MainViewModel) {
                     .fillMaxWidth()
                     .padding(bottom = 50.dp)
             ) {
-                LogInForm(mainViewModel, navController)
+                LogInForm(mainViewModel)
             }
 
         }
@@ -74,7 +74,7 @@ fun Login(navController: NavHostController, mainViewModel: MainViewModel) {
 }
 
 @Composable
-fun LogInForm(mainViewModel: MainViewModel, navController: NavHostController) {
+fun LogInForm(mainViewModel: MainViewModel) {
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center,
@@ -105,9 +105,6 @@ fun LogInForm(mainViewModel: MainViewModel, navController: NavHostController) {
             ActionButton (text = "Login") {
                 mainViewModel.login()
             }
-            ActionButton(text = "Register") {
-                navController.navigate(Routes.register)
-            }
         }
 
     }
@@ -130,7 +127,7 @@ fun InputField(
             )
         },
         textStyle = MaterialTheme.typography.bodySmall,
-        shape = RoundedCornerShape(25.dp),
+        shape = RoundedCornerShape(15.dp),
 
         modifier = Modifier
             .fillMaxWidth()

@@ -1,10 +1,11 @@
 package android.app.lotus.view.statistics.evaluation
 
-import android.app.lotus.observables.StatisticsViewModel
+import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.view.buttons.BackButtonComposable
 import android.app.lotus.view.buttons.OptionRadioButton
 import android.app.lotus.view.buttons.SubmitButton
 import android.app.lotus.view.buttons.YesNoOption
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -33,21 +34,18 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 
 @Composable
 fun Evaluation(navController: NavHostController) {
 
-    val statisticsViewModel: StatisticsViewModel = viewModel()
-    val currentQuestion = statisticsViewModel.currentQuestion.value
-
-
+    val currentQuestion = remember { mutableStateOf(0) }
     val answers =
         remember { mutableStateMapOf<Int, String>() } // Use a mutableStateMapOf instead of mutableStateListOf
     val selectedOption = remember { mutableStateOf("") }
     val textState = remember { mutableStateOf(TextFieldValue()) }
 
+    Log.v("Evaluation", "currentQuestion.value: $currentQuestion.value")
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -64,24 +62,21 @@ fun Evaluation(navController: NavHostController) {
             Spacer(modifier = Modifier.height(60.dp))
 
             Text(
-                employeeQuestions[statisticsViewModel.currentQuestion.value ?: 0],
+                employeeQuestions[currentQuestion.value],
                 fontSize = 23.sp,
                 modifier = Modifier.padding(8.dp)
             )
             Spacer(modifier = Modifier.height(55.dp))
 
-            when (questionTypes[statisticsViewModel.currentQuestion.value ?: 0]) {
+            when (questionTypes[currentQuestion.value]) {
                 QuestionType.YES_NO -> {
                     YesNoOption(selectedOption.value) {
                         selectedOption.value = it
                         // Automatically move to the next question when an option is selected
-                        answers[statisticsViewModel.currentQuestion.value ?: 0] =
+                        answers[currentQuestion.value] =
                             selectedOption.value
                         selectedOption.value = ""
-                        statisticsViewModel.currentQuestion.value = nextQuestion(
-                            statisticsViewModel.currentQuestion.value ?: 0,
-                            managerQuestions.size
-                        )
+                        currentQuestion.value += if (currentQuestion.value < managerQuestions.size - 1) 1 else 0
                     }
                 }
 
@@ -99,13 +94,12 @@ fun Evaluation(navController: NavHostController) {
                                 onOptionSelected = {
                                     selectedOption.value = option
                                     // Automatically move to the next question when an option is selected
-                                    answers[statisticsViewModel.currentQuestion.value ?: 0] =
+                                    answers[currentQuestion.value] =
                                         selectedOption.value
                                     selectedOption.value = ""
-                                    statisticsViewModel.currentQuestion.value = nextQuestion(
-                                        statisticsViewModel.currentQuestion.value ?: 0,
-                                        managerQuestions.size
-                                    )
+                                    currentQuestion.value +=
+                                        if (currentQuestion.value < managerQuestions.size - 1) 1 else 0
+
                                 },
                                 shape = RoundedCornerShape(25.dp),
                                 borderColor = MaterialTheme.colorScheme.primary,
@@ -127,12 +121,10 @@ fun Evaluation(navController: NavHostController) {
                         ),
                         keyboardActions = KeyboardActions(
                             onDone = {
-                                answers[statisticsViewModel.currentQuestion.value ?: 0] =
+                                answers[currentQuestion.value] =
                                     textState.value.text
-                                statisticsViewModel.currentQuestion.value = nextQuestion(
-                                    statisticsViewModel.currentQuestion.value ?: 0,
-                                    managerQuestions.size
-                                )
+                                currentQuestion.value +=
+                                    if (currentQuestion.value < managerQuestions.size - 1) 1 else 0
                             }
                         ),
                         modifier = Modifier
@@ -145,57 +137,46 @@ fun Evaluation(navController: NavHostController) {
             }
             Spacer(modifier = Modifier.height(20.dp))
 
-            if (currentQuestion == managerQuestions.size - 1) {
+            if (currentQuestion.value == managerQuestions.size - 1) {
                 SubmitButton(
                     onClick = {
-                        when (questionTypes[currentQuestion]) {
+                        when (questionTypes[currentQuestion.value]) {
                             QuestionType.YES_NO, QuestionType.MULTIPLE_CHOICE -> {
-                                answers[currentQuestion] = selectedOption.value
+                                answers[currentQuestion.value] = selectedOption.value
                                 selectedOption.value = ""
                             }
 
                             QuestionType.TEXT_INPUT -> {
-                                answers[currentQuestion] = textState.value.text
+                                answers[currentQuestion.value] = textState.value.text
                             }
                         }
 
-                        statisticsViewModel.currentQuestion.value =
-                            nextQuestion(currentQuestion, managerQuestions.size)
+                        currentQuestion.value = 0
 
                         // Print out the answers
-                        println("Answers:")
+                        println("Answers: $answers")
                         for ((questionIndex, answer) in answers) {
                             println("Question $questionIndex: $answer")
                         }
+
+                        navController.navigate(Routes.home)
                     }
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
 
-            val isBackButtonVisible = (statisticsViewModel.currentQuestion.value ?: 0) > 0
-            if (isBackButtonVisible) {
+            if (currentQuestion.value > 0) {
                 Column(
                     horizontalAlignment = Alignment.End
                 ) {
-                    BackButtonComposable {
-                        // Remove the answer for the current question when going back
-                        answers.remove(currentQuestion)
-                        statisticsViewModel.currentQuestion.value =
-                            statisticsViewModel.currentQuestion.value?.minus(
-                                1
-                            )
-                    }
+                    BackButtonComposable(
+                        onBackClick = { ->
+                            currentQuestion.value--
+                        }
+                    )
                 }
             }
         }
-    }
-}
-
-fun nextQuestion(currentQuestion: Int, totalQuestions: Int): Int {
-    return if (currentQuestion < totalQuestions - 1) {
-        currentQuestion + 1
-    } else {
-        currentQuestion
     }
 }
 

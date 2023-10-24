@@ -1,6 +1,7 @@
 package android.app.lotus.view.home
 
 import android.app.lotus.domain.navigation.Routes
+import android.app.lotus.observables.HomeViewModel
 import android.app.lotus.view.buttons.NavButton
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-fun Home(navController: NavHostController) {
+fun Home(navController: NavHostController, homeViewModel: HomeViewModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,

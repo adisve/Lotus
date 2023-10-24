@@ -1,6 +1,6 @@
 package android.app.lotus.view.home.articles
 
-import android.app.lotus.domain.models.article
+import android.app.lotus.domain.models.realm.article
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ArticleListStatus
 import android.app.lotus.observables.ArticleViewModel

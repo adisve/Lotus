@@ -1,7 +1,9 @@
-package android.app.lotus.data
+package android.app.lotus.data.services
 
 import android.app.lotus.app
-import android.app.lotus.domain.models.article
+import android.app.lotus.domain.models.constants.UserFields
+import android.app.lotus.domain.models.realm.article
+import android.app.lotus.domain.models.realm.user
 import android.util.Log
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -21,7 +23,7 @@ import javax.inject.Singleton
 @Singleton
 class DataService @Inject constructor(
     onSyncError: (session: SyncSession, error: SyncException) -> Unit
-) : SyncRepository {
+) {
 
     private lateinit var realm: Realm
     private lateinit var config: SyncConfiguration
@@ -35,11 +37,15 @@ class DataService @Inject constructor(
     private fun initializeRealm() {
         runBlocking {
             Log.i("DataService" , "Current user: ${currentUser.customDataAsBsonDocument()}")
-            config = SyncConfiguration.Builder(currentUser, setOf(article::class))
+            config = SyncConfiguration.Builder(currentUser, setOf(article::class, user::class))
                 .initialSubscriptions { realm ->
                     add(
                         realm.query<article>(),
                         "article"
+                    )
+                    add(
+                        realm.query<user>(),
+                        "user"
                     )
                 }
                 .build()
@@ -48,21 +54,44 @@ class DataService @Inject constructor(
         }
     }
 
-    override fun getArticleList(): Flow<ResultsChange<article>> {
+    fun getArticleList(): Flow<ResultsChange<article>> {
         return realm.query<article>()
             .sort(Pair("_id", Sort.ASCENDING))
             .asFlow()
     }
 
+    fun upsertUser(email: String, userFields: Map<String, Any>) {
+        runBlocking {
+            val existingUser = realm.query<user>("email == $0", email).first().find()
+            realm.write {
+                val userToUpdate = existingUser ?: user()
+                updateUserFields(userToUpdate, userFields)
+                if (existingUser == null) {
+                    copyToRealm(userToUpdate)
+                }
+            }
+        }
+    }
 
-    override fun pauseSync() {
+    private fun updateUserFields(user: user, fields: Map<String, Any>) {
+        user.apply {
+            _id = fields[UserFields.id] as? String
+            company = fields[UserFields.company] as? String
+            email = fields[UserFields.email] as? String
+            phone = fields[UserFields.phone] as? String
+            role = fields[UserFields.role] as? String
+            username = fields[UserFields.username] as? String
+        }
+    }
+
+    fun pauseSync() {
         realm.syncSession.pause()
     }
 
-    override fun resumeSync() {
+    fun resumeSync() {
         realm.syncSession.resume()
     }
 
-    override fun close() = realm.close()
+    fun close() = realm.close()
 
 }

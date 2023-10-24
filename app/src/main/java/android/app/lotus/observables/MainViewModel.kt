@@ -1,10 +1,10 @@
 package android.app.lotus.observables
 
 import android.app.lotus.app
-import android.app.lotus.data.AuthStatus
-import android.app.lotus.data.PrefKey
-import android.app.lotus.data.PreferenceService
-import android.app.lotus.data.UserService
+import android.app.lotus.data.services.AuthStatus
+import android.app.lotus.data.services.PrefKey
+import android.app.lotus.data.services.PreferenceService
+import android.app.lotus.data.services.UserService
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

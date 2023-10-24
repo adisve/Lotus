@@ -1,6 +1,7 @@
-package android.app.lotus.data
+package android.app.lotus.data.services
 
 import android.app.lotus.app
+import android.util.Log
 import io.realm.kotlin.mongodb.Credentials
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +28,7 @@ class UserService @Inject constructor() {
         CoroutineScope(Dispatchers.IO).launch {
             while (isActive) {
                 val newUser = fetchUser()
+                Log.d("UserService", "User is = ${newUser?.id}")
                 updateCurrentUser(newUser)
                 _authStatus.value = if (newUser != null) AuthStatus.Success else AuthStatus.Unauthorized
                 delay(5000)
@@ -45,9 +47,11 @@ class UserService @Inject constructor() {
     suspend fun createAccount(email: String, password: String): Result<Unit> {
         _authStatus.value = AuthStatus.Loading
         return try {
-            app.emailPasswordAuth.registerUser(email, password)
+            val res = app.emailPasswordAuth.registerUser(email, password)
+            Log.d("UserService", "Result is ? $res")
             Result.success(Unit)
         } catch (e: Exception) {
+            Log.e("UserService", "Error: $e")
             Result.failure(e)
         }
     }

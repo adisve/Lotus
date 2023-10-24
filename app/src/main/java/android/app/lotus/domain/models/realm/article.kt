@@ -1,4 +1,4 @@
-package android.app.lotus.domain.models
+package android.app.lotus.domain.models.realm
 
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey

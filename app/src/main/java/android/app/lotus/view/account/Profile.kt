@@ -1,7 +1,9 @@
 package android.app.lotus.view.account
 
+import android.app.lotus.app
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ProfileViewModel
+import android.app.lotus.observables.UserRole
 import android.app.lotus.view.buttons.NavButton
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.*
@@ -12,22 +14,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 
 @Composable
-fun Profile(navController: NavHostController) {
-    val profileViewModel: ProfileViewModel = hiltViewModel()
-    val user by profileViewModel.user.collectAsState()
-
+fun Profile(navController: NavHostController, profileViewModel: ProfileViewModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column {
-
+        Column (modifier = Modifier.padding(top = 150.dp)) {
         }
         SettingsMenuComponent(navController, profileViewModel)
     }
@@ -41,8 +38,13 @@ private fun SettingsMenuComponent(navController: NavHostController, profileViewM
         NavButton("Edit Profile", suffixIcon = Icons.Rounded.Edit, navController = navController, route = "")
         NavButton("Support", suffixIcon = Icons.Rounded.Support, navController = navController, route = Routes.support)
 
+        if (app.currentUser?.customDataAsBsonDocument()?.get("role")?.asString()?.value == UserRole.HR.displayName) {
+            NavButton("Create Account", suffixIcon = Icons.Rounded.PersonAdd, navController = navController, route = Routes.createUserAccount)
+        }
+
         LogOutButton {
             profileViewModel.logOut()
+            navController.navigate(Routes.home)
         }
     }
 }

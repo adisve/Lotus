@@ -4,13 +4,13 @@ import android.app.lotus.app
 import android.app.lotus.domain.models.constants.UserFields
 import android.app.lotus.domain.models.realm.article
 import android.app.lotus.domain.models.realm.user
+import android.app.lotus.domain.models.realm.video
 import android.util.Log
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.internal.platform.runBlocking
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.SyncException
-import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.mongodb.sync.SyncSession
 import io.realm.kotlin.mongodb.syncSession
@@ -36,8 +36,7 @@ class DataService @Inject constructor(
 
     private fun initializeRealm() {
         runBlocking {
-            Log.i("DataService", "Current user: ${currentUser.customDataAsBsonDocument()}")
-            config = SyncConfiguration.Builder(currentUser, setOf(article::class, user::class))
+            config = SyncConfiguration.Builder(currentUser, setOf(article::class, user::class, video::class))
                 .initialSubscriptions { realm ->
                     add(
                         realm.query<article>(),
@@ -47,11 +46,21 @@ class DataService @Inject constructor(
                         realm.query<user>(),
                         "user"
                     )
+                    add(
+                        realm.query<video>(),
+                        "video"
+                    )
                 }
                 .build()
             realm = Realm.open(config)
             Log.v("REALM", "Successfully opened realm: ${realm.configuration.name}")
         }
+    }
+
+    fun getVideoList(): Flow<ResultsChange<video>> {
+        return realm.query<video>()
+            .sort(Pair("_id", Sort.ASCENDING))
+            .asFlow()
     }
 
     fun getArticleList(): Flow<ResultsChange<article>> {

@@ -27,12 +27,8 @@ class ArticleViewModel @Inject constructor(
 
     private val _articleList = mutableListOf<article>()
     val articleList: List<article> get() = _articleList
-
     private val _status = MutableLiveData<ArticleListStatus>(ArticleListStatus.Loading)
     val status: LiveData<ArticleListStatus> get() = _status
-
-    private val _articleCategories = MutableLiveData<List<String>>()
-    val articleCategories: LiveData<List<String>> get() = _articleCategories
 
     init {
         observeArticleList()
@@ -66,7 +62,6 @@ class ArticleViewModel @Inject constructor(
                 _status.value = ArticleListStatus.Loading
             }
         }
-        updateArticleCategories()
     }
 
     private fun updateInitialState(list: List<article>) {
@@ -105,9 +100,5 @@ class ArticleViewModel @Inject constructor(
                 _articleList[index] = list[index]
             }
         }
-    }
-
-    private fun updateArticleCategories() {
-        _articleCategories.value = _articleList.map { it.title }.distinct()
     }
 }

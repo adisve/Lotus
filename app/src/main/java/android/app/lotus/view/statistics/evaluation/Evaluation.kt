@@ -1,6 +1,6 @@
 package android.app.lotus.view.statistics.evaluation
 
-import android.app.lotus.domain.navigation.Routes
+import android.app.lotus.observables.EvaluationViewModel
 import android.app.lotus.view.buttons.BackButtonComposable
 import android.app.lotus.view.buttons.OptionRadioButton
 import android.app.lotus.view.buttons.SubmitButton
@@ -34,16 +34,19 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 
 @Composable
 fun Evaluation(navController: NavHostController) {
 
+    val evaluationViewModel: EvaluationViewModel = hiltViewModel()
+
     val currentQuestion = remember { mutableStateOf(0) }
     val answers =
         remember { mutableStateMapOf<Int, String>() } // Use a mutableStateMapOf instead of mutableStateListOf
     val selectedOption = remember { mutableStateOf("") }
-    val textState = remember { mutableStateOf(TextFieldValue()) }
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
 
     Log.v("Evaluation", "currentQuestion.value: $currentQuestion.value")
     Column(
@@ -153,13 +156,7 @@ fun Evaluation(navController: NavHostController) {
 
                         currentQuestion.value = 0
 
-                        // Print out the answers
-                        println("Answers: $answers")
-                        for ((questionIndex, answer) in answers) {
-                            println("Question $questionIndex: $answer")
-                        }
-
-                        navController.navigate(Routes.home)
+                        evaluationViewModel.addEvaluationToUser(answers.toMap().values.toList())
                     }
                 )
             }

@@ -8,4 +8,6 @@ object UserFields {
     const val company = "company"
     const val email = "email"
     const val password = "password"
+    const val evaluated = "evaluated"
+    const val evaluation = "evaluation"
 }

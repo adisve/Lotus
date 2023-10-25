@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace 'android.app.lotus'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "android.project.lotus"
@@ -97,9 +97,19 @@ dependencies {
 
     implementation 'io.realm.kotlin:library-base:1.11.0'
     implementation 'io.realm.kotlin:library-sync:1.11.0'// If using Device Sync
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0' // If using coroutines with the SDK
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0'
+    // If using coroutines with the SDK
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
+
+    // For Jetpack Compose.
+    implementation("com.patrykandpatrick.vico:compose:1.12.0")
+    
+    // For `compose`. Creates a `ChartStyle` based on an M3 Material Theme.
+    implementation("com.patrykandpatrick.vico:compose-m3:1.12.0")
+
+    // Houses the core logic for charts and other elements. Included in all other modules.
+    implementation("com.patrykandpatrick.vico:core:1.12.0")
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 

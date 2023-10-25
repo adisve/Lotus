@@ -70,6 +70,7 @@ class DataService @Inject constructor(
     }
 
     fun getCompanyUsers(company: String): Flow<ResultsChange<user>> {
+        println("$company")
         return realm.query<user>("company == $0", company)
             .sort(Pair("_id", Sort.ASCENDING))
             .asFlow()

@@ -22,6 +22,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -83,8 +85,8 @@ fun LogInForm(mainViewModel: MainViewModel) {
         val username by mainViewModel.email.observeAsState("")
         val password by mainViewModel.password.observeAsState("")
 
-        InputField(username, { newText -> mainViewModel.updateEmail(newText) }, "Email")
-        InputField(password, { newText -> mainViewModel.updatePassword(newText) }, "Password")
+        InputField(username, { newText -> mainViewModel.updateEmail(newText) }, false,"Email")
+        InputField(password, { newText -> mainViewModel.updatePassword(newText) }, true,"Password")
 
 
         Column (
@@ -114,11 +116,14 @@ fun LogInForm(mainViewModel: MainViewModel) {
 fun InputField(
     value: String,
     onValueChange: (String) -> Unit,
+    isPassword: Boolean,
     placeholder: String
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
+        singleLine = true,
+        visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         label = {
             Text(
                 text = placeholder,

@@ -1,5 +1,6 @@
 package android.app.lotus.view.statistics.evaluation
 
+import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.EvaluationViewModel
 import android.app.lotus.view.buttons.BackButtonComposable
 import android.app.lotus.view.buttons.OptionRadioButton
@@ -157,6 +158,8 @@ fun Evaluation(navController: NavHostController) {
                         currentQuestion.value = 0
 
                         evaluationViewModel.addEvaluationToUser(answers.toMap().values.toList())
+                        navController.navigate(Routes.stats)
+
                     }
                 )
             }

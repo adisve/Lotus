@@ -11,4 +11,5 @@ object Routes {
     const val evaluation = "evaluation"
     const val support = "support"
     const val createUserAccount = "createUserAccount"
+    const val statistics = "statistics"
 }

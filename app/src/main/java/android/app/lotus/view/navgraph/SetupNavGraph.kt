@@ -1,16 +1,17 @@
 package android.app.lotus.view.navgraph
 
-import android.app.lotus.view.account.hr.CreateAccount
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.view.account.Profile
 import android.app.lotus.view.account.Support
+import android.app.lotus.view.account.hr.CreateAccount
 import android.app.lotus.view.home.Home
 import android.app.lotus.view.home.articles.ArticleDetail
 import android.app.lotus.view.home.articles.Articles
 import android.app.lotus.view.home.videos.Video
 import android.app.lotus.view.home.videos.VideoListScreen
 import android.app.lotus.view.statistics.Statistics
+import android.app.lotus.view.statistics.Stats
 import android.app.lotus.view.statistics.evaluation.Evaluation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
@@ -34,6 +35,7 @@ fun SetupNavGraph(
         videos(navController)
         evaluation(navController)
         articleDetail(navController)
+        statistics(navController)
         videoDetail()
     }
 }
@@ -52,7 +54,7 @@ private fun NavGraphBuilder.home(navController: NavHostController) {
 
 private fun NavGraphBuilder.stats(navController: NavHostController) {
     composable(Routes.stats) {
-        Statistics(navController)
+        Stats(navController)
     }
 }
 
@@ -87,6 +89,12 @@ private fun NavGraphBuilder.articleDetail(navController: NavHostController) {
 private fun NavGraphBuilder.videos(navController: NavHostController) {
     composable(Routes.videos) {
         VideoListScreen(navController)
+    }
+}
+
+private fun NavGraphBuilder.statistics(navController: NavHostController) {
+    composable(Routes.statistics) {
+        Statistics(navController)
     }
 }
 

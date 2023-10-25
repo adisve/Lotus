@@ -36,7 +36,7 @@ class DataService @Inject constructor(
 
     private fun initializeRealm() {
         runBlocking {
-            Log.i("DataService" , "Current user: ${currentUser.customDataAsBsonDocument()}")
+            Log.i("DataService", "Current user: ${currentUser.customDataAsBsonDocument()}")
             config = SyncConfiguration.Builder(currentUser, setOf(article::class, user::class))
                 .initialSubscriptions { realm ->
                     add(
@@ -56,6 +56,12 @@ class DataService @Inject constructor(
 
     fun getArticleList(): Flow<ResultsChange<article>> {
         return realm.query<article>()
+            .sort(Pair("_id", Sort.ASCENDING))
+            .asFlow()
+    }
+
+    fun getCompanyUsers(company: String): Flow<ResultsChange<user>> {
+        return realm.query<user>("company == $0", company)
             .sort(Pair("_id", Sort.ASCENDING))
             .asFlow()
     }

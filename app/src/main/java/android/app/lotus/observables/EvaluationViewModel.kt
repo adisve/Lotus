@@ -17,8 +17,6 @@ class EvaluationViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun addEvaluationToUser(evaluation: List<String>) {
-
-        println("HElloooo")
         val fieldsToUpdate: Map<String, Any> =
             mapOf(UserFields.evaluation to evaluation, UserFields.evaluated to true)
 

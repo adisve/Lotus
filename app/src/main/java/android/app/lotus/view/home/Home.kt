@@ -1,7 +1,7 @@
 package android.app.lotus.view.home
 
 import android.app.lotus.domain.navigation.Routes
-import android.app.lotus.observables.HomeViewModel
+import android.app.lotus.observables.VideoViewModel
 import android.app.lotus.view.buttons.NavButton
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -12,10 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 
 @Composable
-fun Home(navController: NavHostController, homeViewModel: HomeViewModel) {
+fun Home(navController: NavHostController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -23,7 +24,10 @@ fun Home(navController: NavHostController, homeViewModel: HomeViewModel) {
     ) {
         Column(
             horizontalAlignment = Alignment.Start,
-            modifier = Modifier.fillMaxWidth().padding(top = 75.dp).padding(horizontal = 25.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 75.dp)
+                .padding(horizontal = 25.dp)
         ) {
             Text(
                 style = MaterialTheme.typography.headlineLarge,
@@ -39,7 +43,9 @@ fun Home(navController: NavHostController, homeViewModel: HomeViewModel) {
         }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 100.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 100.dp)
         ) {
             NavButton(
                 text = "Articles",

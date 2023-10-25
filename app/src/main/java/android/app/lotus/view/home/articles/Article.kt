@@ -32,7 +32,7 @@ import com.halilibo.richtext.ui.RichTextThemeIntegration
 
 
 @Composable
-fun ArticleDetail(navController: NavHostController, articleTitle: String) {
+fun ArticleDetail(navController: NavHostController, title: String) {
     val articleViewModel: ArticleViewModel = hiltViewModel()
     val status = articleViewModel.status.observeAsState(initial = ArticleListStatus.Loading)
 
@@ -47,7 +47,7 @@ fun ArticleDetail(navController: NavHostController, articleTitle: String) {
         }
 
         ArticleListStatus.Populated -> {
-            val article = articleViewModel.articleList.find { it.title == articleTitle }
+            val article = articleViewModel.articleList.find { it.title == title }
             if (article != null) {
                 ArticleComponent(navController, article)
             }

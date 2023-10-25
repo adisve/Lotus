@@ -39,7 +39,6 @@ class ProfileViewModel @Inject constructor(
 
     init {
         initializeUserListener()
-        Log.d("ProfileViewModel", "User custom data is = ${app.currentUser?.customDataAsBsonDocument()}")
     }
 
     private fun initializeUserListener() {
@@ -64,23 +63,6 @@ class ProfileViewModel @Inject constructor(
             val password = userFieldsWithId["password"] as String
             userService.createAccount(email, password)
             dataService.upsertUser(email, userFieldsWithId)
-        }
-    }
-
-    private fun initUser(fieldsToUpdate: Map<String, Any>) {
-        viewModelScope.launch {
-            user.value?.let { currentUser ->
-                val allowedFields = setOf(UserFields.role, UserFields.username, UserFields.phone, UserFields.company, UserFields.email)
-                val filteredFields = fieldsToUpdate.filterKeys { it in allowedFields }
-                Log.d("ProfileViewModel", "$filteredFields")
-                currentUser.functions
-                    .call<BsonDocument>(
-                        "writeCustomUserData",
-                        filteredFields
-                    )
-                user.value?.refreshCustomData()
-                Log.d("ProfileViewModel", "${user.value?.customDataAsBsonDocument()}")
-            }
         }
     }
 

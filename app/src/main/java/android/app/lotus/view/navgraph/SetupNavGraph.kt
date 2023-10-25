@@ -2,7 +2,6 @@ package android.app.lotus.view.navgraph
 
 import android.app.lotus.view.account.hr.CreateAccount
 import android.app.lotus.domain.navigation.Routes
-import android.app.lotus.observables.HomeViewModel
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.view.account.Profile
 import android.app.lotus.view.account.Support
@@ -10,24 +9,23 @@ import android.app.lotus.view.home.Home
 import android.app.lotus.view.home.articles.ArticleDetail
 import android.app.lotus.view.home.articles.Articles
 import android.app.lotus.view.home.videos.Video
-import android.app.lotus.view.home.videos.Videos
+import android.app.lotus.view.home.videos.VideoListScreen
 import android.app.lotus.view.statistics.Statistics
 import android.app.lotus.view.statistics.evaluation.Evaluation
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import java.net.URLDecoder
 
 @Composable
-fun SetupNavgraph(
+fun SetupNavGraph(
     navController: NavHostController,
     profileViewModel: ProfileViewModel,
-    homeViewModel: HomeViewModel,
     ) {
     NavHost(navController = navController, startDestination = Routes.home) {
-        home(navController, homeViewModel)
+        home(navController)
         profile(navController, profileViewModel)
         createUserAccount(profileViewModel)
         support(navController)
@@ -46,9 +44,9 @@ private fun NavGraphBuilder.createUserAccount(profileViewModel: ProfileViewModel
     }
 }
 
-private fun NavGraphBuilder.home(navController: NavHostController, homeViewModel: HomeViewModel) {
+private fun NavGraphBuilder.home(navController: NavHostController) {
     composable(Routes.home) {
-        Home(navController, homeViewModel)
+        Home(navController)
     }
 }
 
@@ -81,21 +79,22 @@ private fun NavGraphBuilder.articles(navController: NavHostController) {
 
 private fun NavGraphBuilder.articleDetail(navController: NavHostController) {
     composable(Routes.articleDetail) { backStackEntry ->
-        val articleName = backStackEntry.arguments?.getString("articleName")
-        ArticleDetail(navController, articleName ?: "")
+        val title = backStackEntry.arguments?.getString("title")
+        ArticleDetail(navController, title ?: "")
     }
 }
 
 private fun NavGraphBuilder.videos(navController: NavHostController) {
     composable(Routes.videos) {
-        Videos(navController)
+        VideoListScreen(navController)
     }
 }
 
 private fun NavGraphBuilder.videoDetail() {
     composable(Routes.videoDetail) { backStackEntry ->
-        val videoId = backStackEntry.arguments?.getString("videoId")
-        Video(videoId = videoId ?: "")
+        val encodedUrl = backStackEntry.arguments?.getString("url")
+        val decodedUrl = URLDecoder.decode(encodedUrl, "UTF-8")
+        Video(url = decodedUrl ?: "")
     }
 }
 

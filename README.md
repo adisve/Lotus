@@ -47,5 +47,17 @@ NOTE: The application doesn't require the web REST-API to run, but it is require
 
 ## Infrastructure
 
+To application utilizes MongoDB Realm & MongoDB Atlas to store the data. The application uses the following collections:
+
+- `user`
+- `article`
+- `video`
+
+### User
+
+The user collection stores the custom users data of the application. The actual user data is stored in a secret repository within the MongoDB Realm authentication service. This means that the user data is not stored in the `user` collection, but rather in the MongoDB Realm authentication service.
+
+To populate the user collection we use custom `onNewUser` trigger functions that add the extra fields to the user collection and link it with the MongoDB Realm user using the `_id` field.
+
 When creating the user the following flow gets utilized:
 ![infrastructure](./docs/infrastructure.png)

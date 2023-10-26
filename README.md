@@ -32,3 +32,15 @@ While the application is built using Kotlin, the web REST-API is built using Fas
 - MongoDB Atlas
 
 To read more about the web REST-API, please visit the document: [Lotus - Web REST-API](./server/README.md)
+
+## Build
+
+To build the application, you need to have Android Studio installed. Launch a gradle build from Android Studio and the application will be built.
+
+You can create an application user by logging onto the apps MongoDB Atlas page, and create a new user. You can then use the username and password to login to the application.
+
+Subsequent users can be created by using the application itself (if you have an HR user).
+
+To build and run the web REST-API, please visit the document: [Lotus - Web REST-API](./server/README.md)
+
+NOTE: The application doesn't require the web REST-API to run, but it is required to upsert the users/articles.

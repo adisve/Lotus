@@ -44,3 +44,8 @@ Subsequent users can be created by using the application itself (if you have an 
 To build and run the web REST-API, please visit the document: [Lotus - Web REST-API](./server/README.md)
 
 NOTE: The application doesn't require the web REST-API to run, but it is required to upsert the users/articles.
+
+## Infrastructure
+
+When creating the user the following flow gets utilized:
+![infrastructure](./docs/infrastructure.png)

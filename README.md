@@ -80,3 +80,11 @@ The articles are stored in the `article` collection. The articles are stored in 
 - Role
 
 Videos are stored in a similar manner, but instead of markdown content, they have a video url.
+
+## Credits
+
+- [Adis Veletanlic](https://github.com/adisve)
+- [Dzenis Madzovic](https://github.com/PsychicPlatypus)
+- [Artin Alijaj](https://github.com/Quinhook)
+- [Hiva Hojjati Moghaddam](https://github.com/hivaww)
+- [Yana Zlatanova](https://github.com/yanazlatanova)

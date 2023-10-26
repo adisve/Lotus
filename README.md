@@ -59,5 +59,14 @@ The user collection stores the custom users data of the application. The actual 
 
 To populate the user collection we use custom `onNewUser` trigger functions that add the extra fields to the user collection and link it with the MongoDB Realm user using the `_id` field.
 
+The custom data stored in the user collection is as follows:
+
+- Phone number
+- Role
+- Company
+- Evaluations
+- User Name
+- E-Mail Address
+
 When creating the user the following flow gets utilized:
 ![infrastructure](./docs/infrastructure.png)

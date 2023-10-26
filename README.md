@@ -70,3 +70,13 @@ The custom data stored in the user collection is as follows:
 
 When creating the user the following flow gets utilized:
 ![infrastructure](./docs/infrastructure.png)
+
+### Article/Videos
+
+The articles are stored in the `article` collection. The articles are stored in the following format:
+
+- Title
+- Markdown Content
+- Role
+
+Videos are stored in a similar manner, but instead of markdown content, they have a video url.

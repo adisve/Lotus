@@ -6,6 +6,7 @@ import android.app.lotus.data.services.UserService
 import android.app.lotus.data.statemodels.UserInputState
 import android.app.lotus.domain.models.constants.UserFields
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,6 +37,12 @@ class ProfileViewModel @Inject constructor(
     val userInputState: StateFlow<UserInputState> get() = _userInputState
     private val _user = MutableStateFlow<User?>(null)
     private val user: StateFlow<User?> get() = _user
+
+    /*
+    val username = MutableLiveData("")
+    val email = MutableLiveData("")
+    val phone = MutableLiveData("")
+     */
 
     init {
         initializeUserListener()
@@ -88,6 +95,11 @@ class ProfileViewModel @Inject constructor(
 
     fun updateCompany(newCompany: String) {
         _userInputState.value = _userInputState.value.copy(company = newCompany)
+    }
+
+    fun updateUserInfo(){
+        // Update user info in the database - username, email, phone
+
     }
 
 }

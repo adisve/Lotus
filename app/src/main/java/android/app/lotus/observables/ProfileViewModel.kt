@@ -90,4 +90,10 @@ class ProfileViewModel @Inject constructor(
         _userInputState.value = _userInputState.value.copy(company = newCompany)
     }
 
+    fun getUserRoleAsString(): String{
+        //val userInputState = _userInputState.value
+        //return userInputState.selectedRole.displayName
+        return "HR"
+    }
+
 }

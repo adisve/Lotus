@@ -23,7 +23,7 @@ sealed class BottomNavItem(
         BottomNavItem(
             "Stats",
             Icons.Rounded.BarChart,
-            Routes.stats
+            Routes.middlepage
         )
 
     object Profile :

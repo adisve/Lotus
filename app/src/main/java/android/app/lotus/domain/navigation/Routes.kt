@@ -12,4 +12,5 @@ object Routes {
     const val support = "support"
     const val createUserAccount = "createUserAccount"
     const val statistics = "statistics"
+    const val middlepage = "middlepage"
 }

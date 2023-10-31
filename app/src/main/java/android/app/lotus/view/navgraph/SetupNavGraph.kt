@@ -13,6 +13,7 @@ import android.app.lotus.view.home.videos.VideoListScreen
 import android.app.lotus.view.statistics.Statistics
 import android.app.lotus.view.statistics.Stats
 import android.app.lotus.view.statistics.evaluation.Evaluation
+import android.app.lotus.view.middlepage.MiddlePage
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -30,6 +31,7 @@ fun SetupNavGraph(
         profile(navController, profileViewModel)
         createUserAccount(profileViewModel)
         support(navController)
+        middlepage(navController, profileViewModel)
         stats(navController)
         articles(navController)
         videos(navController)
@@ -55,6 +57,15 @@ private fun NavGraphBuilder.home(navController: NavHostController) {
 private fun NavGraphBuilder.stats(navController: NavHostController) {
     composable(Routes.stats) {
         Stats(navController)
+    }
+}
+
+private fun NavGraphBuilder.middlepage(
+    navController: NavHostController,
+   profileViewModel: ProfileViewModel
+){
+    composable(Routes.middlepage){
+        MiddlePage(navController, profileViewModel)
     }
 }
 

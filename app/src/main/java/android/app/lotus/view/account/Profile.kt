@@ -25,6 +25,7 @@ fun Profile(
     navController: NavHostController,
     profileViewModel: ProfileViewModel,
 ) {
+    val user = app.currentUser!!
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -37,9 +38,9 @@ fun Profile(
                 .padding(top = 75.dp)
                 .padding(horizontal = 25.dp)
         ) {
-            ProfileCard(app.currentUser!!)
+            ProfileCard(user)
         }
-        SettingsMenuComponent(navController, profileViewModel, app.currentUser!!)
+        SettingsMenuComponent(navController, profileViewModel, user)
     }
 }
 

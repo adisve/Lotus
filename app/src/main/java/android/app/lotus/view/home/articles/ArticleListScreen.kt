@@ -139,8 +139,13 @@ fun ArticleCard(navController: NavHostController, article: article) {
                     headlineColor = MaterialTheme.colorScheme.onSurface,
                     supportingColor = MaterialTheme.colorScheme.onSurface,
                 ),
-                headlineContent = { Text(article.title, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold) },
-                supportingContent = { Text("Read more", style = MaterialTheme.typography.bodySmall, fontSize = 16.sp) },
+                headlineContent = {
+                    Text(
+                        article.title,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(vertical = 10.dp)
+                    )},
                 trailingContent = {
                     Icon(
                         Icons.Filled.ReadMore,

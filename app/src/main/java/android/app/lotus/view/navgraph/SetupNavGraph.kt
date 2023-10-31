@@ -30,7 +30,7 @@ fun SetupNavGraph(
     NavHost(navController = navController, startDestination = Routes.home) {
         home(navController)
         profile(navController, profileViewModel)
-        createUserAccount(profileViewModel)
+        createUserAccount(profileViewModel, navController)
         support(navController)
         stats(navController)
         articles(navController, articleViewModel)
@@ -42,9 +42,9 @@ fun SetupNavGraph(
     }
 }
 
-private fun NavGraphBuilder.createUserAccount(profileViewModel: ProfileViewModel) {
+private fun NavGraphBuilder.createUserAccount(profileViewModel: ProfileViewModel, navController: NavHostController) {
     composable(Routes.createUserAccount) {
-        CreateAccount(profileViewModel = profileViewModel)
+        CreateAccount(profileViewModel, navController)
     }
 }
 

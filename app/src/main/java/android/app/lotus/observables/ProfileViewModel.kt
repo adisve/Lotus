@@ -89,4 +89,8 @@ class ProfileViewModel @Inject constructor(
         _userInputState.value = _userInputState.value.copy(company = newCompany)
     }
 
+    fun clearUserInputState() {
+        _userInputState.value = UserInputState()
+    }
+
 }

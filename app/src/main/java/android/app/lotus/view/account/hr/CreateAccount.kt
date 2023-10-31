@@ -2,6 +2,7 @@ package android.app.lotus.view.account.hr
 
 import android.app.lotus.data.statemodels.isValid
 import android.app.lotus.data.statemodels.toMap
+import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.observables.UserRole
 import android.app.lotus.view.buttons.ActionButton
@@ -35,16 +36,18 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun CreateAccount(profileViewModel: ProfileViewModel) {
+fun CreateAccount(profileViewModel: ProfileViewModel, navController: NavController) {
 
     val userInputState by profileViewModel.userInputState.collectAsState()
     val selectedRole = userInputState.selectedRole
@@ -76,7 +79,7 @@ fun CreateAccount(profileViewModel: ProfileViewModel) {
                 onExpandedChange = { expanded = !expanded }
             ) {
                 TextField(
-                    value = "Role: ${selectedRole.displayName}",
+                    value = "Role: ${selectedRole.displayName.capitalize()}",
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
@@ -91,7 +94,7 @@ fun CreateAccount(profileViewModel: ProfileViewModel) {
                 ) {
                     UserRole.values().forEach { role ->
                         DropdownMenuItem(
-                            text = { Text(text = role.displayName, color = MaterialTheme.colorScheme.onPrimary) },
+                            text = { Text(text = role.displayName.capitalize(), color = MaterialTheme.colorScheme.onPrimary) },
                             onClick = {
                                 profileViewModel.updateRole(role)
                                 expanded = false
@@ -140,6 +143,8 @@ fun CreateAccount(profileViewModel: ProfileViewModel) {
                     val userFieldsMap = userInputState.toMap()
                     if (userInputState.isValid()) {
                         profileViewModel.registerNewUser(userFieldsMap)
+                        profileViewModel.clearUserInputState()
+                        navController.navigate(Routes.profile)
                     } else {
                         scope.launch {
                             snackbarHostState.showSnackbar("All fields must be filled")

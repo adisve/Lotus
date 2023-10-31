@@ -1,61 +1,59 @@
 package android.app.lotus.view.bottombar
 
+import android.app.lotus.domain.navigation.Routes
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.BarChart
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.navigation.NavController
+import androidx.compose.runtime.MutableState
+import androidx.compose.ui.graphics.vector.ImageVector
 
-val items = listOf(
-    BottomNavItem.Home,
-    BottomNavItem.Statistics,
-    BottomNavItem.Profile
-)
+enum class BottomNavItem(val route: String, val icon: ImageVector, val title: String) {
+    HOME(Routes.home, Icons.Rounded.Home, "Home"),
+    ANALYTICS(Routes.analytics, Icons.Rounded.BarChart, "Analytics"),
+    ACCOUNT(Routes.home, Icons.Rounded.Person, "Account"),
+}
 
 @Composable
-fun BottomNavigation(navController: NavController) {
-    val (currentScreen, setCurrentScreen) = remember { mutableStateOf<BottomNavItem>(BottomNavItem.Home) }
+fun BottomNavigation(
+    currentNavGraph: MutableState<BottomNavItem>
+) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.primary
     ) {
-        items.forEach { item ->
+        BottomNavItem.values().forEach { item ->
             AddItem(
-                screen = item,
-                isSelected = currentScreen == item,
+                navItem = item,
+                isSelected = currentNavGraph.value == item,
                 onSelected = {
-                    setCurrentScreen(it)
-                    navigateToScreen(navController, it)
+                    currentNavGraph.value = it
                 }
             )
         }
     }
 }
 
+
+
 @Composable
 fun RowScope.AddItem(
-    screen: BottomNavItem,
+    navItem: BottomNavItem,
     isSelected: Boolean,
     onSelected: (BottomNavItem) -> Unit
 ) {
     NavigationBarItem(
         selected = isSelected,
         alwaysShowLabel = true,
-        onClick = { onSelected(screen) },
+        onClick = { onSelected(navItem) },
         icon = {
-            Icon(imageVector = screen.icon, contentDescription = screen.title)
+            Icon(imageVector = navItem.icon, contentDescription = navItem.title)
         }
     )
-}
-
-fun navigateToScreen(navController: NavController, screen: BottomNavItem) {
-    when(screen) {
-        BottomNavItem.Home -> navController.navigate(screen.route)
-        BottomNavItem.Statistics -> navController.navigate(screen.route)
-        BottomNavItem.Profile -> navController.navigate(screen.route)
-    }
 }

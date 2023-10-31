@@ -1,6 +1,7 @@
 package android.app.lotus.view.navgraph
 
 import android.app.lotus.domain.navigation.Routes
+import android.app.lotus.observables.ArticleViewModel
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.view.account.Profile
 import android.app.lotus.view.account.Support
@@ -24,6 +25,7 @@ import java.net.URLDecoder
 fun SetupNavGraph(
     navController: NavHostController,
     profileViewModel: ProfileViewModel,
+    articleViewModel: ArticleViewModel,
     ) {
     NavHost(navController = navController, startDestination = Routes.home) {
         home(navController)
@@ -31,10 +33,10 @@ fun SetupNavGraph(
         createUserAccount(profileViewModel)
         support(navController)
         stats(navController)
-        articles(navController)
+        articles(navController, articleViewModel)
         videos(navController)
         evaluation(navController)
-        articleDetail(navController)
+        articleDetail(navController, articleViewModel)
         statistics(navController)
         videoDetail()
     }
@@ -73,16 +75,16 @@ private fun NavGraphBuilder.support(navController: NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.articles(navController: NavHostController) {
+private fun NavGraphBuilder.articles(navController: NavHostController, articleViewModel: ArticleViewModel) {
     composable(Routes.articles) {
-        Articles(navController)
+        Articles(navController, articleViewModel)
     }
 }
 
-private fun NavGraphBuilder.articleDetail(navController: NavHostController) {
+private fun NavGraphBuilder.articleDetail(navController: NavHostController, articleViewModel: ArticleViewModel) {
     composable(Routes.articleDetail) { backStackEntry ->
         val title = backStackEntry.arguments?.getString("title")
-        ArticleDetail(navController, title ?: "")
+        ArticleDetail(navController, articleViewModel, title ?: "")
     }
 }
 

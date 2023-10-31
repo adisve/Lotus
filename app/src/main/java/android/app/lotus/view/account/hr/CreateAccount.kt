@@ -123,7 +123,7 @@ fun CreateAccount(profileViewModel: ProfileViewModel) {
 
             CustomOutlinedTextField(
                 value = company,
-                onValueChange = { profileViewModel.updatePhone(it) },
+                onValueChange = { profileViewModel.updateCompany(it) },
                 label = "Company"
             )
 

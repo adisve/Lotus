@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontWeight
 import io.realm.kotlin.mongodb.User
 
 @Composable
@@ -62,11 +64,11 @@ Card(
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Department: ${getUserProperty(user, UserFields.company)}",
+                text = "Department: ${getUserProperty(user, UserFields.company).capitalize()}",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Role: ${getUserProperty(user, UserFields.role)}",
+                text = "Role: ${getUserProperty(user, UserFields.role).capitalize()}",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -120,6 +122,7 @@ private fun LogOutButton(logOut: () -> Unit) {
             Text(
                 text = "Log out",
                 style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
                 modifier = Modifier
                     .weight(1f)
             )

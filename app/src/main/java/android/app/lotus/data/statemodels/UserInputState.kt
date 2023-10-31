@@ -18,7 +18,7 @@ fun UserInputState.toMap(): Map<String, Any> {
         UserFields.username to username,
         UserFields.email to email,
         UserFields.password to password,
-        UserFields.role to selectedRole.displayName,
+        UserFields.role to selectedRole.displayName.lowercase(),
         UserFields.phone to phoneNumber,
         UserFields.company to company
     )

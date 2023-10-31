@@ -1,77 +1,156 @@
 package android.app.lotus.view.home.articles
 
+import android.app.lotus.app
+import android.app.lotus.domain.models.constants.UserFields
 import android.app.lotus.domain.models.realm.article
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ArticleListStatus
 import android.app.lotus.observables.ArticleViewModel
+import android.app.lotus.observables.UserRole
+import android.app.lotus.utils.getUserProperty
 import android.app.lotus.view.buttons.NavButton
 import android.app.lotus.view.general.DotsPulsing
+import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.ReadMore
+import androidx.compose.material.icons.rounded.ReadMore
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import io.realm.kotlin.mongodb.User
 
 @Composable
-fun Articles(navController: NavHostController) {
+fun Articles(navController: NavHostController, articleViewModel: ArticleViewModel) {
+    val status by articleViewModel.status.observeAsState(initial = ArticleListStatus.Loading)
+    val managerArticles by articleViewModel.managerArticleList.observeAsState(initial = listOf())
+    val employeeArticles by articleViewModel.employeeArticleList.observeAsState(initial = listOf())
+    val user = app.currentUser!!
 
-    val articleViewModel: ArticleViewModel = hiltViewModel()
-    val status = articleViewModel.status.observeAsState(initial = ArticleListStatus.Loading)
+    when (status) {
+        ArticleListStatus.Loading -> DotsPulsing()
+        ArticleListStatus.Empty -> Text("Nothing here yet")
+        ArticleListStatus.Populated -> RoleBasedArticles(navController, user, managerArticles, employeeArticles)
+    }
+}
 
-    Column (
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        when (status.value) {
-            ArticleListStatus.Loading -> {
-                DotsPulsing()
-            }
+@Composable
+fun RoleBasedArticles(
+    navController: NavHostController,
+    user: User,
+    managerArticles: List<article>,
+    employeeArticles: List<article>
+) {
+    val userRole = getUserProperty(user, UserFields.role)
+    Log.d("Articles", "User role: $userRole")
 
-            ArticleListStatus.Empty -> {
-                Text("Nothing here yet")
-            }
-
-            ArticleListStatus.Populated -> {
-                ScrollableArticleList(navController, articleViewModel.articleList)
+    when (userRole) {
+        UserRole.MANAGER.displayName -> ScrollableArticleList(navController, "Manager Articles", managerArticles)
+        UserRole.EMPLOYEE.displayName -> ScrollableArticleList(navController, "Employee Articles", employeeArticles)
+        UserRole.HR.displayName -> {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 60.dp, start = 16.dp, end = 16.dp)
+                    .padding(bottom = 100.dp)
+            ) {
+                item {
+                    Text(
+                        "Employee Articles",
+                        style = MaterialTheme.typography.headlineMedium,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+                }
+                items(employeeArticles) { article ->
+                    ArticleCard(navController, article)
+                }
+                item {
+                    Text(
+                        "Manager Articles",
+                        style = MaterialTheme.typography.headlineMedium,
+                        modifier = Modifier.padding(bottom = 16.dp, top = 25.dp)
+                    )
+                }
+                items(managerArticles) { article ->
+                    ArticleCard(navController, article)
+                }
             }
         }
     }
 }
 
 @Composable
-fun ScrollableArticleList(navController: NavHostController, articles: List<article>) {
+fun ScrollableArticleList(navController: NavHostController, header: String, articles: List<article>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(vertical = 60.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .padding(top = 60.dp, start = 16.dp, end = 16.dp)
+            .padding(bottom = 100.dp)
     ) {
+        item {
+            Text(header, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(bottom = 16.dp))
+        }
         items(articles) { article ->
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                NavButton(
-                    text = article.title,
-                    navController = navController,
-                    route = Routes.articleDetail.replace("{title}", article.title),
-                    suffixIcon = null
-                )
-            }
+            ArticleCard(navController, article)
+        }
+    }
+}
+
+@Composable
+fun ArticleCard(navController: NavHostController, article: article) {
+    Box(modifier = Modifier
+        .background(MaterialTheme.colorScheme.background)
+        .padding(horizontal = 5.dp, vertical = 10.dp)) {
+        Card {
+            ListItem(
+                colors = ListItemDefaults.colors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    headlineColor = MaterialTheme.colorScheme.onSurface,
+                    supportingColor = MaterialTheme.colorScheme.onSurface,
+                ),
+                headlineContent = { Text(article.title, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold) },
+                supportingContent = { Text("Read more", style = MaterialTheme.typography.bodySmall, fontSize = 16.sp) },
+                trailingContent = {
+                    Icon(
+                        Icons.Filled.ReadMore,
+                        contentDescription = "Localized description",
+                    )
+                },
+                modifier = Modifier.clickable {
+                    navController.navigate(Routes.articleDetail.replace("{title}", article.title))
+                }
+            )
         }
     }
 }

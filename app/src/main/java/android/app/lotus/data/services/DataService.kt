@@ -70,7 +70,6 @@ class DataService @Inject constructor(
     }
 
     fun getCompanyUsers(company: String): Flow<ResultsChange<user>> {
-        println("$company")
         return realm.query<user>("company == $0", company)
             .sort(Pair("_id", Sort.ASCENDING))
             .asFlow()
@@ -79,6 +78,8 @@ class DataService @Inject constructor(
     fun upsertUser(email: String, userFields: Map<String, Any>) {
         runBlocking {
             val existingUser = realm.query<user>("email == $0", email).first().find()
+            Log.d("DataService", "User exists = ${existingUser != null}")
+            Log.d("DataService", "$userFields")
             realm.write {
                 val userToUpdate = existingUser ?: user()
                 updateUserFields(userToUpdate, userFields)
@@ -99,15 +100,5 @@ class DataService @Inject constructor(
             username = fields[UserFields.username] as? String
         }
     }
-
-    fun pauseSync() {
-        realm.syncSession.pause()
-    }
-
-    fun resumeSync() {
-        realm.syncSession.resume()
-    }
-
-    fun close() = realm.close()
 
 }

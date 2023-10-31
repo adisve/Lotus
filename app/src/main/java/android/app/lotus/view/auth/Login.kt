@@ -88,19 +88,6 @@ fun LogInForm(mainViewModel: MainViewModel) {
         InputField(username, { newText -> mainViewModel.updateEmail(newText) }, false,"Email")
         InputField(password, { newText -> mainViewModel.updatePassword(newText) }, true,"Password")
 
-
-        Column (
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                "Forgot Password?",
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(vertical = 20.dp),
-                color = MaterialTheme.colorScheme.primary,
-                textDecoration = TextDecoration.Underline
-            )
-        }
-
         Column (
             modifier = Modifier.padding(top = 50.dp)
         ) {

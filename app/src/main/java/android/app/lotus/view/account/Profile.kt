@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import io.realm.kotlin.mongodb.User
 
@@ -89,7 +88,7 @@ private fun SettingsMenuComponent(
             "Support",
             suffixIcon = Icons.Rounded.Support,
             navController = navController,
-            route = Routes.support
+            route = Routes.profileSupport
         )
 
         if (getUserProperty(user, UserFields.role) == UserRole.HR.displayName
@@ -98,13 +97,12 @@ private fun SettingsMenuComponent(
                 "Add an account",
                 suffixIcon = Icons.Rounded.PersonAdd,
                 navController = navController,
-                route = Routes.createUserAccount
+                route = Routes.profileAddUserAccount
             )
         }
 
         LogOutButton {
             profileViewModel.logOut()
-            navController.navigate(Routes.home)
         }
     }
 }

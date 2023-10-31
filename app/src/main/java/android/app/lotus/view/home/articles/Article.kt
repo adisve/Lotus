@@ -2,10 +2,8 @@ package android.app.lotus.view.home.articles
 
 import android.app.lotus.domain.models.realm.article
 import android.app.lotus.domain.navigation.Routes
-import android.app.lotus.observables.ArticleListStatus
 import android.app.lotus.observables.ArticleViewModel
 import android.app.lotus.view.buttons.NavButton
-import android.app.lotus.view.general.DotsPulsing
 import android.app.lotus.view.theme.fonts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,17 +12,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.CheckBox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
@@ -75,7 +73,7 @@ fun ArticleComponent(navController: NavHostController, article: article) {
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 20.dp)
         ) {
-            NavButton(text = "Finish", navController = navController, route = Routes.articles)
+            NavButton(text = "Finish", suffixIcon = Icons.Rounded.CheckBox, navController = navController, route = Routes.homeArticles)
 
         }
         Spacer(modifier = Modifier.height(60.dp))

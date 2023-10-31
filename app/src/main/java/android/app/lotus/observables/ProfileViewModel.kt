@@ -56,12 +56,13 @@ class ProfileViewModel @Inject constructor(
 
     fun registerNewUser(userFields: Map<String, Any>) {
         val userFieldsWithId = userFields + mapOf(UserFields.id to ObjectId().toHexString())
+        val email = userFieldsWithId["email"] as String
+        val password = userFieldsWithId["password"] as String
+        dataService.upsertUser(email, userFieldsWithId)
+
         viewModelScope.launch {
             Log.d("ProfileViewModel", "$userFieldsWithId")
-            val email = userFieldsWithId["email"] as String
-            val password = userFieldsWithId["password"] as String
             userService.createAccount(email, password)
-            dataService.upsertUser(email, userFieldsWithId)
         }
     }
 

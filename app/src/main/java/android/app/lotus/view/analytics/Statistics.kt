@@ -1,4 +1,4 @@
-package android.app.lotus.view.statistics
+package android.app.lotus.view.analytics
 
 import android.app.lotus.observables.StatisticsStatus
 import android.app.lotus.observables.StatisticsViewModel
@@ -42,7 +42,6 @@ fun Statistics(navController: NavHostController) {
         }
 
         StatisticsStatus.Populated -> {
-            // Todo: use actual data...
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,

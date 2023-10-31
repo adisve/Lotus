@@ -27,6 +27,10 @@ class ArticleViewModel @Inject constructor(
 
     private val _articleList = mutableListOf<article>()
     val articleList: List<article> get() = _articleList
+    private val _managerArticleList = MutableLiveData<List<article>>()
+    val managerArticleList: LiveData<List<article>> get() = _managerArticleList
+    private val _employeeArticleList = MutableLiveData<List<article>>()
+    val employeeArticleList: LiveData<List<article>> get() = _employeeArticleList
     private val _status = MutableLiveData<ArticleListStatus>(ArticleListStatus.Loading)
     val status: LiveData<ArticleListStatus> get() = _status
 
@@ -67,6 +71,7 @@ class ArticleViewModel @Inject constructor(
     private fun updateInitialState(list: List<article>) {
         _articleList.clear()
         _articleList.addAll(list)
+        updateRoleBasedLists()
         Log.i("ArticleViewModel", "InitialResults: ${_articleList.toList()}")
     }
 
@@ -74,8 +79,16 @@ class ArticleViewModel @Inject constructor(
         applyDeletions(event.deletions)
         applyInsertions(event.insertions, event.list)
         applyChanges(event.changes, event.list)
-
+        updateRoleBasedLists()
         Log.i("ArticleViewModel", "UpdatedResult: ${_articleList.toList()}")
+    }
+
+    private fun updateRoleBasedLists() {
+        _managerArticleList.value = _articleList.filter { it.role == UserRole.MANAGER.displayName }
+        _employeeArticleList.value = _articleList.filter { it.role == UserRole.EMPLOYEE.displayName }
+        Log.i("ArticleViewModel", "EmployeeList: ${_employeeArticleList.value}")
+        Log.i("ArticleViewModel", "ManagerList: ${_managerArticleList.value}")
+        Log.i("ArticleViewModel", "Full list: ${_articleList.toList()}")
     }
 
     private fun applyDeletions(deletions: IntArray) {

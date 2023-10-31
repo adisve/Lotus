@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontWeight
 import io.realm.kotlin.mongodb.User
 
 @Composable
@@ -23,6 +25,7 @@ fun Profile(
     navController: NavHostController,
     profileViewModel: ProfileViewModel,
 ) {
+    val user = app.currentUser!!
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -35,9 +38,9 @@ fun Profile(
                 .padding(top = 75.dp)
                 .padding(horizontal = 25.dp)
         ) {
-            ProfileCard(app.currentUser!!)
+            ProfileCard(user)
         }
-        SettingsMenuComponent(navController, profileViewModel, app.currentUser!!)
+        SettingsMenuComponent(navController, profileViewModel, user)
     }
 }
 
@@ -62,11 +65,11 @@ Card(
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Department: ${getUserProperty(user, UserFields.company)}",
+                text = "Department: ${getUserProperty(user, UserFields.company).capitalize()}",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Role: ${getUserProperty(user, UserFields.role)}",
+                text = "Role: ${getUserProperty(user, UserFields.role).capitalize()}",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -127,6 +130,7 @@ private fun LogOutButton(logOut: () -> Unit) {
             Text(
                 text = "Log out",
                 style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
                 modifier = Modifier
                     .weight(1f)
             )

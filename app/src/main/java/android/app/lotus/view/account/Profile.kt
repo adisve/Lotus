@@ -1,10 +1,11 @@
 package android.app.lotus.view.account
 
-import android.accounts.Account
 import android.app.lotus.app
+import android.app.lotus.domain.models.constants.UserFields
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.observables.UserRole
+import android.app.lotus.utils.getUserProperty
 import android.app.lotus.view.buttons.NavButton
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.*
@@ -15,11 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
-import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
+import io.realm.kotlin.mongodb.User
 
 @Composable
 fun Profile(
@@ -38,71 +35,53 @@ fun Profile(
                 .padding(top = 75.dp)
                 .padding(horizontal = 25.dp)
         ) {
-            Text(
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold,
-                text = "Account"
-            )
-
-            ProfileComponent()
+            ProfileCard(app.currentUser!!)
         }
-        SettingsMenuComponent(navController, profileViewModel)
+        SettingsMenuComponent(navController, profileViewModel, app.currentUser!!)
     }
 }
 
 @Composable
-private fun ProfileComponent() {
-    Column() {
-        // Username
-        app.currentUser?.customDataAsBsonDocument()?.get("username")?.asString()?.value?.let {
+private fun ProfileCard(user: User) {
+Card(
+    modifier = Modifier
+        .fillMaxWidth(),
+    shape = MaterialTheme.shapes.medium,
+    ) {
+        Column(
+            modifier = Modifier.padding(25.dp),
+            verticalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+
             Text(
-                it,
+                text = getUserProperty(user, UserFields.username),
                 style = MaterialTheme.typography.headlineMedium
             )
-        }
-
-        // Other details
-        Column {
-            app.currentUser?.customDataAsBsonDocument()?.get("role")?.asString()?.value?.let {
-                ProfileDetailItem("Role", it)
-            }
-            app.currentUser?.customDataAsBsonDocument()?.get("company")?.asString()?.value?.let {
-                ProfileDetailItem("Company", it)
-            }
-            app.currentUser?.customDataAsBsonDocument()?.get("email")?.asString()?.value?.let {
-                ProfileDetailItem("Email", it)
-            }
-            app.currentUser?.customDataAsBsonDocument()?.get("phone")?.asInt64()?.value?.let {
-                ProfileDetailItem("Phone", it.toString())
-            }
+            Text(
+                text = getUserProperty(user, UserFields.email),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = "Department: ${getUserProperty(user, UserFields.company)}",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = "Role: ${getUserProperty(user, UserFields.role)}",
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }
-
-@Composable
-private fun ProfileDetailItem(title: String, content: String) {
-    Text(
-        style = MaterialTheme.typography.bodyMedium,
-        lineHeight = 30.sp,
-        text = "$title: $content",
-    )
-}
-
 
 @Composable
 private fun SettingsMenuComponent(
     navController: NavHostController,
-    profileViewModel: ProfileViewModel
+    profileViewModel: ProfileViewModel,
+    user: User
 ) {
     Column(
         modifier = Modifier.padding(bottom = 100.dp)
     ) {
-        NavButton(
-            "Edit Profile",
-            suffixIcon = Icons.Rounded.Edit,
-            navController = navController,
-            route = ""
-        )
         NavButton(
             "Support",
             suffixIcon = Icons.Rounded.Support,
@@ -110,11 +89,10 @@ private fun SettingsMenuComponent(
             route = Routes.support
         )
 
-        if (app.currentUser?.customDataAsBsonDocument()?.get("role")
-                ?.asString()?.value == UserRole.HR.displayName
+        if (getUserProperty(user, UserFields.role) == UserRole.HR.displayName
         ) {
             NavButton(
-                "Create Account",
+                "Add an account",
                 suffixIcon = Icons.Rounded.PersonAdd,
                 navController = navController,
                 route = Routes.createUserAccount
@@ -140,7 +118,7 @@ private fun LogOutButton(logOut: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Log Out",
+                text = "Log out",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .weight(1f)

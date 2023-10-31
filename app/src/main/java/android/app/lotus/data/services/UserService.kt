@@ -4,6 +4,7 @@ import android.app.lotus.app
 import android.util.Log
 import io.realm.kotlin.mongodb.Credentials
 import io.realm.kotlin.mongodb.User
+import io.realm.kotlin.mongodb.ext.call
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import org.mongodb.kbson.BsonDocument
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,13 +34,21 @@ class UserService @Inject constructor() {
         CoroutineScope(Dispatchers.IO).launch {
             while (isActive) {
                 val newUser = fetchUser()
-                Log.d("UserService", "User is = ${newUser?.id}")
                 updateCurrentUser(newUser)
                 _authStatus.value =
                     if (newUser != null) AuthStatus.Success else AuthStatus.Unauthorized
                 delay(5000)
             }
         }
+    }
+
+    suspend fun writeCustomUserData(fieldsToUpdate: Map<String, Any>) {
+        app.currentUser?.functions
+            ?.call<BsonDocument>(
+                "writeCustomUserData",
+                fieldsToUpdate
+            )
+        app.currentUser?.refreshCustomData()
     }
 
     private fun updateCurrentUser(user: User?) {

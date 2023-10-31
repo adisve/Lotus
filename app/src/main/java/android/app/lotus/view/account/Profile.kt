@@ -5,7 +5,7 @@ import android.app.lotus.domain.models.constants.UserFields
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.observables.UserRole
-import android.app.lotus.utils.getUserProperty
+import android.app.lotus.utils.getProperty
 import android.app.lotus.view.buttons.NavButton
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.*
@@ -56,19 +56,19 @@ Card(
         ) {
 
             Text(
-                text = getUserProperty(user, UserFields.username),
+                text = user.getProperty(UserFields.username),
                 style = MaterialTheme.typography.headlineMedium
             )
             Text(
-                text = getUserProperty(user, UserFields.email),
+                text = user.getProperty(UserFields.email),
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Department: ${getUserProperty(user, UserFields.company).capitalize()}",
+                text = "Department: ${user.getProperty(UserFields.company).capitalize()}",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Role: ${getUserProperty(user, UserFields.role).capitalize()}",
+                text = "Role: ${user.getProperty(UserFields.role).capitalize()}",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -91,7 +91,7 @@ private fun SettingsMenuComponent(
             route = Routes.profileSupport
         )
 
-        if (getUserProperty(user, UserFields.role) == UserRole.HR.displayName
+        if (user.getProperty(UserFields.role) == UserRole.HR.displayName
         ) {
             NavButton(
                 "Add an account",

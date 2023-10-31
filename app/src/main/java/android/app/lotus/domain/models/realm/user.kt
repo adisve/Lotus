@@ -16,6 +16,7 @@ class user : RealmObject {
     var username: String? = null
     var evaluated: Boolean? = null
 
+
     @Required
     var evaluation: RealmList<String> = emptyList<String>().toRealmList()
 }

@@ -7,10 +7,9 @@ import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ArticleListStatus
 import android.app.lotus.observables.ArticleViewModel
 import android.app.lotus.observables.UserRole
-import android.app.lotus.utils.getUserProperty
+import android.app.lotus.utils.getProperty
+import android.app.lotus.utils.getPropertyAsArray
 import android.app.lotus.view.general.DotsPulsing
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +17,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ReadMore
+import androidx.compose.material.icons.rounded.CheckBox
+import androidx.compose.material.icons.rounded.ReadMore
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -40,11 +40,12 @@ fun Articles(navController: NavHostController, articleViewModel: ArticleViewMode
     val managerArticles by articleViewModel.managerArticleList.observeAsState(initial = listOf())
     val employeeArticles by articleViewModel.employeeArticleList.observeAsState(initial = listOf())
     val user = app.currentUser!!
+    val finishedArticles by articleViewModel.finishedArticleList.observeAsState(initial = emptyList())
 
     when (status) {
         ArticleListStatus.Loading -> DotsPulsing()
         ArticleListStatus.Empty -> Text("Nothing here yet")
-        ArticleListStatus.Populated -> RoleBasedArticles(navController, user, managerArticles, employeeArticles)
+        ArticleListStatus.Populated -> RoleBasedArticles(navController, user, managerArticles, employeeArticles, finishedArticles)
     }
 }
 
@@ -53,14 +54,17 @@ fun RoleBasedArticles(
     navController: NavHostController,
     user: User,
     managerArticles: List<article>,
-    employeeArticles: List<article>
+    employeeArticles: List<article>,
+    finishedArticles: List<String>
 ) {
-    val userRole = getUserProperty(user, UserFields.role)
-    Log.d("Articles", "User role: $userRole")
+    val unfinishedEmployee = employeeArticles.filter { !finishedArticles.contains(it.title) }
+    val finishedEmployee = employeeArticles.filter { finishedArticles.contains(it.title) }
+    val unfinishedManager = managerArticles.filter { !finishedArticles.contains(it.title) }
+    val finishedManager = managerArticles.filter { finishedArticles.contains(it.title) }
 
-    when (userRole) {
-        UserRole.MANAGER.displayName -> ScrollableArticleList(navController, "Manager Articles", managerArticles)
-        UserRole.EMPLOYEE.displayName -> ScrollableArticleList(navController, "Employee Articles", employeeArticles)
+    when (user.getProperty(UserFields.role)) {
+        UserRole.MANAGER.displayName -> ScrollableArticleList(navController, "Manager Articles", managerArticles, finishedArticles)
+        UserRole.EMPLOYEE.displayName -> ScrollableArticleList(navController, "Employee Articles", employeeArticles, finishedArticles)
         UserRole.HR.displayName -> {
             LazyColumn(
                 modifier = Modifier
@@ -75,8 +79,11 @@ fun RoleBasedArticles(
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
                 }
-                items(employeeArticles) { article ->
-                    ArticleCard(navController, article)
+                items(unfinishedEmployee) { article ->
+                    ArticleCard(navController, article, false)
+                }
+                items(finishedEmployee) { article ->
+                    ArticleCard(navController, article, true)
                 }
                 item {
                     Text(
@@ -85,42 +92,51 @@ fun RoleBasedArticles(
                         modifier = Modifier.padding(bottom = 16.dp, top = 25.dp)
                     )
                 }
-                items(managerArticles) { article ->
-                    ArticleCard(navController, article)
+                items(unfinishedManager) { article ->
+                    ArticleCard(navController, article, false)
+                }
+                items(finishedManager) { article ->
+                    ArticleCard(navController, article, true)
                 }
             }
         }
     }
 }
 
+
 @Composable
-fun ScrollableArticleList(navController: NavHostController, header: String, articles: List<article>) {
+fun ScrollableArticleList(navController: NavHostController, header: String, articles: List<article>, finishedArticles: List<String>) {
+    val unfinished = articles.filter { !finishedArticles.contains(it.title) }
+    val finished = articles.filter { finishedArticles.contains(it.title) }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 60.dp, start = 16.dp, end = 16.dp)
-            .padding(bottom = 100.dp)
+            .padding(bottom = 75.dp)
     ) {
         item {
             Text(header, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(bottom = 16.dp))
         }
-        items(articles) { article ->
-            ArticleCard(navController, article)
+        items(unfinished) { article ->
+            ArticleCard(navController, article, false)
+        }
+        items(finished) { article ->
+            ArticleCard(navController, article, true)
         }
     }
 }
 
+
 @Composable
-fun ArticleCard(navController: NavHostController, article: article) {
+fun ArticleCard(navController: NavHostController, article: article, articleFinished: Boolean) {
     Box(modifier = Modifier
-        .background(MaterialTheme.colorScheme.background)
         .padding(horizontal = 5.dp, vertical = 10.dp)) {
         Card {
             ListItem(
                 colors = ListItemDefaults.colors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    headlineColor = MaterialTheme.colorScheme.onSurface,
-                    supportingColor = MaterialTheme.colorScheme.onSurface,
+                    containerColor = if (!articleFinished) MaterialTheme.colorScheme.primary.copy(alpha = 0.5f) else MaterialTheme.colorScheme.surfaceVariant,
+                    headlineColor = MaterialTheme.colorScheme.onSurface
                 ),
                 headlineContent = {
                     Text(
@@ -128,12 +144,17 @@ fun ArticleCard(navController: NavHostController, article: article) {
                         style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(vertical = 10.dp)
-                    )},
-                trailingContent = {
-                    Icon(
-                        Icons.Filled.ReadMore,
-                        contentDescription = "Localized description",
                     )
+                },
+                trailingContent = {
+                    if (articleFinished) {
+                        Icon(
+                            Icons.Rounded.CheckBox,
+                            contentDescription = "Read more",
+                        )
+                    } else {
+                        Icon(Icons.Rounded.ReadMore, contentDescription = "Finished")
+                    }
                 },
                 modifier = Modifier.clickable {
                     navController.navigate(Routes.homeArticleDetail.replace("{title}", article.title))
@@ -142,3 +163,4 @@ fun ArticleCard(navController: NavHostController, article: article) {
         }
     }
 }
+

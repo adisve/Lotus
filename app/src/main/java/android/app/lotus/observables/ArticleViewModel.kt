@@ -1,13 +1,19 @@
 package android.app.lotus.observables
 
+import android.app.lotus.app
 import android.app.lotus.data.services.DataService
+import android.app.lotus.data.services.UserService
+import android.app.lotus.domain.models.constants.UserFields
 import android.app.lotus.domain.models.realm.article
+import android.app.lotus.utils.getProperty
+import android.app.lotus.utils.getPropertyAsArray
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.notifications.InitialResults
 import io.realm.kotlin.notifications.ResultsChange
 import io.realm.kotlin.notifications.UpdatedResults
@@ -22,10 +28,14 @@ enum class ArticleListStatus {
 
 @HiltViewModel
 class ArticleViewModel @Inject constructor(
-    private val dataService: DataService
+    private val dataService: DataService,
+    private val userService: UserService
 ) : ViewModel() {
 
     private val _articleList = mutableListOf<article>()
+
+    private val _finishedArticlesList = MutableLiveData<List<String>>()
+    val finishedArticleList: LiveData<List<String>> get() = _finishedArticlesList
     val articleList: List<article> get() = _articleList
     private val _managerArticleList = MutableLiveData<List<article>>()
     val managerArticleList: LiveData<List<article>> get() = _managerArticleList
@@ -36,7 +46,20 @@ class ArticleViewModel @Inject constructor(
 
     init {
         observeArticleList()
+        _finishedArticlesList.value = app.currentUser!!.getPropertyAsArray(UserFields.finishedArticles)
     }
+
+    fun markArticleAsFinished(articleName: String) {
+        val currentUser = app.currentUser!!
+        val finishedArticlesSet = currentUser.getPropertyAsArray(UserFields.finishedArticles).toMutableSet()
+        finishedArticlesSet.add(articleName)
+        val updatedFinishedArticles = finishedArticlesSet.toList()
+        viewModelScope.launch {
+            userService.writeCustomUserData(mapOf(UserFields.finishedArticles to updatedFinishedArticles))
+            _finishedArticlesList.value = app.currentUser!!.getPropertyAsArray(UserFields.finishedArticles)
+        }
+    }
+
 
     private fun observeArticleList() {
         viewModelScope.launch {

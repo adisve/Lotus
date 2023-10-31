@@ -32,12 +32,6 @@ class ProfileViewModel @Inject constructor(
     val userInputState: StateFlow<UserInputState> get() = _userInputState
     private val _user = MutableStateFlow<User?>(null)
 
-    /*
-    val username = MutableLiveData("")
-    val email = MutableLiveData("")
-    val phone = MutableLiveData("")
-     */
-
     init {
         initializeUserListener()
     }

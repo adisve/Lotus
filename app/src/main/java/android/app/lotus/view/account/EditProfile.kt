@@ -18,7 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import android.app.lotus.view.general.InputFieldOutlined
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 
 
 @Composable
@@ -73,6 +77,38 @@ fun EditProfileForm(profileViewModel: ProfileViewModel) {
             }
         }
     }
+}
+
+
+@Composable
+private fun InputFieldOutlined(
+    value: String,
+    onValueChange: (String) -> Unit,
+    isPassword: Boolean,
+    placeholder: String
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        singleLine = true,
+        visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+        label = {
+            Text(
+                text = placeholder,
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.bodySmall
+            )
+        },
+        textStyle = MaterialTheme.typography.bodySmall,
+        shape = RoundedCornerShape(15.dp),
+
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = MaterialTheme.colorScheme.primary,
+        )
+    )
 }
 
 

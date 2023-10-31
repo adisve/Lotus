@@ -91,9 +91,9 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun getUserRoleAsString(): String{
-        //val userInputState = _userInputState.value
-        //return userInputState.selectedRole.displayName
-        return "HR"
+        val userInputState = _userInputState.value
+        return userInputState.selectedRole.displayName
+        //return "HR"
     }
 
 }

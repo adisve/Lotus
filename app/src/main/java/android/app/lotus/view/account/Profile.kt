@@ -86,6 +86,13 @@ private fun SettingsMenuComponent(
         modifier = Modifier.padding(bottom = 100.dp)
     ) {
         NavButton(
+            "Edit Profile",
+            suffixIcon = Icons.Rounded.Support,
+            navController = navController,
+            route = Routes.editProfile
+        )
+
+        NavButton(
             "Support",
             suffixIcon = Icons.Rounded.Support,
             navController = navController,

@@ -1,6 +1,5 @@
 package android.app.lotus.observables
 
-import android.app.lotus.app
 import android.app.lotus.data.services.DataService
 import android.app.lotus.data.services.UserService
 import android.app.lotus.data.statemodels.UserInputState
@@ -10,12 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.realm.kotlin.mongodb.User
-import io.realm.kotlin.mongodb.ext.call
-import io.realm.kotlin.mongodb.ext.customDataAsBsonDocument
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.mongodb.kbson.BsonDocument
 import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
 
@@ -89,8 +85,13 @@ class ProfileViewModel @Inject constructor(
         _userInputState.value = _userInputState.value.copy(company = newCompany)
     }
 
+    fun updateUserInfo() {
+        // Update user info in the database - username, email, phone
+    }
+
     fun clearUserInputState() {
         _userInputState.value = UserInputState()
     }
-
 }
+
+

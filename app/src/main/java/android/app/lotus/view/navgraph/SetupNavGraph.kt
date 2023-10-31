@@ -3,6 +3,7 @@ package android.app.lotus.view.navgraph
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ArticleViewModel
 import android.app.lotus.observables.ProfileViewModel
+import android.app.lotus.view.account.EditProfile
 import android.app.lotus.view.account.Profile
 import android.app.lotus.view.account.Support
 import android.app.lotus.view.account.hr.CreateAccount
@@ -30,6 +31,7 @@ fun SetupNavGraph(
     NavHost(navController = navController, startDestination = Routes.home) {
         home(navController)
         profile(navController, profileViewModel)
+        editProfile(navController, profileViewModel)
         createUserAccount(profileViewModel, navController)
         support(navController)
         stats(navController)
@@ -66,6 +68,15 @@ private fun NavGraphBuilder.profile(
 ) {
     composable(Routes.profile) {
         Profile(navController, profileViewModel)
+    }
+}
+
+private fun NavGraphBuilder.editProfile(
+    navController: NavHostController,
+    profileViewModel: ProfileViewModel,
+) {
+    composable(Routes.editProfile) {
+        EditProfile(navController, profileViewModel)
     }
 }
 

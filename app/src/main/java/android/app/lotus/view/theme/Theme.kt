@@ -4,9 +4,10 @@ import android.app.Activity
 import android.app.lotus.view.theme.BackgroundDark
 import android.app.lotus.view.theme.BackgroundLight
 import android.app.lotus.view.theme.OnPrimary
+import android.app.lotus.view.theme.OnSurfaceDark
+import android.app.lotus.view.theme.OnSurfaceLight
 import android.app.lotus.view.theme.Primary
 import android.app.lotus.view.theme.Surface
-import android.app.lotus.view.theme.SurfaceVariant
 import android.app.lotus.view.theme.Typography
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -27,7 +28,7 @@ private val DarkColorScheme = darkColorScheme(
     onPrimary = OnPrimary,
     background = BackgroundDark,
     surface = Surface,
-    onSurface = OnPrimary
+    onSurface = OnSurfaceDark
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -35,7 +36,7 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = OnPrimary,
     background = BackgroundLight,
     surface = Surface,
-    onSurface = Primary,
+    onSurface = OnSurfaceLight
 )
 
 @Composable

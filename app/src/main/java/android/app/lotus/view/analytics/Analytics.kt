@@ -5,7 +5,7 @@ import android.app.lotus.app
 import android.app.lotus.domain.models.constants.UserFields
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.UserRole
-import android.app.lotus.utils.getUserProperty
+import android.app.lotus.utils.getProperty
 import android.app.lotus.view.buttons.NavButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +38,7 @@ fun Analytics(navController: NavHostController) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            when (getUserProperty(user, UserFields.role)) {
+            when (user.getProperty(UserFields.role)) {
                 UserRole.HR.displayName -> {
                     HrIntro(navController)
                 }
@@ -86,7 +86,7 @@ fun HrIntro(navController: NavHostController) {
 
 @Composable
 fun EvaluationIntro(navController: NavHostController, user: User) {
-    val imageResource = when (getUserProperty(user, UserFields.role)) {
+    val imageResource = when (user.getProperty(UserFields.role)) {
         UserRole.MANAGER.displayName -> R.drawable.intro_employee
         UserRole.EMPLOYEE.displayName -> R.drawable.intro_manager
         else -> null
@@ -103,7 +103,7 @@ fun EvaluationIntro(navController: NavHostController, user: User) {
             modifier = Modifier.padding(horizontal = 25.dp)
         ) {
             Text(
-                "Complete your ${getUserProperty(user, UserFields.role)} evaluation form",
+                "Complete your ${user.getProperty(UserFields.role)} evaluation form",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 50.dp)

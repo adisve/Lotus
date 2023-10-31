@@ -10,4 +10,5 @@ object UserFields {
     const val password = "password"
     const val evaluated = "evaluated"
     const val evaluation = "evaluation"
+    const val finishedArticles = "finished_articles"
 }

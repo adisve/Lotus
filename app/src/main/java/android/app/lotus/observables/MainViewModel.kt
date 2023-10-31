@@ -45,8 +45,6 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             val result = userService.login(email.value ?: "", password.value ?: "")
             if (result.isSuccess) {
-                // Gives info like role, email, etc. that is inserted with custom function
-                // in Atlas that runs each time a new user is created
                 val customData = app.currentUser!!.customDataAsBsonDocument()
                 Log.d("AuthViewModel", customData.toString())
             }

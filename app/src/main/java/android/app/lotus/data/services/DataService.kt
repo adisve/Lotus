@@ -8,12 +8,12 @@ import android.app.lotus.domain.models.realm.video
 import android.util.Log
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.ext.toRealmList
 import io.realm.kotlin.internal.platform.runBlocking
 import io.realm.kotlin.mongodb.User
 import io.realm.kotlin.mongodb.exceptions.SyncException
 import io.realm.kotlin.mongodb.sync.SyncConfiguration
 import io.realm.kotlin.mongodb.sync.SyncSession
-import io.realm.kotlin.mongodb.syncSession
 import io.realm.kotlin.notifications.ResultsChange
 import io.realm.kotlin.query.Sort
 import kotlinx.coroutines.flow.Flow
@@ -53,7 +53,7 @@ class DataService @Inject constructor(
                 }
                 .build()
             realm = Realm.open(config)
-            Log.v("REALM", "Successfully opened realm: ${realm.configuration.name}")
+            Log.v("Realm", "Successfully opened realm: ${realm.configuration.name}")
         }
     }
 
@@ -78,8 +78,6 @@ class DataService @Inject constructor(
     fun upsertUser(email: String, userFields: Map<String, Any>) {
         runBlocking {
             val existingUser = realm.query<user>("email == $0", email).first().find()
-            Log.d("DataService", "User exists = ${existingUser != null}")
-            Log.d("DataService", "$userFields")
             realm.write {
                 val userToUpdate = existingUser ?: user()
                 updateUserFields(userToUpdate, userFields)
@@ -89,6 +87,7 @@ class DataService @Inject constructor(
             }
         }
     }
+
 
     private fun updateUserFields(user: user, fields: Map<String, Any>) {
         user.apply {

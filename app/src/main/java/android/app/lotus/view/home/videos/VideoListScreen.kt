@@ -71,14 +71,12 @@ fun ScrollableVideoList(navController: NavHostController, video: List<video>) {
         }
         items(video) { video ->
             Box(modifier = Modifier
-                .background(MaterialTheme.colorScheme.background)
                 .padding(horizontal = 5.dp, vertical = 10.dp)) {
                 Card {
                     ListItem(
                         colors = ListItemDefaults.colors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                            headlineColor = MaterialTheme.colorScheme.onSurface,
-                            supportingColor = MaterialTheme.colorScheme.onSurface,
+                            containerColor = MaterialTheme.colorScheme.primary.copy(0.5f),
+                            headlineColor = MaterialTheme.colorScheme.onSurface
                         ),
                         headlineContent = {
                             Text(

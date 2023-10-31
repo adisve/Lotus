@@ -3,7 +3,7 @@ import android.app.lotus.domain.models.constants.UserFields
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.EvaluationViewModel
 import android.app.lotus.observables.UserRole
-import android.app.lotus.utils.getUserProperty
+import android.app.lotus.utils.getProperty
 import android.app.lotus.view.analytics.evaluation.QuestionType
 import android.app.lotus.view.analytics.evaluation.questionTypes
 import android.app.lotus.view.analytics.evaluation.questions
@@ -30,7 +30,7 @@ import kotlinx.coroutines.runBlocking
 @Composable
 fun EvaluationForm(navController: NavHostController) {
     val evaluationViewModel: EvaluationViewModel = hiltViewModel()
-    val role = getUserProperty(app.currentUser!!, UserFields.role)
+    val role = app.currentUser!!.getProperty(UserFields.role)
     val adjustedQuestions = adjustQuestionsForRole(questions, role)
     val pagerState = rememberPagerState { questions.size }
     val initialAnswers = List(adjustedQuestions.size) { null }

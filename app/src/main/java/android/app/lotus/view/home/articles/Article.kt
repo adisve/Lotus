@@ -3,8 +3,9 @@ package android.app.lotus.view.home.articles
 import android.app.lotus.domain.models.realm.article
 import android.app.lotus.domain.navigation.Routes
 import android.app.lotus.observables.ArticleViewModel
-import android.app.lotus.view.buttons.NavButton
+import android.app.lotus.view.buttons.ActionButton
 import android.app.lotus.view.theme.fonts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,8 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckBox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,12 +32,14 @@ import com.halilibo.richtext.ui.RichTextThemeIntegration
 fun ArticleDetail(navController: NavHostController, articleViewModel: ArticleViewModel, title: String) {
     val article = articleViewModel.articleList.find { it.title == title }
     if (article != null) {
-        ArticleComponent(navController, article)
+        ArticleComponent(navController, article, onClick = { articleName ->
+            articleViewModel.markArticleAsFinished(articleName)
+        })
     }
 }
 
 @Composable
-fun ArticleComponent(navController: NavHostController, article: article) {
+fun ArticleComponent(navController: NavHostController, article: article, onClick: (String) -> Unit) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -53,7 +54,6 @@ fun ArticleComponent(navController: NavHostController, article: article) {
             )
         }
         Row {
-
             RichTextThemeIntegration(
                 textStyle = provideTextStyle(),
                 contentColor = provideContentColor(),
@@ -70,11 +70,17 @@ fun ArticleComponent(navController: NavHostController, article: article) {
         }
         Row(
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
                 .padding(bottom = 20.dp)
+                .padding(horizontal = 25.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            NavButton(text = "Finish", suffixIcon = Icons.Rounded.CheckBox, navController = navController, route = Routes.homeArticles)
-
+            ActionButton(
+                text = "Finish",
+                onClick = {
+                    onClick(article.title)
+                    navController.navigate(Routes.homeArticles)
+                },
+            )
         }
         Spacer(modifier = Modifier.height(60.dp))
     }

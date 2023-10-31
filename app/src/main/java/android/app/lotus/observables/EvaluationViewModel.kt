@@ -1,6 +1,7 @@
 package android.app.lotus.observables
 
 import android.app.lotus.app
+import android.app.lotus.data.services.UserService
 import android.app.lotus.domain.models.constants.UserFields
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EvaluationViewModel @Inject constructor(
+    private val userService: UserService
 ) : ViewModel() {
 
     fun addEvaluationToUser(evaluation: List<String>) {
@@ -21,17 +23,7 @@ class EvaluationViewModel @Inject constructor(
             mapOf(UserFields.evaluation to evaluation, UserFields.evaluated to true)
 
         viewModelScope.launch {
-            app.currentUser?.let { currentUser ->
-
-                Log.d("EvaluationViewModel", "$fieldsToUpdate")
-                currentUser.functions
-                    .call<BsonDocument>(
-                        "writeCustomUserData",
-                        fieldsToUpdate
-                    )
-                app.currentUser?.refreshCustomData()
-                Log.d("EvaluationViewModel", "${currentUser.customDataAsBsonDocument()}")
-            }
+            userService.writeCustomUserData(fieldsToUpdate)
         }
     }
 }

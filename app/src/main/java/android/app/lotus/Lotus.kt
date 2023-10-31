@@ -2,6 +2,7 @@ package android.app.lotus
 
 import android.annotation.SuppressLint
 import android.app.lotus.data.services.AuthStatus
+import android.app.lotus.observables.ArticleViewModel
 import android.app.lotus.observables.MainViewModel
 import android.app.lotus.observables.ProfileViewModel
 import android.app.lotus.view.auth.Login
@@ -31,9 +32,11 @@ fun Lotus(mainViewModel: MainViewModel, isDarkTheme: Boolean) {
                 bottomBar = { BottomNavigation(navController) }
             ) {
                 val profileViewModel: ProfileViewModel = hiltViewModel()
+                val articleViewModel: ArticleViewModel = hiltViewModel()
                 SetupNavGraph(
                     navController,
                     profileViewModel,
+                    articleViewModel
                 )
             }
         }

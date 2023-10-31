@@ -6,6 +6,7 @@ import android.app.lotus.view.theme.BackgroundLight
 import android.app.lotus.view.theme.OnPrimary
 import android.app.lotus.view.theme.Primary
 import android.app.lotus.view.theme.Surface
+import android.app.lotus.view.theme.SurfaceVariant
 import android.app.lotus.view.theme.Typography
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -26,13 +27,15 @@ private val DarkColorScheme = darkColorScheme(
     onPrimary = OnPrimary,
     background = BackgroundDark,
     surface = Surface,
+    onSurface = OnPrimary
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Primary,
     onPrimary = OnPrimary,
     background = BackgroundLight,
-    surface = Surface
+    surface = Surface,
+    onSurface = Primary,
 )
 
 @Composable

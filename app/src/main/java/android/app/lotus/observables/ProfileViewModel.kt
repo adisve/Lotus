@@ -20,9 +20,9 @@ import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
 
 enum class UserRole(val displayName: String) {
-    EMPLOYEE("Employee"),
-    MANAGER("Manager"),
-    HR("HR")
+    EMPLOYEE("employee"),
+    MANAGER("manager"),
+    HR("hr")
 }
 
 
@@ -35,7 +35,6 @@ class ProfileViewModel @Inject constructor(
     private val _userInputState = MutableStateFlow(UserInputState())
     val userInputState: StateFlow<UserInputState> get() = _userInputState
     private val _user = MutableStateFlow<User?>(null)
-    private val user: StateFlow<User?> get() = _user
 
     init {
         initializeUserListener()
@@ -88,6 +87,10 @@ class ProfileViewModel @Inject constructor(
 
     fun updateCompany(newCompany: String) {
         _userInputState.value = _userInputState.value.copy(company = newCompany)
+    }
+
+    fun clearUserInputState() {
+        _userInputState.value = UserInputState()
     }
 
 }

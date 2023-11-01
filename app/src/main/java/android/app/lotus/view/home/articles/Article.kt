@@ -78,7 +78,7 @@ fun ArticleComponent(navController: NavHostController, article: article, onClick
                 text = "Finish",
                 onClick = {
                     onClick(article.title)
-                    navController.navigate(Routes.homeArticles)
+                    navController.popBackStack()
                 },
             )
         }

@@ -22,7 +22,8 @@ enum class BottomNavItem(val route: String, val icon: ImageVector, val title: St
 
 @Composable
 fun BottomNavigation(
-    currentNavGraph: MutableState<BottomNavItem>
+    currentNavGraph: MutableState<BottomNavItem>,
+    navigateToRootOrSwitchGraph: (BottomNavItem) -> Unit
 ) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.background,
@@ -32,9 +33,7 @@ fun BottomNavigation(
             AddItem(
                 navItem = item,
                 isSelected = currentNavGraph.value == item,
-                onSelected = {
-                    currentNavGraph.value = it
-                }
+                onSelected = navigateToRootOrSwitchGraph
             )
         }
     }

@@ -59,14 +59,14 @@ fun CreateAccount(profileViewModel: ProfileViewModel, navController: NavControll
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(30.dp)
             .padding(top = 75.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             ExposedDropdownMenuBox(
                 expanded = expanded,
@@ -130,7 +130,7 @@ fun CreateAccount(profileViewModel: ProfileViewModel, navController: NavControll
                 label = "Phone Number (Optional)"
             )
 
-            Spacer(modifier = Modifier.padding(top = 25.dp))
+            Spacer(modifier = Modifier.padding(top = 5.dp))
 
             Box(modifier = Modifier.padding(horizontal = 25.dp)) {
                 ActionButton(text = "Create account", onClick = {
@@ -186,10 +186,15 @@ private fun CustomOutlinedTextField(
         ),
         value = value,
         onValueChange = onValueChange,
-        label = { Text(
-            label,
-            style = MaterialTheme.typography.bodySmall,
+        label = {  Text(
+            text = label,
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.bodySmall
         ) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+        textStyle = MaterialTheme.typography.bodySmall,
         singleLine = true,
         visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = if (isPassword) KeyboardOptions.Default.copy(imeAction = ImeAction.Done) else KeyboardOptions.Default,

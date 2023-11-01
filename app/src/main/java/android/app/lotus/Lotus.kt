@@ -15,11 +15,14 @@ import android.app.lotus.view.navgraph.AnalyticsNavGraph
 import android.app.lotus.view.navgraph.HomeNavGraph
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -30,7 +33,6 @@ fun Lotus(mainViewModel: MainViewModel, isDarkTheme: Boolean) {
     val homeNavController = rememberNavController()
     val profileNavController = rememberNavController()
     val analyticsNavController = rememberNavController()
-
     val currentNavGraph = remember { mutableStateOf(BottomNavItem.HOME) }
 
     when (authStatus) {
@@ -39,7 +41,13 @@ fun Lotus(mainViewModel: MainViewModel, isDarkTheme: Boolean) {
                 topBar = { TopBar(isDarkTheme = isDarkTheme, updateTheme = { isDarkTheme ->
                     mainViewModel.updateTheme(isDarkTheme)
                 })},
-                bottomBar = { BottomNavigation(currentNavGraph) }
+                bottomBar = { BottomBar(
+                    homeNavController,
+                    profileNavController,
+                    analyticsNavController,
+                    currentNavGraph,
+                ) }
+
             ) {
                 val profileViewModel: ProfileViewModel = hiltViewModel()
                 val articleViewModel: ArticleViewModel = hiltViewModel()
@@ -61,5 +69,38 @@ fun Lotus(mainViewModel: MainViewModel, isDarkTheme: Boolean) {
             Login(mainViewModel = mainViewModel)
         }
         AuthStatus.Loading -> { DotsPulsing() }
+    }
+}
+
+@Composable
+fun BottomBar(
+    homeNavController: NavHostController,
+    profileNavController: NavHostController,
+    analyticsNavController: NavHostController,
+    currentNavGraph: MutableState<BottomNavItem>,
+) {
+    BottomNavigation(currentNavGraph) { selectedGraph ->
+        if (currentNavGraph.value == selectedGraph) {
+            when (selectedGraph) {
+                BottomNavItem.HOME -> homeNavController.graph.startDestinationRoute?.let {
+                    if (homeNavController.currentDestination?.route != it) {
+                        homeNavController.popBackStack(it, false)
+                    }
+                }
+                BottomNavItem.ACCOUNT -> profileNavController.graph.startDestinationRoute?.let {
+                    if (profileNavController.currentDestination?.route != it) {
+                        profileNavController.popBackStack(it, false)
+                    }
+                }
+                BottomNavItem.ANALYTICS -> analyticsNavController.graph.startDestinationRoute?.let {
+                    if (analyticsNavController.currentDestination?.route != it) {
+                        analyticsNavController.popBackStack(it, false)
+                    }
+                }
+            }
+
+        } else {
+            currentNavGraph.value = selectedGraph
+        }
     }
 }
